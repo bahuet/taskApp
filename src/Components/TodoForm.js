@@ -1,5 +1,5 @@
 import React from 'react'
-import useInput from './useInput'
+import useInput from '../useHooks/useInput'
 import { TextField, Button, Grid } from '@material-ui/core'
 
 

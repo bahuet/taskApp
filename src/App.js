@@ -1,42 +1,45 @@
 import React from 'react';
-import useTodo from './useTodo'
+import useUser from './useHooks/useUser'
 import './App.css';
-import { AppBar, Toolbar, Typography, Paper } from "@material-ui/core";
-
-import TodoForm from './TodoForm'
-import TodoList from './TodoList'
-import TodoStatus from './TodoStatus'
+import Layout from './Components/Layout'
+import TodoForm from './Components/TodoForm'
+import UserList from './Components/UserList'
+import Home from './Components/Home'
+import {
+  BrowserRouter as Router,
+  Route, Link, Redirect, withRouter
+} from 'react-router-dom'
+import AdminView from './Components/AdminView';
 
 const App = () => {
 
-  const savedTodosRaw = localStorage.getItem('savedTodos')
-  const savedTodos = savedTodosRaw ? JSON.parse(savedTodosRaw) : null
 
-  const defaultValues = savedTodos ? savedTodos :
-    [{ text: 'Apprendre GraphQL', completed: false },
-    { text: '學會中文', completed: false },
-    { text: 'Apprendre à utiliser les custom hooks', completed: true }
-    ]
 
-  const { todos, addTodo, deleteTodo, toggleTodoCompletion } = useTodo(defaultValues)
+
+  const fakeUsers = [useUser('Arthur'), useUser('Antoine')]
+
+
+
+  const padding = { padding: 5 }
+
   return (
     <div className="App">
-      <Paper
-        elevation={0}
-        style={{ padding: 0, margin: 0, backgroundColor: "#fafafa" }}
-      >
-        <AppBar color="primary" position="static" style={{ height: 64 }}>
-          <Toolbar style={{ height: 64 }}>
-            <Typography color="inherit">TODO APP</Typography>
-          </Toolbar>
-        </AppBar>
-        <TodoForm addTodo={addTodo} />
-        <br />
-        <TodoStatus todos={todos} />
-        <br />
-        <TodoList todos={todos} deleteTodo={deleteTodo} toggleTodoCompletion={toggleTodoCompletion} />
-      </Paper>
+      <Layout>
 
+        <Router>
+          <div>
+            <div>
+              <Link style={padding} to="/">home</Link>
+              <Link style={padding} to="/adminview">Adminview</Link>
+              <Link style={padding} to="/users">Userview</Link>
+            </div>
+            <Route exact path="/" render={() => <Home />} />
+            <Route path="/adminview" render={() => <AdminView users={fakeUsers} />} />
+            <Route exact path="/users" render={() => <UserList users={fakeUsers} />} />
+          </div>
+        </Router>
+
+      </Layout>
     </div >
 
   )

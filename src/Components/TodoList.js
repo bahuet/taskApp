@@ -19,7 +19,6 @@ const TodoList = ({ todos, deleteTodo, toggleTodoCompletion }) => (
             deleteTodo={deleteTodo} toggleTodoCompletion={toggleTodoCompletion} x={x} index={index}
             key={x.text + index} />)}
 
-
       </List>
     </Grid>
   </div>
