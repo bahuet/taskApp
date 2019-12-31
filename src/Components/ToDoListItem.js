@@ -7,19 +7,19 @@ import DoneIcon from '@material-ui/icons/Done';
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
 
-const TodoListItem = ({ todo, mode, deleteTodo, toggleUrgent, toggleFocus, toggleCompletion, undoUserActions }) => {
+const TodoListItem = ({ todo, mode, deleteTodo, setUrgent, setNotUrgent, setFocused, setNotFocused, setCompleted, setNotCompleted, undoUserActions }) => {
 
   const onClick = () => {
     if (mode === 'admin') {
-      toggleUrgent()
+      todo.urgent ? setNotUrgent() : setUrgent()
     }
     else if (mode === 'user') {
       if (todo.completed) {
         undoUserActions()
       } else if (!todo.focus) {
-        toggleFocus()
+        setFocused()
       } else {
-        toggleCompletion()
+        setCompleted()
       }
 
     } else {

@@ -4,6 +4,7 @@ import TodoListItem from './ToDoListItem'
 import { Grid } from '@material-ui/core'
 
 const TodoList = ({ user, mode }) => {
+  console.log(`todoList props: user: ${JSON.stringify(user)}, mode:${mode}`)
   return (
 
     <div className='todos-list'>
@@ -18,11 +19,14 @@ const TodoList = ({ user, mode }) => {
           {user.todos
             //.sort((a, b) => a.completed === b.completed ? 0 : a.completed ? 1 : -1)
             .map((todo, index) => <TodoListItem
-              todo={todo} index={index} user={user} mode={mode}
+              todo={todo} mode={mode}
               deleteTodo={() => user.deleteTodo(index)}
-              toggleUrgent={() => user.toggleTodoUrgency(index)}
-              toggleFocus={() => user.toggleTodoFocus(index)}
-              toggleCompletion={() => user.toggleTodoCompletion(index)}
+              setUrgent={() => user.setUrgent(index)}
+              setNotUrgent={() => user.setNotUrgent(index)}
+              setFocused={() => user.setFocused(index)}
+              setNotFocused={() => user.setNotFocused(index)}
+              setCompleted={() => user.setCompleted(index)}
+              setNotCompleted={() => user.setNotCompleted(index)}
               undoUserActions={() => user.undoUserActions(index)}
               key={todo.text + index} />)}
         </List>
