@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemText, Button } from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Route, Link, Redirect, withRouter
@@ -12,9 +12,10 @@ const UserList = ({ users }) => {
   return (
     <List component="nav" >
       {users.map((u, i) => (
-        <ListItem button key={u.user + i}>
-          <ListItemText primary={u.user} />
-        </ListItem>
+        <Link to={`/users/${u.username}`} key={u.username + i}>
+          <Button  > {u.username} </Button>
+
+        </Link>
       ))}
 
     </List>

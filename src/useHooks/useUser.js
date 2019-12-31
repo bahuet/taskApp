@@ -3,20 +3,16 @@ import useTodo from './useTodo'
 
 
 export default (name) => {
-  const fakeTodos =
-    [{ text: 'Apprendre GraphQL', completed: false },
-    { text: '學會中文', completed: false },
-    { text: 'Apprendre à utiliser les custom hooks', completed: true }
-    ]
 
-  const [user, setuser] = useState(name)
 
-  const { todos, addTodo, deleteTodo, toggleTodoCompletion } = useTodo(fakeTodos)
+  const [username, setUsername] = useState(name)
+
+  const { todos, addTodo, deleteTodo, toggleTodoCompletion } = useTodo()
 
 
   return {
-    user,
-    todos
+    username,
+    todos, addTodo, deleteTodo, toggleTodoCompletion
 
   }
 }
