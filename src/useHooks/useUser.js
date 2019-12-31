@@ -7,12 +7,12 @@ export default (name) => {
 
   const [username, setUsername] = useState(name)
 
-  const { todos, addTodo, deleteTodo, toggleTodoCompletion } = useTodo()
+  const { todos, addTodo, deleteTodo, toggleTodoCompletion, toggleTodoUrgency, toggleTodoFocus, undoUserActions } = useTodo()
 
 
   return {
     username,
-    todos, addTodo, deleteTodo, toggleTodoCompletion
+    todos, addTodo, deleteTodo, toggleTodoCompletion, toggleTodoUrgency, toggleTodoFocus, undoUserActions
 
   }
 }

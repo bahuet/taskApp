@@ -5,7 +5,8 @@ export default () => {
   return {
     input,
     onChange: e => { setInput(e.target.value) },
-    clearInput: () => setInput('')
-  }
+    clear: () => { setInput('') },
 
+  }
 }
+

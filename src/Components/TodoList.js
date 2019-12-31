@@ -3,10 +3,7 @@ import List from '@material-ui/core/List';
 import TodoListItem from './ToDoListItem'
 import { Grid } from '@material-ui/core'
 
-const TodoList = ({ user }) => {
-  const { username, todos, addTodo, deleteTodo, toggleTodoCompletion } = user
-
-
+const TodoList = ({ user, mode }) => {
   return (
 
     <div className='todos-list'>
@@ -18,12 +15,16 @@ const TodoList = ({ user }) => {
         alignItems="center"
       >
         <List>
-          {todos
+          {user.todos
             //.sort((a, b) => a.completed === b.completed ? 0 : a.completed ? 1 : -1)
-            .map((x, index) => <TodoListItem
-              deleteTodo={deleteTodo} toggleTodoCompletion={toggleTodoCompletion} x={x} index={index}
-              key={x.text + index} />)}
-
+            .map((todo, index) => <TodoListItem
+              todo={todo} index={index} user={user} mode={mode}
+              deleteTodo={() => user.deleteTodo(index)}
+              toggleUrgent={() => user.toggleTodoUrgency(index)}
+              toggleFocus={() => user.toggleTodoFocus(index)}
+              toggleCompletion={() => user.toggleTodoCompletion(index)}
+              undoUserActions={() => user.undoUserActions(index)}
+              key={todo.text + index} />)}
         </List>
       </Grid>
     </div>

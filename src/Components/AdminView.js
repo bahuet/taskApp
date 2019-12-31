@@ -4,16 +4,16 @@ import TodoForm from './TodoForm'
 import { Typography, Paper } from "@material-ui/core";
 
 const AdminView = ({ users }) => {
-  console.log(`adminview props user: => ${JSON.stringify(users)}`)
   return (
     <div>
       <Typography variant='h4'> Administration panel</Typography>
-      {users.map((u, i) => (
-        <div key={u.username + i}>
+      <TodoForm users={users} />
+
+      {users.map((user, i) => (
+        <div key={user.username + i}>
           <Paper variant="outlined">
-            <Typography variant='subtitle2'>Tableau de bord de: {u.username} </Typography>
-            <TodoList user={u} />
-            <TodoForm addTodo={u.addTodo} />
+            <Typography variant='subtitle2'>Tableau de bord de: {user.username} </Typography>
+            <TodoList user={user} mode='admin' />
           </Paper>
         </div>
       ))}

@@ -9,7 +9,7 @@ const UserView = ({ user }) => {
       <Typography>Tableau de bord de {user.username}</Typography>
       <TodoStatus todos={user.todos} />
       <br />
-      <TodoList user={user} />
+      <TodoList user={user} mode='user' />
     </>
   )
 }
