@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 
 export default (log, todos) => {
-
+  console.log(JSON.stringify(log))
   const [userList, setUsersList] = useState([])
 
 

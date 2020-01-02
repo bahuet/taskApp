@@ -22,7 +22,7 @@ const Home = () => (
 
         <Typography variant="body1" gutterBottom>
           Il ne s'agit que d'une Proof of concept, il n'y a pas de backend pour l'instant.
-          Librairies: React + Material ui 
+          Librairies: React + Material ui
   </Typography>
 
         <Typography variant="body1" gutterBottom>
@@ -35,9 +35,9 @@ const Home = () => (
         <List >
           <ListItem>  <ListItemText primary="Progression prévue:" /></ListItem>
 
-          <ListItem>  <ListItemText primary="1 - Design: Utiliser des styled components plutôt que Material UI pour s'entrainer un peu à utiliser le CSS pur " /></ListItem>
+          <ListItem>  <ListItemText primary="1 - Design: Utiliser des styled components plutôt que Material UI pour s'entrainer au CSS pur " /></ListItem>
           <ListItem><ListItemText primary="2 - Ecrire les tests front" /></ListItem>
-          <ListItem><ListItemText primary="3 - Construire le back en test driven dev" /></ListItem>
+          <ListItem><ListItemText primary="3 - Construire le back en test driven dev avec express et mongodb" /></ListItem>
           <ListItem><ListItemText primary="4 - E2E tests pour toutes les fonctionnalités" /></ListItem>
           <ListItem><ListItemText primary="5 - deploy avec heroku" /></ListItem>
           <ListItem><ListItemText primary="idées : drag and drop tasks depuis le admin panel (comme sur Jira)" /></ListItem>

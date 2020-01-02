@@ -15,7 +15,7 @@ const TodoStatus = ({ userTodos }) => {
 
   if (total === completed) {
     return (<Typography variant="h6" style={{ backgroundColor: 'green', color: 'white' }} gutterBottom>
-      <CheckCircleIcon /> Bravo! Toutes les tâches sont terminées!
+      <CheckCircleIcon /> Toutes les tâches sont terminées!
   </Typography>)
   }
 
