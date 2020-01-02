@@ -3,13 +3,13 @@ import TodoList from './TodoList'
 import TodoStatus from './TodoStatus'
 import { Typography } from '@material-ui/core'
 
-const UserView = ({ user }) => {
+const UserView = ({ user, userTodos, actions }) => {
   return (
     <>
-      <Typography>Tableau de bord de {user.username}</Typography>
-      <TodoStatus todos={user.todos} />
+      <Typography>Tableau de bord de {user}</Typography>
+      <TodoStatus userTodos={userTodos} />
       <br />
-      <TodoList user={user} mode='user' />
+      <TodoList userTodos={userTodos} actions={actions} mode="user"/>
     </>
   )
 }

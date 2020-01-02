@@ -2,9 +2,9 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-const TodoStatus = ({ todos }) => {
-  const total = todos.reduce((a, c) => a + 1, 0)
-  const completed = todos.reduce((a, c) => c.completed ? a + 1 : a, 0)
+const TodoStatus = ({ userTodos }) => {
+  const total = userTodos.reduce((a, c) => a + 1, 0)
+  const completed = userTodos.reduce((a, c) => c.completed ? a + 1 : a, 0)
   if (total === 0) {
     return (
       <Typography variant="h6" color='secondary' gutterBottom>

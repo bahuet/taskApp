@@ -1,8 +1,7 @@
-import React from 'react';
-import useUser from './useHooks/useUser'
+import React, { useState, useEffect } from 'react';
+import useUsers from './useHooks/useUsers'
 import './App.css';
 import Layout from './Components/Layout'
-import TodoForm from './Components/TodoForm'
 import UserList from './Components/UserList'
 import Home from './Components/Home'
 import UserView from './Components/UserView'
@@ -14,13 +13,21 @@ import {
   BrowserRouter as Router,
   Route, Link, Redirect, withRouter
 } from 'react-router-dom'
+import useTodos from './useHooks/useTodos';
 
 const App = () => {
   const log = useLog()
-  const fakeUsers = [useUser('Arthur', log), useUser('Antoine', log)]
+  const todos = useTodos(log)
+  const users = useUsers(log, todos)
 
 
-  const users = fakeUsers
+  //init state for demo purposes
+  useEffect(() => {
+    users.addUser('jon')
+    todos.adminActions.addTodo('jon', 'do the dishes')
+  }, [])
+
+
   const padding = { padding: 5 }
 
   return (
@@ -38,11 +45,14 @@ const App = () => {
 
             </Typography >
             <Route exact path="/" render={() => <Home />} />
-            <Route path="/adminview" render={() => <AdminView users={users} />} />
+            <Route path="/adminview" render={() => <AdminView users={users} todos={todos} />} />
             <Route path="/log" render={() => <LogList logList={log.logList} />} />
             <Route exact path="/users" render={() => <UserList users={users} />} />
             <Route path="/users/:name" render={({ match }) =>
-              <UserView user={users.find(u => u.username === match.params.name)} />} />
+              <UserView
+                user={users.userList.find(u => u === match.params.name)}
+                userTodos={todos.todoList.filter(td => td.user === match.params.name)}
+                actions={todos.userActions} />} />
 
           </div>
         </Router>

@@ -7,13 +7,12 @@ import {
 
 
 const UserList = ({ users }) => {
-  console.log(`userlist props 'user' => ${JSON.stringify(users)}`)
 
   return (
     <List component="nav" >
-      {users.map((u, i) => (
-        <Link to={`/users/${u.username}`} key={u.username + i}>
-          <Button  > {u.username} </Button>
+      {users.userList.map((u, i) => (
+        <Link to={`/users/${u}`} key={u + i}>
+          <Button  > {u} </Button>
 
         </Link>
       ))}

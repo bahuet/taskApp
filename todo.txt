@@ -1,0 +1,7 @@
+- setup filter hook and use on adminview / userview / loglist components
+- loglist: limit max entry per page
+- admin can add users
+- 
+- front end tests
+- TDD back end
+- 

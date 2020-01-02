@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-export default () => {
-  const [input, setInput] = useState('')
+export default (defaultValue = '') => {
+  const [input, setInput] = useState(defaultValue)
   return {
     input,
     onChange: e => { setInput(e.target.value) },

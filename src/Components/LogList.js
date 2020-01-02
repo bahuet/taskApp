@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 
 
 const LogList = ({ logList }) => {
-  console.log(`LogList Prop = ${JSON.stringify(logList)}`)
 
   return (
     <TableContainer component={Paper}>
@@ -19,6 +18,7 @@ const LogList = ({ logList }) => {
             <TableCell align="right">Timestamp</TableCell>
             <TableCell align="right">User</TableCell>
             <TableCell align="right">Action</TableCell>
+            <TableCell align="right">Task ID</TableCell>
             <TableCell align="right">Task</TableCell>
           </TableRow>
         </TableHead>
@@ -30,7 +30,8 @@ const LogList = ({ logList }) => {
                 <TableCell align="right"> {date.toLocaleDateString()}{' '}{date.toLocaleTimeString()}</TableCell>
                 <TableCell align="right">{row.user}</TableCell>
                 <TableCell align="right">{row.action}</TableCell>
-                <TableCell align="right">{row.task}</TableCell>
+                <TableCell align="right">{row.taskId}</TableCell>
+                <TableCell align="right">{row.taskText}</TableCell>
               </TableRow>
             )
           })}

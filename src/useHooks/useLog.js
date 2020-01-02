@@ -5,10 +5,10 @@ export default () => {
 
   return {
     logList,
-    addToLog: (user, action, task) => {
+    addToLog: (user, action, taskId = '', taskText = '', ) => {
       const newLog = {
         timestamp: Date.now(),
-        user, action, task
+        user, action, taskId, taskText
       }
       setLogList([...logList, newLog])
     }

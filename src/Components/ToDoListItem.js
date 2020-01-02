@@ -7,19 +7,19 @@ import DoneIcon from '@material-ui/icons/Done';
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
 
-const TodoListItem = ({ todo, mode, deleteTodo, setUrgent, setNotUrgent, setFocused, setNotFocused, setCompleted, setNotCompleted, undoUserActions }) => {
-
+const TodoListItem = ({ todo, actions, mode }) => {
   const onClick = () => {
+    console.log(`clicked onclick`)
     if (mode === 'admin') {
-      todo.urgent ? setNotUrgent() : setUrgent()
+      actions.changeProperty(todo.id, 'urgent', todo.urgent ? false : true)
     }
     else if (mode === 'user') {
       if (todo.completed) {
-        undoUserActions()
+        actions.undoUserActions(todo.id)
       } else if (!todo.focus) {
-        setFocused()
+        actions.changeProperty(todo.id, 'focus', true)
       } else {
-        setCompleted()
+        actions.changeProperty(todo.id, 'completed', true)
       }
 
     } else {
@@ -34,7 +34,7 @@ const TodoListItem = ({ todo, mode, deleteTodo, setUrgent, setNotUrgent, setFocu
     {todo.focus ? <ListItemIcon><CenterFocusStrongIcon color='secondary' /></ListItemIcon> : ''}
     <ListItemText>{todo.text} &nbsp;&nbsp;</ListItemText>
     {mode === "admin" ?
-      <ListItemSecondaryAction> <IconButton onClick={deleteTodo}> <DeleteOutlined />   </IconButton>
+      <ListItemSecondaryAction> <IconButton onClick={() => actions.deleteTodo(todo.id)}> <DeleteOutlined />   </IconButton>
       </ListItemSecondaryAction> : ''}
   </ListItem>)
 }

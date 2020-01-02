@@ -3,27 +3,22 @@ import useInput from '../useHooks/useInput'
 import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box } from '@material-ui/core'
 
 
-const TodoForm = ({ users }) => {
-
-  console.log(`todoForm users prop => ${JSON.stringify(users)}`)
+const CreateTodoForm = ({ actions, users }) => {
   const text = useInput('')
   const selection = useInput('')
 
-
-
   const submitFunction = e => {
     e.preventDefault()
-    console.log(`selectedUserName in submit function: ${selection.input}`)
 
     if (selection.input === '') {
       alert('Vous devez selectionner la personne à qui attribuer la tâche')
       return;
     }
-    const selectedUser = users.find(u => u.username === selection.input)
     const trimmedInput = text.input.trim()
     if (trimmedInput) {
-      selectedUser.addTodo(trimmedInput)
+      actions.addTodo(selection.input, trimmedInput)
     }
+
     text.clear()
     selection.clear()
   }
@@ -52,11 +47,10 @@ const TodoForm = ({ users }) => {
           attribuer  à
           <Grid item>
             <Select onChange={selection.onChange} value={selection.input}>
-              {users.map((u, i) => <MenuItem key={u.username + i} value={u.username}>{u.username}</MenuItem>)}
+              {users.userList.map((u, i) => <MenuItem key={u + i} value={u}>{u}</MenuItem>)}
             </Select>
 
           </Grid>
-
 
           <Grid item>
             <Button variant="contained" color="primary" type='submit'>Ajouter</Button>
@@ -69,4 +63,4 @@ const TodoForm = ({ users }) => {
 
 }
 
-export default TodoForm
+export default CreateTodoForm
