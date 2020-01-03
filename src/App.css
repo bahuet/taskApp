@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  width: '75%';
+  margin: 50;
+  padding: 0
 }
 
 .app-todo-form {

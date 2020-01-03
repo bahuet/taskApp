@@ -22,7 +22,7 @@ const TodoStatus = ({ userTodos }) => {
   return (
 
     <Typography variant="h6" color='primary' gutterBottom>
-      Liste des chose à faire: ({completed} / {total})
+      Liste des tâches à faire: ({completed} / {total})
       </Typography>
   )
 }

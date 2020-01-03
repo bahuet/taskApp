@@ -9,7 +9,7 @@ import AdminView from './Components/AdminView'
 import Notification from './Components/Notification'
 
 import LogList from './Components/LogList'
-import { Typography } from "@material-ui/core"
+import { Typography, Button } from "@material-ui/core"
 import useLog from './useHooks/useLog'
 import {
   BrowserRouter as Router,
@@ -18,18 +18,35 @@ import {
 import useTodos from './useHooks/useTodos'
 
 const App = () => {
+
+  // generate initial values for demo purposes
+  const initialUserNames = ['Eloi', 'Kuo Hsing-chun', 'George Foreman', 'Dmitri Mendeleev', 'Rim Jong Sim', 'Shi Zhiyong', 'Lu Xiaojun', 'Dmitri Klokov', 'Redon Manushi']
+  let initialTasks = ['Relancer le fournisseur pour savoir les dates de livraison', 'Régler la facture du fournisseur', 'Refaire du café', "Traduire la notice d'utilisation en anglais"]
+  for (let i = 0; i < 30; i++) { initialTasks.push(`Tâche numéro: ${i} (générée automatiquement pour la démo)`) }
+
+  initialTasks = initialTasks.map((x, j) => {
+    //Une tâche ne peut pas être completed sans être focused, on le prend en compte pour la génération des valeurs initiales
+    const fixedRandomValue = Math.floor(Math.random() * 3)
+    return (
+      {
+        id: j,
+        user: initialUserNames[Math.floor(Math.random() * initialUserNames.length)],
+        text: x,
+        completed: fixedRandomValue ? false : (Math.floor(Math.random() * 2) ? false : true),
+        urgent: Math.floor(Math.random() * 3) ? false : true,
+        focus: fixedRandomValue ? false : true
+      })
+  }
+  )
+
+
   const log = useLog()
-  const todos = useTodos(log)
-  const users = useUsers(log, todos)
+  const todos = useTodos(log, initialTasks)
+  const users = useUsers(log, todos, initialUserNames)
+
   //notification hook
   const [status, setStatusBase] = useState('')
   const setStatus = msg => setStatusBase({ msg, date: new Date() });
-
-  //init state for demo purposes
-  useEffect(() => {
-    users.addUser('jon')
-    todos.adminActions.addTodo('jon', 'do the dishes')
-  }, [])
 
 
   const padding = { padding: 5 }
@@ -41,11 +58,11 @@ const App = () => {
         <Router>
           <div>
             <Typography color="inherit">
+              <Button component={Link} to="/"> Home </Button>
+              <Button component={Link} to="/adminview"> Adminview </Button>
+              <Button component={Link} to="/users"> Userview </Button>
+              <Button component={Link} to="/log"> log </Button>
 
-              <Link style={padding} to="/">Home</Link>
-              <Link style={padding} to="/adminview">Adminview</Link>
-              <Link style={padding} to="/users">Userview</Link>
-              <Link style={padding} to="/log">log</Link>
 
             </Typography >
             <Route exact path="/" render={() => <Home />} />
@@ -56,7 +73,7 @@ const App = () => {
               <UserView
                 user={users.userList.find(u => u === match.params.name)}
                 userTodos={todos.todoList.filter(td => td.user === match.params.name)}
-                actions={todos.userActions} setStatus={setStatus}/>} />
+                actions={todos.userActions} setStatus={setStatus} />} />
 
           </div>
         </Router>

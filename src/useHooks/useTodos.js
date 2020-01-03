@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-export default (log) => {
-  const [todoList, setTodoList] = useState([])
+export default (log, initialValues = []) => {
+  const [todoList, setTodoList] = useState(initialValues)
   const getTodo = (id) => todoList.find(x => x.id === id)
 
   return {

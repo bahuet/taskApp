@@ -1,15 +1,14 @@
 import { useState } from 'react'
 
 
-export default (log, todos) => {
-  console.log(JSON.stringify(log))
-  const [userList, setUsersList] = useState([])
+export default (log, todos, initialValues = []) => {
+  const [userList, setUsersList] = useState(initialValues)
 
 
   return {
     userList,
     addUser: name => {
-      setUsersList([...userList, name])
+      setUsersList([name, ...userList])
       log.addToLog('Admin', `Created user: ${name}`)
     },
     deleteUser: nameToDelete => {

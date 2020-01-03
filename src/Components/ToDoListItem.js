@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
-import DoneIcon from '@material-ui/icons/Done';
-import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'; import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
+import { green } from '@material-ui/core/colors';
 
 const TodoListItem = ({ todo, actions, mode, setStatus }) => {
 
@@ -27,7 +27,7 @@ const TodoListItem = ({ todo, actions, mode, setStatus }) => {
 
       } else {
         actions.changeProperty(todo.id, 'completed', true)
-        setStatus(`"${todo.text}" a été marqué":" Terminée`)
+        setStatus(`"${todo.text}" a été marqué": Terminée`)
 
       }
 
@@ -44,9 +44,10 @@ const TodoListItem = ({ todo, actions, mode, setStatus }) => {
     <>
       <ListItem dense button onClick={onClick}>
 
-        {todo.completed ? <ListItemIcon><DoneIcon color='secondary' /></ListItemIcon> : ''}
+        {todo.completed ? <ListItemIcon><AssignmentTurnedInIcon style={{ color: green[500] }} /></ListItemIcon> : ''}
+        {todo.focus ? <ListItemIcon><CenterFocusStrongIcon color='primary' /></ListItemIcon> : ''}
         {todo.urgent ? <ListItemIcon><ReportProblemIcon color='secondary' /></ListItemIcon> : ''}
-        {todo.focus ? <ListItemIcon><CenterFocusStrongIcon color='secondary' /></ListItemIcon> : ''}
+
         <ListItemText>{todo.text} &nbsp;&nbsp;</ListItemText>
         {mode === "admin" ?
           <ListItemSecondaryAction> <IconButton onClick={() => deleteClick(todo.id)}> <DeleteOutlined />   </IconButton>

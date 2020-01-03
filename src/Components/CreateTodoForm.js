@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import useInput from '../useHooks/useInput'
-import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box } from '@material-ui/core'
+import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box, FormControl } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 
 
-const CreateTodoForm = ({ actions, users }) => {
+const CreateTodoForm = ({ actions, users, setStatus }) => {
   const text = useInput('')
   const selection = useInput('')
 
@@ -17,12 +18,21 @@ const CreateTodoForm = ({ actions, users }) => {
     const trimmedInput = text.input.trim()
     if (trimmedInput) {
       actions.addTodo(selection.input, trimmedInput)
+      setStatus(`"${trimmedInput}" a été attribué à ${selection.input}.`)
     }
 
     text.clear()
     selection.clear()
   }
 
+  const useStyles = makeStyles(theme => ({
+
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+  }))
+  const classes = useStyles();
 
   return (
     <div className='add-todo-form'  >
@@ -36,7 +46,7 @@ const CreateTodoForm = ({ actions, users }) => {
           alignItems="center"
         >
           <Grid item>
-            <TextField
+            <TextField required
               variant="outlined"
               margin="normal"
               placeholder='Ajoutez une tâche'
@@ -44,12 +54,14 @@ const CreateTodoForm = ({ actions, users }) => {
               value={text.input}
             />
           </Grid>
-          attribuer  à
+          attribuer à
           <Grid item>
-            <Select onChange={selection.onChange} value={selection.input}>
-              {users.userList.map((u, i) => <MenuItem key={u + i} value={u}>{u}</MenuItem>)}
-            </Select>
-
+            <FormControl className={classes.formControl}>
+              <InputLabel >Utilisateur</InputLabel>
+              <Select onChange={selection.onChange} value={selection.input}>
+                {users.userList.map((u, i) => <MenuItem key={u + i} value={u}>{u}</MenuItem>)}
+              </Select>
+            </FormControl>
           </Grid>
 
           <Grid item>

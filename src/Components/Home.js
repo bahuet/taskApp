@@ -1,54 +1,74 @@
 import React from 'react'
 import { Typography, Paper, Grid, List, ListItem, ListItemText } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles({
+  root: {
+    width: '75%',
+    textAlign: 'left',
+    margin: 'auto',
+    padding: '10px',
+  },
+});
+const Home = () => {
+  const classes = useStyles();
 
-const Home = () => (
-  <Paper>
-    <Grid >
-      <Grid item>
-        <Typography variant="h5" gutterBottom>
-          Front démo: Gestion de personnel.
+  return (
+    <div className={classes.root} >
+      <Paper >
+        <Grid container >
+          <Grid item >
+            <Typography variant="h5" gutterBottom>
+              Front démo: Gestion de personnel. (En cours de développement)
+
     </Typography>
 
-        <Typography variant="body1" gutterBottom>
-          L'administrateur crée des utilisateurs, et leur attribue des tâches.
-          Les utilisateurs peuvent accéder à leur page personnelle et la liste de leur tâches assignées sera affichée.
+            <Typography variant="body1" gutterBottom>
+              L'administrateur crée des utilisateurs, et leur attribue des tâches.
+              Les utilisateurs peuvent accéder à leur page personnelle et la liste de leur tâches assignées sera affichée.
+              Toute action entraine un changement de l'état de react
+          </Typography>
 
-          On peut créer des utilisateurs depuis la page AdminView, assigner et supprimer des tâches aux utilisateurs crées, et les marquer comme urgentes
-      Les utilisateurs peuvent accéder à leurs listes de tâches depuis la page Userview, et peuvent marquer les tâches avec les flag "en cours", "terminé".
-      Tous les formulaires sont controllés, toutes les actions changent directement le react state et donc mettent à jour les données pour toutes les pages.
-      La page "Log" affiche la liste de toutes les actions
+            <Typography variant="body1" gutterBottom>
+              On peut créer des utilisateurs depuis la page AdminView, assigner et supprimer des tâches aux utilisateurs crées, et les marquer comme urgentes.
+          Les utilisateurs peuvent accéder à leurs listes de tâches depuis la page Userview, et peuvent marquer les tâches avec les flag "en cours", "terminé".
+          Tous les formulaires sont controllés, toutes les actions changent directement le react state et donc mettent à jour les données pour toutes les pages.
+          La page "Log" affiche la liste de toutes les actions
   </Typography>
 
-        <Typography variant="body1" gutterBottom>
-          Il ne s'agit que d'une Proof of concept, il n'y a pas de backend pour l'instant.
-          Librairies: React + Material ui
+            <Typography variant="body1" gutterBottom>
+              Proof of concept, il n'y a pas de backend ni de styling pour l'instant.
   </Typography>
 
-        <Typography variant="body1" gutterBottom>
-          L'objectif de ce mini-projet est de s'entrainer à gérer le app state management uniquement avec des react hooks, et sans redux.
-          Redux a tellement de boilerplate qu'il amène une complexité non nécessaire aux applications simples.
+            <Typography>
+              Librairies: React + Material ui
+</Typography>
+
+            <Typography variant="body1" gutterBottom>
+              Objectif: s'entrainer à gérer le app state management uniquement avec des react hooks (pas de Redux)
   </Typography>
 
-        <Typography variant="body1" gutterBottom>
-        </Typography>
-        <List >
-          <ListItem>  <ListItemText primary="Progression prévue:" /></ListItem>
-
-          <ListItem>  <ListItemText primary="1 - Design: Utiliser des styled components plutôt que Material UI pour s'entrainer au CSS pur " /></ListItem>
-          <ListItem><ListItemText primary="2 - Ecrire les tests front" /></ListItem>
-          <ListItem><ListItemText primary="3 - Construire le back en test driven dev avec express et mongodb" /></ListItem>
-          <ListItem><ListItemText primary="4 - E2E tests pour toutes les fonctionnalités" /></ListItem>
-          <ListItem><ListItemText primary="5 - deploy avec heroku" /></ListItem>
-          <ListItem><ListItemText primary="idées : drag and drop tasks depuis le admin panel (comme sur Jira)" /></ListItem>
-
-
-        </List>
+            <Typography variant="body1" gutterBottom>
+            </Typography>
+            <List >
+              <ListItem><ListItemText primary="Progression prévue:" /></ListItem>
+              <ListItem><ListItemText primary="0 - Finaliser les fonctionnalités front(transfert de tâches à un autre utilisateur...)" /></ListItem>
+              <ListItem><ListItemText primary="1 - Ecrire les tests front" /></ListItem>
+              <ListItem><ListItemText primary="2 - Design: refonte avec les styled components à la place de Material" /></ListItem>
+              <ListItem><ListItemText primary="3 - Construire le back en test driven dev avec avec Node et MongoDB" /></ListItem>
+              <ListItem><ListItemText primary="4 - E2E tests avec Cypress" /></ListItem>
+              <ListItem><ListItemText primary="5 - Deploy avec Heroku" /></ListItem>
+              <ListItem><ListItemText primary="idées : drag and drop tasks depuis le admin panel (comme sur Jira), " /></ListItem>
 
 
-      </Grid>
-    </Grid>
-  </Paper>)
+            </List>
+
+
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>)
+}
 
 
 export default Home

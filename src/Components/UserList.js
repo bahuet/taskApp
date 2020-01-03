@@ -1,5 +1,6 @@
 import React from 'react'
-import { List, ListItem, ListItemText, Button } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Paper} from '@material-ui/core';
+import FolderIcon from '@material-ui/icons/Folder';
 import {
   BrowserRouter as Router,
   Route, Link, Redirect, withRouter
@@ -9,16 +10,22 @@ import {
 const UserList = ({ users }) => {
 
   return (
-    <List component="nav" >
-      {users.userList.map((u, i) => (
-        <Link to={`/users/${u}`} key={u + i}>
-          <Button  > {u} </Button>
+    <Paper>
+      <List component="nav" >
+        {users.userList.map((u, i) => (
+          <ListItem component={Link} to={`/users/${u}`} button key={u + i}>
+            <ListItemAvatar>
+              <Avatar>
+                <FolderIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={u} />
+          </ListItem>
 
-        </Link>
-      ))}
+        ))}
 
-    </List>
-
+      </List>
+    </Paper>
   )
 }
 
