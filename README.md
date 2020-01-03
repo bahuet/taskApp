@@ -1,5 +1,5 @@
 
 ## Team task management APP
 
-React hooks practice
+mini-projet pour s'entrainer à la manipulation des hooks de react
 WIP
