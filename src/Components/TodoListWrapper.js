@@ -4,7 +4,6 @@ import { Typography, Paper, Button, Grid } from "@material-ui/core";
 
 
 const ToDoListWrapper = ({ user, actions, setStatus, deleteUser, filteredTasks }) => {
-  console.log(`todos:${JSON.stringify(filteredTasks)}`)
   const handleClick = () => {
     deleteUser()
     setStatus(`L'utilisateur "${user}" et ses taches ont été supprimées`)
