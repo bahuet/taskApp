@@ -4,7 +4,7 @@ import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box, FormControl
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const CreateTodoForm = ({ actions, users, setStatus }) => {
+const CreateTodoForm = ({ actions, users, setNotification }) => {
   const text = useInput('')
   const selection = useInput('')
 
@@ -18,7 +18,7 @@ const CreateTodoForm = ({ actions, users, setStatus }) => {
     const trimmedInput = text.input.trim()
     if (trimmedInput) {
       actions.addTodo(selection.input, trimmedInput)
-      setStatus(`"${trimmedInput}" a été attribué à ${selection.input}.`)
+      setNotification(`"${trimmedInput}" a été attribué à ${selection.input}.`)
     }
 
     text.clear()

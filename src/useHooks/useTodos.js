@@ -6,6 +6,7 @@ export default (log, initialValues = []) => {
 
   return {
     todoList,
+    setTodoList,
     adminActions: {
       addTodo: (user, text) => {
         const id = todoList.length > 0 ? Math.max(...todoList.map(x => x.id)) + 1 : 1
@@ -35,11 +36,12 @@ export default (log, initialValues = []) => {
         log.addToLog(getTodo(id).user, `${property} set to ${boolValue}`, id, getTodo(id).text)
       },
 
-      undoUserActions: id => {
-        const newTodos = todoList.map(x => id === x.id ? { ...x, completed: false, focus: false } : x)
-        setTodoList(newTodos)
-        log.addToLog(getTodo(id).user, 'User actions reset to default', id, getTodo(id).text)
-      }
+      // à supprimer bientôt
+      // undoUserActions: id => {
+      //   const newTodos = todoList.map(x => id === x.id ? { ...x, completed: false, focus: false } : x)
+      //   setTodoList(newTodos)
+      //   log.addToLog(getTodo(id).user, 'User actions reset to default', id, getTodo(id).text)
+      // }
     }
 
   }

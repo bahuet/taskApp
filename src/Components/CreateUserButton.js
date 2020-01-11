@@ -6,7 +6,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box, Fab } from '@material-ui/core'
 
-const CreateUserButton = ({ users, setStatus }) => {
+const CreateUserButton = ({ users, setNotification }) => {
   const [showTextField, setShowTextField] = useState(false)
   const textField = useInput()
 
@@ -20,7 +20,7 @@ const CreateUserButton = ({ users, setStatus }) => {
       return;
     }
     users.addUser(textField.input)
-    setStatus(`L'utilisateur "${textField.input}" a été créé.`)
+    setNotification(`L'utilisateur "${textField.input}" a été créé.`)
     setShowTextField(false)
     textField.clear()
   }

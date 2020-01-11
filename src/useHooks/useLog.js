@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
-export default () => {
-  const [logList, setLogList] = useState([])
+export default (initialLogs = []) => {
+  const [logList, setLogList] = useState(initialLogs)
 
   return {
     logList,
-    addToLog: (user, action, taskId = '', taskText = '', ) => {
+    addToLog: (user, action, taskId = '', taskText = '') => {
       const newLog = {
         timestamp: Date.now(),
         user, action, taskId, taskText

@@ -4,11 +4,9 @@ import CreateUserButton from './CreateUserButton'
 import useInput from '../useHooks/useInput'
 import { Typography, TextField, Grid, InputAdornment } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import TodoListWrapper from './TodoListWrapper'
+import TodoList from './TodoList'
 
-const AdminView = ({ users, todos, setStatus }) => {
-
-
+const AdminView = ({ users, todos, setNotification }) => {
 
   const tasksFilter = useInput()
 
@@ -25,16 +23,16 @@ const AdminView = ({ users, todos, setStatus }) => {
 
   return (
     <div>
-      <Typography variant='h4'>Administration panel </Typography>
+      <Typography variant='h4'> Administration panel </Typography>
 
       <Grid container spacing={2} justify="space-around"   >
 
         <Grid item>
-          <CreateTodoForm actions={todos.adminActions} users={users} setStatus={setStatus} />
+          <CreateTodoForm actions={todos.adminActions} users={users} setNotification={setNotification} />
         </Grid>
 
         <Grid item >
-          <Typography>Ajouter un utilisateur:</Typography>      <CreateUserButton users={users} setStatus={setStatus} />
+          <Typography>Ajouter un utilisateur:</Typography>      <CreateUserButton users={users} setNotification={setNotification} />
         </Grid>
 
       </Grid>
@@ -60,9 +58,9 @@ const AdminView = ({ users, todos, setStatus }) => {
 
         {usersToShow.map((user, i) => (
 
-          <TodoListWrapper user={user} actions={todos.adminActions}
-            setStatus={setStatus} deleteUser={() => users.deleteUser(user)}
-            filteredTasks={filteredTasks} key={user + i} />
+          <TodoList user={user} actions={todos.adminActions}
+            setNotification={setNotification} deleteUser={() => users.deleteUser(user)}
+            userTodos={filteredTasks.filter(x => x.user === user)} mode='admin' key={user + i} />
         ))}
 
       </Grid>

@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default ({ status }) => {
+export default ({ notif }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -37,7 +37,7 @@ export default ({ status }) => {
         ContentProps={{
           'aria-describedby': 'message-id',
         }}
-        message={<span id="message-id">{status}</span>}
+        message={<span id="message-id">{notif}</span>}
         action={[
 
           <IconButton

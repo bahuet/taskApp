@@ -7,6 +7,7 @@ export default (log, todos, initialValues = []) => {
 
   return {
     userList,
+    setUsersList,
     addUser: name => {
       setUsersList([name, ...userList])
       log.addToLog('Admin', `Created user: ${name}`)
