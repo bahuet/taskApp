@@ -26,7 +26,7 @@ const App = () => {
     const [fakeNamesArray, fakeTasksArray] = init(INIT_USERS_QUANTITY, INIT_TASKS_QUANTITY)
     todos.setTodoList(fakeTasksArray)
     users.setUsersList(fakeNamesArray)
-    log.addToLog(`SYSTEM`, `INIT`, 0, `initiated state with ${INIT_USERS_QUANTITY} users and ${INIT_TASKS_QUANTITY} tasks`)
+    log.addToLog(`SYSTEM`, `INIT`, 0, `initiated state with the hardcoded arrays and generated an additional ${INIT_USERS_QUANTITY} users and ${INIT_TASKS_QUANTITY} tasks`)
   }, [])
 
   return (

@@ -22,21 +22,22 @@ export default (log, initialValues = []) => {
 
       },
       changeProperty: (id, property, boolValue) => {
+        const formerValue = todoList.find(x => x.id === id)[property]
         const newTodos = todoList.map(x => id === x.id ? { ...x, [property]: boolValue } : x)
         setTodoList(newTodos)
-        log.addToLog('Admin', `${property} set to ${boolValue}`, id, getTodo(id).text)
-
+        log.addToLog('Admin', `${property} set from ${formerValue} to ${boolValue}`, id, getTodo(id).text)
       },
 
     },
     userActions: {
       changeProperty: (id, property, boolValue) => {
+        const formerValue = todoList.find(x => x.id === id)[property]
         const newTodos = todoList.map(x => id === x.id ? { ...x, [property]: boolValue } : x)
         setTodoList(newTodos)
-        log.addToLog(getTodo(id).user, `${property} set to ${boolValue}`, id, getTodo(id).text)
+        log.addToLog('Admin', `${property} set from ${formerValue} to ${boolValue}`, id, getTodo(id).text)
       },
 
-      // à supprimer bientôt
+      // à supprimer bientôt 
       // undoUserActions: id => {
       //   const newTodos = todoList.map(x => id === x.id ? { ...x, completed: false, focus: false } : x)
       //   setTodoList(newTodos)

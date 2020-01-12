@@ -3,8 +3,10 @@ import React from 'react'
 import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, Paper } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'; import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
+import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+
 import { green } from '@material-ui/core/colors';
 
 const TodoListItem = ({ todo, actions, mode, setNotification }) => {
@@ -16,11 +18,10 @@ const TodoListItem = ({ todo, actions, mode, setNotification }) => {
     }
     else if (mode === 'user') {
       if (todo.completed) {
-        //actions.undoUserActions(todo.id)
         actions.changeProperty(todo.id, 'focus', false)
         actions.changeProperty(todo.id, 'completed', false)
 
-        setNotification(`"${todo.text}" n'est plus marqué comme terminé. `)
+        setNotification(`"${todo.text}" n'est plus marqué comme terminé.`)
 
       } else if (!todo.focus) {
         actions.changeProperty(todo.id, 'focus', true)

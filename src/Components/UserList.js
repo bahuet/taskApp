@@ -20,7 +20,7 @@ const UserList = ({ users }) => (
     <List component="nav" >
       {users.userList.map((u, i) => (
         <Paper key={u + i}>
-          <ListItem button component={Link} to={`/users/${u}`} >
+          <ListItem button component={Link} to={`/users/${u}`} user={u}>
             <ListItemAvatar>
               <Avatar>
                 <FolderIcon />

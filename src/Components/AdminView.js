@@ -4,7 +4,7 @@ import CreateUserButton from './CreateUserButton'
 import useInput from '../useHooks/useInput'
 import { Typography, TextField, Grid, InputAdornment } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import TodoList from './TodoList'
+import TodosCard from './TodosCard'
 
 const AdminView = ({ users, todos, setNotification }) => {
 
@@ -58,9 +58,9 @@ const AdminView = ({ users, todos, setNotification }) => {
 
         {usersToShow.map((user, i) => (
 
-          <TodoList user={user} actions={todos.adminActions}
+          <TodosCard user={user} actions={todos.adminActions}
             setNotification={setNotification} deleteUser={() => users.deleteUser(user)}
-            userTodos={filteredTasks.filter(x => x.user === user)} mode='admin' key={user + i} />
+            userTodos={filteredTasks.filter(x => x.user === user)} admin={true} key={user + i} />
         ))}
 
       </Grid>

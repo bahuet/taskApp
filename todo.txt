@@ -1,17 +1,31 @@
-- contour rouge quand hover supprimer tache (confirmation de supression?)
-- transfer de taches inter users avec autocomplete
-- transitions sur les Fab avec <Zoom>
+
+general: 
+- fix userview
+- explication des actions possibles quand on arrive sur la page (tutoriel) ? 
+- footer avec import ContactMailIcon from '@material-ui/icons/ContactMail';
+
+styling / CSS:
 - rendre adminview responsive, et régler les gap entre élements (flexbox)
-- une seule tache peut etre focus par les utilisateurs
-- user: alerte si tache urgente non focus 
-- tableau statistique pour l'admin dashboard
 - intégrer le a:chosen du stylesheet dans l'app
-- admin: alerte si un utilisateur n'as pas de taches non complete
-- admin: differents ordres d'affichage
-- possibilité de classer les users par groupe avec background de couleur?
-- explication des actions possibles quand on arrive sur la page
-- historique des taches faites avec le bouton expand
-- tooltips
+- tooltips ? 
+- transitions sur les Fab avec <Zoom>
+
+admin:
+- alerte si un utilisateur n'as pas de taches actives
+- differents ordres d'affichage
+- supprimer toutes les taches completed
+- renommer user
+- transfer de taches inter users avec autocomplete
+
+user:
+- alerte si tache urgente non focus 
+- une seule tache peut etre focus ?
 - user avatar
-- tutoriel
+- les users ont un nom + un rôle + id
+- task => title + description instead of just text?
+
+plus tard peut-être:
+- possibilité de classer les users par groupe avec background de couleur?
 - fake loading times
+- tableau statistique pour l'admin dashboard
+- historique des taches faites avec le bouton expand

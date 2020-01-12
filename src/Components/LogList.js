@@ -12,7 +12,7 @@ const LogList = ({ logList }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table >
+      <Table size="small" >
         <TableHead>
           <TableRow>
             <TableCell align="right">Timestamp</TableCell>
@@ -36,6 +36,7 @@ const LogList = ({ logList }) => {
             )
           })}
         </TableBody>
+
       </Table>
     </TableContainer>
 

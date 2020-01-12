@@ -11,21 +11,15 @@ export default (namesNum, tasksNum) => {
     return randomValueFromArray(firstNames) + ' ' + randomValueFromArray(lastNames)
   }
 
-  const fakeDataGen = (initialArray, randomValueFn, number, type) => {
-    const out = [...initialArray]
-    for (let i = 0; i < number; i++) {
-      const value = randomValueFn(i)
-      out.push(value)
-    }
-    return out
-  }
+  let id = 1
+  const getNewId = () => id++
 
-  const createTask = (taskText, id) => {
+  const createTask = (taskText) => {
     //Une tâche ne peut pas être 'completed' sans être 'focused', on le prend en compte pendant la génération des valeurs initiales
     const fixedRandomValue = Math.floor(Math.random() * 3)
     return (
       {
-        id: id,
+        id: getNewId(),
         user: fakeNamesArray[Math.floor(Math.random() * fakeNamesArray.length)],
         text: taskText,
         completed: fixedRandomValue ? false : (Math.floor(Math.random() * 2) ? false : true),
@@ -36,13 +30,22 @@ export default (namesNum, tasksNum) => {
 
   const createRandomTask = (i) => createTask(`Tâche aléatoire ${i} générée automatiquement pour la démo`, i)
 
+  const fakeDataGen = (initialArray, randomValueFn, number) => {
+    const out = [...initialArray]
+    for (let i = 0; i < number; i++) {
+      const value = randomValueFn()
+      out.push(value)
+    }
+    return out
+  }
+
   const initialUserNames = ['Eloi', 'George Foreman', 'Dmitri Mendeleev', '吕小军',]
-  const fakeNamesArray = fakeDataGen(initialUserNames, createRandomName, namesNum, 'create user')
+  const fakeNamesArray = fakeDataGen(initialUserNames, createRandomName, namesNum)
 
   let initialTasks = ['Relancer le fournisseur pour savoir les dates de livraison', 'Régler la facture du fournisseur', 'Refaire du café', "Traduire la notice d'utilisation en anglais"]
     .map(x => createTask(x))
 
-  const fakeTasksArray = fakeDataGen(initialTasks, createRandomTask, tasksNum, 'create task')
+  const fakeTasksArray = fakeDataGen(initialTasks, createRandomTask, tasksNum)
 
   return [fakeNamesArray, fakeTasksArray]
 }
