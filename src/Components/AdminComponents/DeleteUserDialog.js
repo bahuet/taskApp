@@ -1,31 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
 
-const DeleteUserButton = ({ deleteUser, setNotification, user, userTodos }) => {
-
-  const [open, setOpen] = useState(false)
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  }
-  const handleClose = () => {
-    setOpen(false);
-  }
+const DeleteUserDialog = ({ deleteUser, setNotification, user, userTodos, open, handleClose }) => {
 
   const handleConfirm = () => {
     deleteUser()
-    setNotification(`L'utilisateur "${user}" et ses ${userTodos.length} taches ont été supprimées`)
+    handleClose()
+    setNotification(`L'utilisateur "${user.name}" et ses ${userTodos.length} taches ont été supprimées`)
   }
 
   return (
     <>
-      <Button color="secondary" variant="outlined" size='small'
-        onClick={handleClickOpen}> Supprimer</Button>
       <Dialog
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle>{`Confirmer la suppression de ${user}`}</DialogTitle>
+        <DialogTitle>{`Confirmer la suppression de ${user.name}`}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Les {userTodos.length} tâches assignées seront également supprimées.
@@ -44,4 +34,4 @@ const DeleteUserButton = ({ deleteUser, setNotification, user, userTodos }) => {
   )
 }
 
-export default DeleteUserButton
+export default DeleteUserDialog

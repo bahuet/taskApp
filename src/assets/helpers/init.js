@@ -11,20 +11,36 @@ export default (namesNum, tasksNum) => {
     return randomValueFromArray(firstNames) + ' ' + randomValueFromArray(lastNames)
   }
 
-  let id = 1
-  const getNewId = () => id++
+  let userId = 1100000
+  let taskId = 2100000
+
+  const getNewUserId = () => userId++
+  const getNewTaskId = () => taskId++
+
 
   const createTask = (taskText) => {
     //Une tâche ne peut pas être 'completed' sans être 'focused', on le prend en compte pendant la génération des valeurs initiales
     const fixedRandomValue = Math.floor(Math.random() * 3)
+    const randomUser = randomValueFromArray(fakeUserssArray)
     return (
       {
-        id: getNewId(),
-        user: fakeNamesArray[Math.floor(Math.random() * fakeNamesArray.length)],
+        id: getNewTaskId(),
+        userName: randomUser.name,
+        userId: randomUser.id,
         text: taskText,
         completed: fixedRandomValue ? false : (Math.floor(Math.random() * 2) ? false : true),
         urgent: Math.floor(Math.random() * 3) ? false : true,
         focus: fixedRandomValue ? false : true
+      })
+  }
+
+  const createUser = (name) => {
+    const roles = ['Manager', 'Designer', 'Comptable', 'CEO', 'CSO', 'DRH', 'Motivateur', 'Développeur front', 'Développeur front']
+    return (
+      {
+        id: getNewUserId(),
+        name: name || createRandomName(),
+        role: randomValueFromArray(roles)
       })
   }
 
@@ -40,12 +56,13 @@ export default (namesNum, tasksNum) => {
   }
 
   const initialUserNames = ['Eloi', 'George Foreman', 'Dmitri Mendeleev', '吕小军',]
-  const fakeNamesArray = fakeDataGen(initialUserNames, createRandomName, namesNum)
+    .map(name => createUser(name))
+  const fakeUserssArray = fakeDataGen(initialUserNames, createUser, namesNum)
 
   let initialTasks = ['Relancer le fournisseur pour savoir les dates de livraison', 'Régler la facture du fournisseur', 'Refaire du café', "Traduire la notice d'utilisation en anglais"]
     .map(x => createTask(x))
 
   const fakeTasksArray = fakeDataGen(initialTasks, createRandomTask, tasksNum)
 
-  return [fakeNamesArray, fakeTasksArray]
+  return [fakeUserssArray, fakeTasksArray]
 }

@@ -7,7 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import useInput from '../useHooks/useInput'
+import useInput from '../../useHooks/useInput'
 
 const CreateTodoFormButton = ({ user, userTodos, actions, setNotification }) => {
   const [open, setOpen] = React.useState(false);

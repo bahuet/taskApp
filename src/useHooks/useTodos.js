@@ -8,11 +8,11 @@ export default (log, initialValues = []) => {
     todoList,
     setTodoList,
     adminActions: {
-      addTodo: (user, text) => {
-        const id = todoList.length > 0 ? Math.max(...todoList.map(x => x.id)) + 1 : 1
-        const newTodos = [{ id: id, user: user, text: text, completed: false, urgent: false, focus: false }, ...todoList]
+      addTodo: (userId, userName, text) => {
+        const id = todoList.length > 0 ? Math.max(...todoList.map(x => x.id)) + 1 : 2000000
+        const newTodos = [{ id: id, userId: userId, userName: userName, text: text, completed: false, urgent: false, focus: false }, ...todoList]
         setTodoList(newTodos)
-        log.addToLog('Admin', `Task assigned to: ${user}`, id, text)
+        log.addToLog('Admin', `Task assigned to: ${userName}`, id, text)
 
       },
       deleteTodo: id => {

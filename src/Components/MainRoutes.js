@@ -1,8 +1,8 @@
 import React from 'react';
 import UserList from './UserList'
 import Home from './Home'
-import UserView from './UserView'
-import AdminView from './AdminView'
+import UserView from './UserComponents/UserView'
+import AdminView from './AdminComponents/AdminView'
 import NotFound from './NotFound'
 import LogList from './LogList'
 import { Typography } from "@material-ui/core"
@@ -21,7 +21,7 @@ const MainRoutes = ({ users, todos, setNotification, log }) => (
       <Route path="/log" render={() => <LogList logList={log.logList} />} />
       <Route exact path="/users" render={() => <UserList users={users} />} />
       <Route path="/users/:name" render={({ match }) => {
-        const user = users.userList.find(u => u === match.params.name)
+        const user = users.userList.find(u => u.name === match.params.name)
 
         return (
           user ?

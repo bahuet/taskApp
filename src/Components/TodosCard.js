@@ -1,11 +1,10 @@
 import React, { useState } from "react"
-import AdminActionIcons from './AdminActionIcons'
-import UserActionIcons from './UserActionIcons'
 import { makeStyles } from "@material-ui/core/styles"
 import { red, green } from "@material-ui/core/colors"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import NoteAddIcon from "@material-ui/icons/NoteAdd"
-
+import TodoCardMenu from './AdminComponents/TodoCardMenu'
+import TodoListItem from './ToDoListItem'
 import {
   Card,
   CardHeader,
@@ -14,10 +13,9 @@ import {
   List,
   ListItem,
   ListItemText,
-  Menu,
-  MenuItem,
   Avatar,
   IconButton,
+  ClickAwayListener,
   Button
 } from "@material-ui/core";
 
@@ -37,11 +35,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default ({ user, userTodos, actions, setNotification, deleteUser, admin }) => {
+export default ({ user, userTodos, actions, setNotification, deleteUser, editUser, admin }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const open = Boolean(anchorEl);
 
   const openCardMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -51,63 +47,34 @@ export default ({ user, userTodos, actions, setNotification, deleteUser, admin }
     setAnchorEl(null);
   };
 
-  const editName = "Renommer";
-  const deleteCard = "Supprimer";
-  const options = [editName, deleteCard];
-
-  const handleMenuOptionClick = option => {
-    closeCardMenu();
-    if (option === editName) {
-      console.log(`edit name`);
-    } else if (option === deleteCard) {
-      console.log(`delete card`);
-    }
-  };
 
   const handleCreateTaskClick = () => {
     console.log(`create new task`);
   };
 
+
+
   return (
     <>
       <Card className={classes.card} elevation={3}>
         <CardHeader
-          avatar={<Avatar className={classes.avatar}>JS</Avatar>}
+          avatar={<Avatar className={classes.avatar}>{user.name[0]}</Avatar>}
           action={
             <IconButton onClick={openCardMenu}>
               <MoreVertIcon />
             </IconButton>
           }
-          title={user}
-          subheader="Assistant Manager"
+          title={user.name}
+          subheader={user.role}
         />
 
         <CardContent>
           <List>
+
             {userTodos.map((todo, i) => {
-              const [isHovering, setIsHovering] = useState(false);
 
               return (
-                <ListItem
-                  dense
-                  divider
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
-                  selected={isHovering}
-                  key={todo.text + i}
-                >
-
-
-                  <ListItemText primary={todo.text} className={classes.multiline} />
-
-                  {isHovering && (
-                    admin ?
-                      <AdminActionIcons /> :
-                      <UserActionIcons />
-                  )}
-
-
-                </ListItem>
+                <TodoListItem todo={todo} admin={admin} actions={actions} setNotification={setNotification} key={todo + i} />
               )
             })}
           </List>
@@ -118,25 +85,10 @@ export default ({ user, userTodos, actions, setNotification, deleteUser, admin }
           </IconButton>
         </CardActions>
       </Card>
+      <TodoCardMenu closeCardMenu={closeCardMenu} anchorEl={anchorEl}
+        deleteUser={deleteUser} editUser={editUser} user={user} userTodos={userTodos}
+        setNotification={setNotification} />
 
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={closeCardMenu}
-        PaperProps={{
-          style: {
-            maxHeight: 48 * 4.5,
-            width: 200
-          }
-        }}
-      >
-        {options.map(option => (
-          <MenuItem key={option} onClick={() => handleMenuOptionClick(option)}>
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
     </>
   );
 };

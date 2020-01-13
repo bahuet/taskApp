@@ -1,6 +1,6 @@
 import React from 'react'
-import TodoList from './TodoList'
-import TodoStatus from './TodoStatus'
+import TodoList from '../TodoList'
+import TodoStatus from '../TodoStatus'
 import { Typography } from '@material-ui/core'
 
 const UserView = ({ user, userTodos, actions, setNotification }) => {

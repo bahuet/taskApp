@@ -1,15 +1,13 @@
 import React from 'react'
 import TodoListItem from './ToDoListItem'
 import { Grid, List, Paper, Typography } from '@material-ui/core'
-import DeleteUserButton from './DeleteUserButton'
-import CreateTodoFormButton from './CreateTodoFormButton'
+import CreateTodoFormButton from './AdminComponents/CreateTodoFormButton'
 
 const TodoList = ({ user, userTodos, actions, mode, setNotification, deleteUser }) => (
   <Grid item xs={4} >
     <Paper elevation={3} >
       <Typography variant='h6'>
         Tableau de bord de: {user}&nbsp;&nbsp;&nbsp;
-          <DeleteUserButton deleteUser={deleteUser} setNotification={setNotification} user={user} userTodos={userTodos} />
       </Typography>
       {userTodos.length > 0 ?
 
