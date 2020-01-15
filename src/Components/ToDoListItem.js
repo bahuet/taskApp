@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import AdminActionIcons from './AdminComponents/AdminActionIcons'
 import UserActionIcons from './UserComponents/UserActionIcons'
+import TransferTaskDialog from './AdminComponents/TransferTaskDialog'
+
 import { makeStyles } from "@material-ui/core/styles"
-import { ListItem, ListItemText, ClickAwayListener } from '@material-ui/core'
-
-
+import { ListItem, ListItemText, ClickAwayListener, Checkbox } from '@material-ui/core'
+import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   multiline: {
@@ -13,12 +14,27 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const TodoListItem = ({ todo, actions, admin, setNotification }) => {
+const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotification }) => {
   const classes = useStyles()
 
   const [itemClicked, setItemClicked] = useState(false)
+  const [transferUserDialogStatus, setTransferUserDialogStatus] = useState(false)
 
   const handleItemClick = () => setItemClicked(!itemClicked)
+
+  const openTransferDialog = () => {
+    setTransferUserDialogStatus(true)
+    console.log(`transfer dialog opened ${transferUserDialogStatus}`)
+  }
+
+  const handleTransfer = (userId) => {
+    const userName = userList.find(u => u.id === userId).name
+    console.log(`current userId: ${user.id}, target userId: ${userId},  todo.id: ${todo.id}`)
+    actions.changeProperty(todo.id, `userName`, userName)
+    actions.changeProperty(todo.id, `userId`, userId)
+
+    setNotification(`Tâche transférée de ${todo.userName} à ${userName}`)
+  }
 
   return (
     <ClickAwayListener onClickAway={() => setItemClicked(false)}>
@@ -30,15 +46,30 @@ const TodoListItem = ({ todo, actions, admin, setNotification }) => {
         onClick={handleItemClick}
         selected={itemClicked}
       >
-
+        <Checkbox
+          checked={todo.completed}
+          style={{ color: green[500] }}
+        />
+        <Checkbox
+          checked={todo.urgent}
+        />
+        <Checkbox
+          checked={todo.focus}
+          color='secondary'
+        />
         <ListItemText primary={todo.text} className={classes.multiline} />
 
         {itemClicked && (
           admin ?
-            <AdminActionIcons /> :
-            <UserActionIcons />
+            <AdminActionIcons openTransferDialog={openTransferDialog} actions={actions}
+              todo={todo} user={user} userList={userList} setNotification={setNotification} /> :
+            <UserActionIcons actions={actions} setFocus={setFocus} todo={todo} setNotification={setNotification} />
         )}
+        <TransferTaskDialog todo={todo} userList={userList} user={user}
+          open={transferUserDialogStatus} closeDialog={() => setTransferUserDialogStatus(false)}
+          handleTransfer={handleTransfer} setNotification={setNotification} />
       </ListItem>
+
     </ClickAwayListener>
 
   )

@@ -19,14 +19,14 @@ const UserList = ({ users }) => (
       </Alert>
     <List component="nav" >
       {users.userList.map((u, i) => (
-        <Paper key={u + i}>
-          <ListItem button component={Link} to={`/users/${u}`} user={u}>
+        <Paper key={u.id}>
+          <ListItem button component={Link} to={`/users/${u.name}`} user={u}>
             <ListItemAvatar>
               <Avatar>
                 <FolderIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={u} />
+            <ListItemText primary={u.name} />
 
           </ListItem>
         </Paper>

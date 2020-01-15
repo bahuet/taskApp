@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import useInput from '../../useHooks/useInput'
 import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box, FormControl } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import NoteAddIcon from "@material-ui/icons/NoteAdd"
 
 
-const CreateTodoForm = ({ actions, users, setNotification }) => {
+export default ({ actions, users, setNotification }) => {
   const text = useInput('')
   const selection = useInput('')
 
@@ -75,4 +76,3 @@ const CreateTodoForm = ({ actions, users, setNotification }) => {
 
 }
 
-export default CreateTodoForm

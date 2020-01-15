@@ -1,15 +1,38 @@
 
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import useInput from '../../useHooks/useInput'
+import { makeStyles } from "@material-ui/core/styles"
 
-const CreateTodoFormButton = ({ user, userTodos, actions, setNotification }) => {
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  List,
+  ListItem,
+  ListItemText,
+  Avatar,
+  IconButton,
+  ClickAwayListener,
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContentText,
+  DialogTitle,
+  DialogContent
+} from "@material-ui/core"
+import NoteAddIcon from "@material-ui/icons/NoteAdd"
+
+const useStyles = makeStyles(theme => ({
+  right: {
+    marginLeft: "auto"
+  },
+}))
+
+export default  ({ user, userTodos, actions, setNotification }) => {
+  const classes = useStyles();
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -27,20 +50,20 @@ const CreateTodoFormButton = ({ user, userTodos, actions, setNotification }) => 
   const handleSubmit = () => {
     const trimmedInput = text.input.trim()
     if (trimmedInput) {
-      actions.addTodo(user, trimmedInput)
-      setNotification(`"${trimmedInput}" a été attribué à ${user}.`)
+      actions.addTodo(user.id, user.name, trimmedInput)
+      setNotification(`"${trimmedInput}" a été attribué à ${user.name}.`)
       text.clear()
       handleClose()
     }
   }
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Ajouter une tâche
-      </Button>
+    <div className={classes.right}>
+      <IconButton onClick={handleClickOpen} >
+        <NoteAddIcon fontSize="large" />
+      </IconButton>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Ajouter une tâche à {user}</DialogTitle>
+        <DialogTitle>Ajouter une tâche à {user.name}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Actuellement: {activeTasks.length} en cours, dont {activeAndUrgent.length} urgentes.
@@ -69,4 +92,3 @@ const CreateTodoFormButton = ({ user, userTodos, actions, setNotification }) => 
 }
 
 
-export default CreateTodoFormButton

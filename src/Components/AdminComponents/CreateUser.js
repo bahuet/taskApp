@@ -6,7 +6,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box, Fab } from '@material-ui/core'
 
-const CreateUserButton = ({ users, setNotification }) => {
+export default ({ users, setNotification }) => {
   const [showTextField, setShowTextField] = useState(false)
   const textField = useInput()
 
@@ -47,4 +47,3 @@ const CreateUserButton = ({ users, setNotification }) => {
   )
 }
 
-export default CreateUserButton

@@ -26,7 +26,7 @@ const MainRoutes = ({ users, todos, setNotification, log }) => (
         return (
           user ?
             <UserView user={user}
-              userTodos={todos.todoList.filter(td => td.user === match.params.name)}
+              userTodos={todos.todoList.filter(td => td.userName === match.params.name)}
               actions={todos.userActions} setNotification={setNotification} />
             : <Typography variant='h4' color='secondary'>User not found</Typography>)
       }} />

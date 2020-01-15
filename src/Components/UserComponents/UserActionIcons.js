@@ -5,23 +5,27 @@ import {
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 
-export default () => {
+export default ({ actions, todo, setFocus, setNotification }) => {
   const handleFocusClick = () => {
-    console.log(`clicked handleFocusClick`);
+    setFocus()
+    setNotification(`"${todo.text}" a été marqué "En Cours".`)
+
   };
   const handleCompletedClick = () => {
-    console.log(`clicked handleCompletedClick`);
+    actions.changeProperty(todo.id, 'completed', !todo.completed)
+    setNotification(`"${todo.text}" a été marqué "Terminé".`)
+
   };
 
-  
-    return (
-      <div>
-        <IconButton onClick={handleFocusClick}>
-          <CenterFocusStrongIcon fontSize="small" />
-        </IconButton>
-        <IconButton onClick={handleCompletedClick}>
-          <AssignmentTurnedInIcon fontSize="small" />
-        </IconButton>
-      </div>
-    )
-  }
+
+  return (
+    <div>
+      <IconButton onClick={handleFocusClick}>
+        <CenterFocusStrongIcon fontSize="small" />
+      </IconButton>
+      <IconButton onClick={handleCompletedClick}>
+        <AssignmentTurnedInIcon fontSize="small" />
+      </IconButton>
+    </div>
+  )
+}

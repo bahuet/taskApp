@@ -35,7 +35,7 @@ export default (namesNum, tasksNum) => {
   }
 
   const createUser = (name) => {
-    const roles = ['Manager', 'Designer', 'Comptable', 'CEO', 'CSO', 'DRH', 'Motivateur', 'Développeur front', 'Développeur front']
+    const roles = ['Manager', 'Designer', 'Comptable', 'CEO', 'CSO', 'DRH', 'R&D', 'Développeur front', 'Développeur front']
     return (
       {
         id: getNewUserId(),
@@ -44,7 +44,7 @@ export default (namesNum, tasksNum) => {
       })
   }
 
-  const createRandomTask = (i) => createTask(`Tâche aléatoire ${i} générée automatiquement pour la démo`, i)
+  const createRandomTask = () => createTask(`Tâche aléatoire ${taskId} générée automatiquement pour la démo`)
 
   const fakeDataGen = (initialArray, randomValueFn, number) => {
     const out = [...initialArray]
@@ -56,11 +56,11 @@ export default (namesNum, tasksNum) => {
   }
 
   const initialUserNames = ['Eloi', 'George Foreman', 'Dmitri Mendeleev', '吕小军',]
-    .map(name => createUser(name))
+    .map(name => createUser( name))
   const fakeUserssArray = fakeDataGen(initialUserNames, createUser, namesNum)
 
   let initialTasks = ['Relancer le fournisseur pour savoir les dates de livraison', 'Régler la facture du fournisseur', 'Refaire du café', "Traduire la notice d'utilisation en anglais"]
-    .map(x => createTask(x))
+    .map(task => createTask(task))
 
   const fakeTasksArray = fakeDataGen(initialTasks, createRandomTask, tasksNum)
 

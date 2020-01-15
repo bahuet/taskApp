@@ -3,12 +3,14 @@ general:
 - fix userview
 - explication des actions possibles quand on arrive sur la page (tutoriel) ? 
 - footer avec import ContactMailIcon from '@material-ui/icons/ContactMail';
+- changer les valeurs du log
 
 styling / CSS:
 - rendre adminview responsive, et régler les gap entre élements (flexbox)
 - intégrer le a:chosen du stylesheet dans l'app
 - tooltips ? 
 - transitions sur les Fab avec <Zoom>
+- le textfield du filter est super moche
 
 admin:
 - alerte si un utilisateur n'as pas de taches actives
@@ -26,6 +28,6 @@ user:
 
 plus tard peut-être:
 - possibilité de classer les users par groupe avec background de couleur?
-- fake loading times
-- tableau statistique pour l'admin dashboard
-- historique des taches faites avec le bouton expand
+- fake loading times (ou pas)
+- tableau statistique pour l'admin dashboard (cad?)
+- historique des taches faites avec le bouton expand (via log?)

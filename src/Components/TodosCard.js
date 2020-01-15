@@ -1,10 +1,13 @@
 import React, { useState } from "react"
+import TodoCardMenu from './AdminComponents/TodoCardMenu'
+import TodoListItem from './ToDoListItem'
+
 import { makeStyles } from "@material-ui/core/styles"
 import { red, green } from "@material-ui/core/colors"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import NoteAddIcon from "@material-ui/icons/NoteAdd"
-import TodoCardMenu from './AdminComponents/TodoCardMenu'
-import TodoListItem from './ToDoListItem'
+
+import CreateTask from './AdminComponents/CreateTask'
 import {
   Card,
   CardHeader,
@@ -27,15 +30,12 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: red[500]
   },
-  right: {
-    marginLeft: "auto"
-  },
   multiline: {
     wordWrap: "break-word"
   }
-}));
+}))
 
-export default ({ user, userTodos, actions, setNotification, deleteUser, editUser, admin }) => {
+export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admin, userList, setNotification }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -48,11 +48,6 @@ export default ({ user, userTodos, actions, setNotification, deleteUser, editUse
   };
 
 
-  const handleCreateTaskClick = () => {
-    console.log(`create new task`);
-  };
-
-
 
   return (
     <>
@@ -60,7 +55,7 @@ export default ({ user, userTodos, actions, setNotification, deleteUser, editUse
         <CardHeader
           avatar={<Avatar className={classes.avatar}>{user.name[0]}</Avatar>}
           action={
-            <IconButton onClick={openCardMenu}>
+            admin && <IconButton onClick={openCardMenu}>
               <MoreVertIcon />
             </IconButton>
           }
@@ -69,21 +64,22 @@ export default ({ user, userTodos, actions, setNotification, deleteUser, editUse
         />
 
         <CardContent>
-          <List>
-
-            {userTodos.map((todo, i) => {
-
-              return (
-                <TodoListItem todo={todo} admin={admin} actions={actions} setNotification={setNotification} key={todo + i} />
-              )
-            })}
-          </List>
+          {userTodos.length ?
+            <List>
+              {userTodos.map((todo, i) => {
+                return (
+                  <TodoListItem todo={todo} admin={admin} actions={actions}
+                    setFocus={() => setFocus(todo.id)} userList={userList} user={user}
+                    setNotification={setNotification} key={todo + i} />
+                )
+              })}
+            </List>
+            : `Cet utilisateur n'a pas de tâches`}
         </CardContent>
-        <CardActions>
-          <IconButton className={classes.right} onClick={handleCreateTaskClick}>
-            <NoteAddIcon fontSize="large" />
-          </IconButton>
-        </CardActions>
+        {admin && <CardActions>
+          <CreateTask user={user} userTodos={userTodos} actions={actions}
+            setNotification={setNotification} />
+        </CardActions>}
       </Card>
       <TodoCardMenu closeCardMenu={closeCardMenu} anchorEl={anchorEl}
         deleteUser={deleteUser} editUser={editUser} user={user} userTodos={userTodos}

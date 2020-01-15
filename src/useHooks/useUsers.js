@@ -1,21 +1,21 @@
 import { useState } from 'react'
 
-
 export default (log, todos, initialValues = []) => {
   const [userList, setUsersList] = useState(initialValues)
   const getNewId = () => {
     const maxId = Math.max(...userList.map(x => x.id))
     return maxId ? maxId + 1 : 1000000
   }
-
   return {
     userList,
     setUsersList,
+    
     addUser: (name, role) => {
       const newId = getNewId()
       setUsersList([{ id: newId, name: name, role: role }, ...userList])
       log.addToLog('Admin', `Created user: id: ${newId}, name: ${name}, role: ${role}`)
     },
+
     deleteUser: idToDelete => {
       const username = userList.find(u => u.id === idToDelete).name
       const newUserList = userList.filter(user => user.id !== idToDelete)
@@ -28,6 +28,7 @@ export default (log, todos, initialValues = []) => {
       log.addToLog('Admin', `Deleted user: ${username}`)
 
     },
+
     editUserById: idToEdit => {
       return ((newName, newRole) => {
 
