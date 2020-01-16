@@ -31,28 +31,27 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
       >
         <DialogTitle>{`Modifier le nom et le rôle de ${user.name}`}</DialogTitle>
         <DialogContent>
-
+          <TextField
+            value={nameField.input}
+            onChange={nameField.onChange}
+            margin="dense"
+            fullWidth
+          />
+          <TextField
+            value={roleField.input}
+            onChange={roleField.onChange}
+            margin="dense"
+            fullWidth
+          />
+          <DialogActions>
+            <Button onClick={handleClose} >
+              Annuler
+          </Button>
+            <Button onClick={handleConfirm} variant="contained" color="primary" autoFocus>
+              Confirmer
+          </Button>
+          </DialogActions>
         </DialogContent>
-        <TextField
-          value={nameField.input}
-          onChange={nameField.onChange}
-          margin="dense"
-          fullWidth
-        />
-        <TextField
-          value={roleField.input}
-          onChange={roleField.onChange}
-          margin="dense"
-          fullWidth
-        />
-        <DialogActions>
-          <Button onClick={handleClose} >
-            Annuler
-          </Button>
-          <Button onClick={handleConfirm} variant="contained" color="secondary" autoFocus>
-            Confirmer
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   )

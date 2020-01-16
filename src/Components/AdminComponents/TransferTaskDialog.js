@@ -4,10 +4,12 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
 
 export default ({ todo, open, handleTransfer, closeDialog, user, userList, setNotification }) => {
+
   const [selection, setSelection] = useState('')
+
   const handleChange = (_, value) => {
-    setSelection(value.id)
-  };
+    setSelection(value ? value.id : '')
+  }
   const handleClose = () => {
     closeDialog()
   }
@@ -17,8 +19,8 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList, setNo
     closeDialog()
   }
 
-  return (
 
+  return (
     <Dialog
       open={open}
       onClose={handleClose}
@@ -45,11 +47,11 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList, setNo
         <Button onClick={handleClose} >
           Annuler
           </Button>
-        <Button onClick={handleConfirm}  variant="contained" color="secondary" autoFocus disabled={!Boolean(selection)} >
+        <Button onClick={handleConfirm} variant="contained" disabled={!Boolean(selection)} color="secondary" autoFocus  >
           Transférer
           </Button>
       </DialogActions>
-    </Dialog>
+    </Dialog >
 
   )
 }

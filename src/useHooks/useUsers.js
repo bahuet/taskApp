@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import getAvatarName from '../assets/helpers/getAvatarName'
 
 export default (log, todos, initialValues = []) => {
   const [userList, setUsersList] = useState(initialValues)
@@ -6,13 +7,17 @@ export default (log, todos, initialValues = []) => {
     const maxId = Math.max(...userList.map(x => x.id))
     return maxId ? maxId + 1 : 1000000
   }
+
+
+
   return {
     userList,
     setUsersList,
-    
+
     addUser: (name, role) => {
       const newId = getNewId()
-      setUsersList([{ id: newId, name: name, role: role }, ...userList])
+
+      setUsersList([{ id: newId, name: name, role: role, avatar: getAvatarName() }, ...userList])
       log.addToLog('Admin', `Created user: id: ${newId}, name: ${name}, role: ${role}`)
     },
 

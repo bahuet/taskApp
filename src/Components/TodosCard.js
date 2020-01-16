@@ -28,11 +28,13 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 345
   },
   avatar: {
-    backgroundColor: red[500]
+    width: theme.spacing(6),
+    height: theme.spacing(6),
   },
   multiline: {
     wordWrap: "break-word"
-  }
+  },
+
 }))
 
 export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admin, userList, setNotification }) => {
@@ -47,13 +49,13 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
     setAnchorEl(null);
   };
 
-
+  const avatarUrl = require(`../assets/img/avatars/${user.avatar}`)
 
   return (
     <>
       <Card className={classes.card} elevation={3}>
         <CardHeader
-          avatar={<Avatar className={classes.avatar}>{user.name[0]}</Avatar>}
+          avatar={<Avatar className={classes.avatar} src={avatarUrl} />}
           action={
             admin && <IconButton onClick={openCardMenu}>
               <MoreVertIcon />

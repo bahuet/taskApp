@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import useInput from '../../useHooks/useInput'
 import { makeStyles } from "@material-ui/core/styles"
 
@@ -14,6 +14,8 @@ import {
   Avatar,
   IconButton,
   ClickAwayListener,
+  FormControlLabel,
+  Checkbox,
   Button,
   TextField,
   Dialog,
@@ -30,10 +32,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default  ({ user, userTodos, actions, setNotification }) => {
+export default ({ user, userTodos, actions, setNotification }) => {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [urgentChecked, setUrgentChecked] = useState(false)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,6 +45,7 @@ export default  ({ user, userTodos, actions, setNotification }) => {
   const handleClose = () => {
     setOpen(false);
   }
+
   const text = useInput()
 
   const activeTasks = userTodos.filter(x => !x.completed)
@@ -50,9 +54,10 @@ export default  ({ user, userTodos, actions, setNotification }) => {
   const handleSubmit = () => {
     const trimmedInput = text.input.trim()
     if (trimmedInput) {
-      actions.addTodo(user.id, user.name, trimmedInput)
+      actions.addTodo(user.id, user.name, trimmedInput, urgentChecked)
       setNotification(`"${trimmedInput}" a été attribué à ${user.name}.`)
       text.clear()
+      setUrgentChecked(false)
       handleClose()
     }
   }
@@ -77,17 +82,25 @@ export default  ({ user, userTodos, actions, setNotification }) => {
             variant="filled"
             fullWidth
           />
+          <FormControlLabel
+            control={
+              <Checkbox checked={urgentChecked} onChange={() => setUrgentChecked(!urgentChecked)} />
+            }
+            label="Urgent"
+          />
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>
             Annuler
               </Button>
+
           <Button onClick={handleSubmit} color="primary" >
             Ajouter
               </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   );
 }
 

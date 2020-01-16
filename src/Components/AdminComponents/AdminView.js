@@ -25,7 +25,7 @@ const AdminView = ({ users, todos, setNotification }) => {
   return (
     <div>
       <Typography variant='h4'> Administration panel </Typography>
-
+      <CreateUser users={users} setNotification={setNotification} />
       <Grid container spacing={2}
         direction="row"
         justify="flex-start"
@@ -33,7 +33,7 @@ const AdminView = ({ users, todos, setNotification }) => {
 
         <Grid item xs={12} >
 
-          <TextField
+          <TextField label="Chercher"
             placeholder='ex: "fournisseur"' size="small"
             variant="filled" onChange={tasksFilter.onChange} value={tasksFilter.input} InputProps={{
               startAdornment: (

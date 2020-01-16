@@ -13,7 +13,6 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-
 const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotification }) => {
   const classes = useStyles()
 
@@ -24,53 +23,53 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
 
   const openTransferDialog = () => {
     setTransferUserDialogStatus(true)
-    console.log(`transfer dialog opened ${transferUserDialogStatus}`)
   }
 
   const handleTransfer = (userId) => {
     const userName = userList.find(u => u.id === userId).name
-    console.log(`current userId: ${user.id}, target userId: ${userId},  todo.id: ${todo.id}`)
-    actions.changeProperty(todo.id, `userName`, userName)
-    actions.changeProperty(todo.id, `userId`, userId)
+    actions.transferTodo(todo.id, userId, userName)
 
     setNotification(`Tâche transférée de ${todo.userName} à ${userName}`)
   }
 
   return (
-    <ClickAwayListener onClickAway={() => setItemClicked(false)}>
+    <>
+      <ClickAwayListener onClickAway={() => setItemClicked(false)}>
+        <ListItem
+          button
+          dense
+          divider
+          onClick={handleItemClick}
+          selected={itemClicked}
+        >
+          <Checkbox
+            checked={todo.completed}
+            style={{ color: green[500] }}
+          />
+          <Checkbox
+            checked={todo.urgent}
+          />
+          <Checkbox
+            checked={todo.focus}
+            color='secondary'
+          />
+          <ListItemText primary={todo.text} className={classes.multiline} />
 
-      <ListItem
-        button
-        dense
-        divider
-        onClick={handleItemClick}
-        selected={itemClicked}
-      >
-        <Checkbox
-          checked={todo.completed}
-          style={{ color: green[500] }}
-        />
-        <Checkbox
-          checked={todo.urgent}
-        />
-        <Checkbox
-          checked={todo.focus}
-          color='secondary'
-        />
-        <ListItemText primary={todo.text} className={classes.multiline} />
+          {itemClicked && (
+            admin ?
+              <AdminActionIcons openTransferDialog={openTransferDialog} actions={actions}
+                todo={todo} user={user} userList={userList} setNotification={setNotification} /> :
+              <UserActionIcons actions={actions} setFocus={setFocus} todo={todo} setNotification={setNotification} />
+          )}
 
-        {itemClicked && (
-          admin ?
-            <AdminActionIcons openTransferDialog={openTransferDialog} actions={actions}
-              todo={todo} user={user} userList={userList} setNotification={setNotification} /> :
-            <UserActionIcons actions={actions} setFocus={setFocus} todo={todo} setNotification={setNotification} />
-        )}
-        <TransferTaskDialog todo={todo} userList={userList} user={user}
-          open={transferUserDialogStatus} closeDialog={() => setTransferUserDialogStatus(false)}
-          handleTransfer={handleTransfer} setNotification={setNotification} />
-      </ListItem>
 
-    </ClickAwayListener>
+        </ListItem>
+
+      </ClickAwayListener>
+      <TransferTaskDialog todo={todo} userList={userList} user={user}
+        open={transferUserDialogStatus} closeDialog={() => setTransferUserDialogStatus(false)}
+        handleTransfer={handleTransfer} setNotification={setNotification} />
+    </>
 
   )
 }

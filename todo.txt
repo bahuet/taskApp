@@ -4,6 +4,8 @@ general:
 - explication des actions possibles quand on arrive sur la page (tutoriel) ? 
 - footer avec import ContactMailIcon from '@material-ui/icons/ContactMail';
 - changer les valeurs du log
+- convertir le task state en object au lieu d'un array ?
+
 
 styling / CSS:
 - rendre adminview responsive, et régler les gap entre élements (flexbox)
@@ -11,6 +13,7 @@ styling / CSS:
 - tooltips ? 
 - transitions sur les Fab avec <Zoom>
 - le textfield du filter est super moche
+- animation dans le layout (web?)
 
 admin:
 - alerte si un utilisateur n'as pas de taches actives
