@@ -8,15 +8,12 @@ export default (log, todos, initialValues = []) => {
     return maxId ? maxId + 1 : 1000000
   }
 
-
-
   return {
     userList,
     setUsersList,
 
     addUser: (name, role) => {
       const newId = getNewId()
-
       setUsersList([{ id: newId, name: name, role: role, avatar: getAvatarName() }, ...userList])
       log.addToLog('Admin', `Created user: id: ${newId}, name: ${name}, role: ${role}`)
     },
@@ -31,13 +28,13 @@ export default (log, todos, initialValues = []) => {
         }
       });
       log.addToLog('Admin', `Deleted user: ${username}`)
-
     },
 
     editUserById: idToEdit => {
+      const user = userList.find(x => x.id === idToEdit)
       return ((newName, newRole) => {
 
-        const editedUser = { id: idToEdit, name: newName, role: newRole }
+        const editedUser = { ...user, id: idToEdit, name: newName, role: newRole }
         const newUserList = userList.map(u => u.id === idToEdit ? editedUser : u)
         setUsersList(newUserList)
         todos.todoList.forEach(todo => {

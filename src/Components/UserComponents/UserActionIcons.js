@@ -8,7 +8,7 @@ import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 export default ({ actions, todo, setFocus, setNotification }) => {
   const handleFocusClick = () => {
     setFocus()
-    setNotification(`"${todo.text}" a été marqué "En Cours".`)
+    setNotification(`"${todo.text}" ${todo.focus ? `n'est plus` : `a été`} marqué "En Cours".`)
 
   };
   const handleCompletedClick = () => {
@@ -20,10 +20,10 @@ export default ({ actions, todo, setFocus, setNotification }) => {
 
   return (
     <div>
-      <IconButton onClick={handleFocusClick}>
+      <IconButton size='small' onClick={handleFocusClick}>
         <CenterFocusStrongIcon fontSize="small" />
       </IconButton>
-      <IconButton onClick={handleCompletedClick}>
+      <IconButton size='small' onClick={handleCompletedClick}>
         <AssignmentTurnedInIcon fontSize="small" />
       </IconButton>
     </div>

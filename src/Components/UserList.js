@@ -10,7 +10,6 @@ import {
 
 
 const UserList = ({ users }) => (
-
   <>
     <Alert severity="warning" variant="outlined">
       <AlertTitle>Attention: Page temporaire </AlertTitle>
@@ -22,9 +21,7 @@ const UserList = ({ users }) => (
         <Paper key={u.id}>
           <ListItem button component={Link} to={`/users/${u.name}`} user={u}>
             <ListItemAvatar>
-              <Avatar>
-                <FolderIcon />
-              </Avatar>
+              <Avatar src={`/img/avatars/${u.avatar}`} />
             </ListItemAvatar>
             <ListItemText primary={u.name} />
 

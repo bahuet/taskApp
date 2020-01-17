@@ -28,20 +28,20 @@ export default ({ openTransferDialog, actions, todo, setNotification }) => {
   };
 
   return (
-    <div>
-      <IconButton onClick={handleUrgentClick}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+      <IconButton edge='start' size='small' onClick={handleUrgentClick} >
         <ReportProblemIcon fontSize="small" />
       </IconButton>{" "}
-      <IconButton onClick={openTransferDialog}>
+
+      <IconButton edge='start' size='small' onClick={openTransferDialog}>
         <DoubleArrowIcon fontSize="small" />
       </IconButton>{" "}
-      {deleteLock ?
-        <IconButton onClick={handleDeleteClick} >
-          <DeleteIcon fontSize="small" /> (<LockIcon fontSize='small' />)
-        </IconButton> :
-        <IconButton onClick={handleDeleteClick} >
-          <DeleteIcon color='secondary' fontSize="small" /> (<LockOpenIcon fontSize="small" />)
-        </IconButton>}
+
+      <IconButton edge='start' size='small' onClick={handleDeleteClick} >
+        <DeleteIcon fontSize="small" color={deleteLock ? 'inherit' : 'secondary'} />
+      </IconButton>
+
     </div>
   )
 }

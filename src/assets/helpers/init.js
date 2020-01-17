@@ -19,25 +19,24 @@ export default (namesNum, tasksNum) => {
   const getNewUserId = () => userId++
   const getNewTaskId = () => taskId++
 
-
+  //TODO: a revoir avec les changements récents des règles d'attributs
+  // Utiliser les appels api pour l'init ou pas?
   const createTask = (taskText) => {
-    //Une tâche ne peut pas être 'completed' sans être 'focused', on le prend en compte pendant la génération des valeurs initiales
-    const fixedRandomValue = Math.floor(Math.random() * 3)
-    const randomUser = randomValueFromArray(fakeUserssArray)
+    const randomUser = randomValueFromArray(fakeUsersArray)
     return (
       {
         id: getNewTaskId(),
         userName: randomUser.name,
         userId: randomUser.id,
         text: taskText,
-        completed: fixedRandomValue ? false : (Math.floor(Math.random() * 2) ? false : true),
-        urgent: Math.floor(Math.random() * 3) ? false : true,
-        focus: fixedRandomValue ? false : true
+        completed: false,
+        urgent: false,
+        focus: false
       })
   }
 
   const createUser = (name) => {
-    const roles = ['Manager', 'Designer', 'Comptable', 'CEO', 'CSO', 'DRH', 'R&D', 'Développeur front', 'Développeur front']
+    const roles = ['Manager', 'Designer', 'Comptable', 'CEO', 'CSO', 'DRH', 'R&D', 'Développeur front', 'Développeur back', 'Chef de projet']
     return (
       {
         id: getNewUserId(),
@@ -60,12 +59,29 @@ export default (namesNum, tasksNum) => {
 
   const initialUserNames = ['Eloi', 'George Foreman', 'Dmitri Mendeleev', '吕小军',]
     .map(name => createUser(name))
-  const fakeUserssArray = fakeDataGen(initialUserNames, createUser, namesNum)
+  const fakeUsersArray = fakeDataGen(initialUserNames, createUser, namesNum)
 
   let initialTasks = ['Relancer le fournisseur pour savoir les dates de livraison', 'Régler la facture du fournisseur', 'Refaire du café', "Traduire la notice d'utilisation en anglais"]
     .map(task => createTask(task))
 
+  const trackFocus = {}
+  // Les utilisateurs ne peuvent avoir qu'une seule de leur task Focus
   const fakeTasksArray = fakeDataGen(initialTasks, createRandomTask, tasksNum)
+    .map(x => {
+      if (Math.random() < .3) {
+        x.urgent = true;
+      }
+      if (Math.random() < .3) {
+        x.completed = true;
+      }
+      if (!trackFocus[x.userId] && Math.random() < .3) {
+        x.focus = true
+        trackFocus[x.userId] = true
+      }
+      return x
+    })
 
-  return [fakeUserssArray, fakeTasksArray]
+
+
+  return [fakeUsersArray, fakeTasksArray]
 }

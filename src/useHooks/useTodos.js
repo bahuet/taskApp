@@ -61,7 +61,7 @@ export default (log, initialValues = []) => {
             (x.id === taskId ? { ...x, focus: !x.focus } :
               { ...x, focus: false }) : x)
           setTodoList(newTodos)
-          log.addToLog(`${todo.userName} (${todo.userId})`, `focus set to true`, taskId, getTodo(taskId).text)
+          log.addToLog(`${todo.userName} (${todo.userId})`, `toggled focus`, taskId, getTodo(taskId).text)
         }
       }
 

@@ -43,13 +43,14 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
 
   const openCardMenu = event => {
     setAnchorEl(event.currentTarget);
-  };
+  }
 
   const closeCardMenu = () => {
     setAnchorEl(null);
-  };
+  }
 
-  const avatarUrl = require(`../assets/img/avatars/${user.avatar}`)
+  //const avatarUrl = require(`src/assets/img/avatars/${user.avatar}`)
+  const avatarUrl = `/img/avatars/${user.avatar}`
 
   return (
     <>
@@ -78,6 +79,7 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
             </List>
             : `Cet utilisateur n'a pas de tâches`}
         </CardContent>
+
         {admin && <CardActions>
           <CreateTask user={user} userTodos={userTodos} actions={actions}
             setNotification={setNotification} />
