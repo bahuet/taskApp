@@ -42,6 +42,7 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
   const [itemFocused, setItemFocus] = useState(false)
   const [transferUserDialogStatus, setTransferUserDialogStatus] = useState(false)
 
+  const [deleteLock, setDeleteLock] = useState(true)
 
   const openTransferDialog = () => {
     setTransferUserDialogStatus(true)
@@ -60,37 +61,44 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
     [classes.focused]: todo.focus
   })
 
+  const handleEnter = () => {
+    setItemFocus(true)
+  }
+
+  const handleLeave = () => {
+    setItemFocus(false)
+    setDeleteLock(true)
+
+  }
   return (
     <>
-      <ClickAwayListener onClickAway={() => setItemFocus(false)}>
-        <ListItem
-          className={listItemStyle}
+      <ListItem
+        className={listItemStyle}
 
-          dense
-          divider
-          onMouseEnter={() => setItemFocus(true)}
-          onMouseLeave={() => setItemFocus(false)}
-          selected={itemFocused}
-        >
+        dense
+        divider
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        selected={itemFocused}
+      >
 
-          {todo.urgent && <Tooltip title="Marquer urgent">
-            <ListItemIcon >
-              <WarningIcon color='secondary' fontSize='large' />
-            </ListItemIcon></Tooltip>}
+        {todo.urgent && <Tooltip title="Cette tâche est urgente">
+          <ListItemIcon >
+            <WarningIcon color='secondary' fontSize='large' />
+          </ListItemIcon></Tooltip>}
 
-          <ListItemText primary={todo.text} className={classes.multiline} />
-          <div style={{ visibility: itemFocused ? 'visible' : 'hidden' }}>
+        <ListItemText primary={todo.text} className={classes.multiline} />
+        <div style={{ visibility: itemFocused ? 'visible' : 'hidden' }}>
 
-            {admin ?
-              <AdminActionIcons openTransferDialog={openTransferDialog} actions={actions}
-                todo={todo} user={user} userList={userList} setNotification={setNotification} /> :
-              <UserActionIcons actions={actions} setFocus={setFocus} todo={todo} setNotification={setNotification} />
-            }
-          </div>
+          {admin ?
+            <AdminActionIcons openTransferDialog={openTransferDialog} actions={actions}
+              todo={todo} user={user} userList={userList} deleteLock={deleteLock} setDeleteLock={setDeleteLock} setNotification={setNotification} /> :
+            <UserActionIcons actions={actions} setFocus={setFocus} todo={todo} setNotification={setNotification} />
+          }
+        </div>
 
-        </ListItem>
+      </ListItem>
 
-      </ClickAwayListener>
       <TransferTaskDialog todo={todo} userList={userList} user={user}
         open={transferUserDialogStatus} closeDialog={() => setTransferUserDialogStatus(false)}
         handleTransfer={handleTransfer} setNotification={setNotification} />

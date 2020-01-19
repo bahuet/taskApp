@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  IconButton,
+  IconButton, Tooltip
 } from "@material-ui/core";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
@@ -16,16 +16,23 @@ export default ({ actions, todo, setFocus, setNotification }) => {
     setNotification(`"${todo.text}" a été marqué "Terminé".`)
 
   };
-
+  const focusTooltip = todo.focus ? 'Enlever "En Cours"' : 'Marquer "En cours"'
+  const completedTooltip = todo.completed ? 'Enlever "Terminé"' : 'Marquer "Terminé"'
 
   return (
     <div>
-      <IconButton size='small' onClick={handleFocusClick}>
-        <CenterFocusStrongIcon fontSize="small" />
-      </IconButton>
-      <IconButton size='small' onClick={handleCompletedClick}>
-        <AssignmentTurnedInIcon fontSize="small" />
-      </IconButton>
+
+      <Tooltip title={focusTooltip}>
+        <IconButton size='small' onClick={handleFocusClick}>
+          <CenterFocusStrongIcon fontSize="small" />
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title={completedTooltip}>
+        <IconButton size='small' onClick={handleCompletedClick}>
+          <AssignmentTurnedInIcon fontSize="small" />
+        </IconButton>
+      </Tooltip>
     </div>
   )
 }

@@ -48,7 +48,6 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
   const closeCardMenu = () => {
     setAnchorEl(null);
   }
-
   //const avatarUrl = require(`src/assets/img/avatars/${user.avatar}`)
   const avatarUrl = `/img/avatars/${user.avatar}`
 

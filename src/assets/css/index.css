@@ -15,14 +15,12 @@ a.chosen {
 
 .bg {
   position: relative;
-  margin-top: 0em;
-  margin-bottom: 0em;
+  width: 100%
 }
 
 .elt {
   color: #fff;
   position: absolute;
-
 }
 
 .elt.a {

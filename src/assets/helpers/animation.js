@@ -18,11 +18,11 @@ export default () => {
     target = { x: width / 2, y: height / 2 };
 
     largeHeader = document.getElementById('large-header');
-    largeHeader.style.height = (height + 'px')*.2;
+    largeHeader.style.height = (height + 'px') * .2;
 
     canvas = document.getElementById('demo-canvas');
     canvas.width = width;
-    canvas.height = height*.2;
+    canvas.height = height * .2;
     ctx = canvas.getContext('2d');
 
     // create points
@@ -104,7 +104,7 @@ export default () => {
 
   function resize() {
     width = window.innerWidth;
-    height = window.innerHeight;
+    height = window.innerHeight * .2;
     largeHeader.style.height = height + 'px';
     canvas.width = width;
     canvas.height = height;

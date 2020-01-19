@@ -13,6 +13,7 @@ const Layout = (props) => {
     animation()
   }, [])
 
+  // Pour afficher les élements par dessus le canvas, j'ai du les mettre en "position: absolute" 
 
   return (
     <Paper
@@ -40,8 +41,8 @@ const Layout = (props) => {
             </div>
 
             <div className="elt c">
-              <Button target="_blank" href='https://github.com/bahuet/todo-app' color="inherit" variant="outlined" >
-                <GitHubIcon />  Code source
+              <Button target="_blank" href='https://github.com/bahuet/todo-app' color="inherit" variant="outlined" startIcon={<GitHubIcon />}>
+                Code source
           </Button>
             </div>
 

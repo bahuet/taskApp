@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  IconButton,
+  IconButton, Tooltip
 } from "@material-ui/core";
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
@@ -8,8 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 
-export default ({ openTransferDialog, actions, todo, setNotification }) => {
-  const [deleteLock, setDeleteLock] = useState(true)
+export default ({ openTransferDialog, actions, todo, setNotification, deleteLock, setDeleteLock }) => {
   const handleUrgentClick = () => {
     actions.changeProperty(todo.id, 'urgent', !todo.urgent)
     setNotification(`"${todo.text}"  ${todo.urgent ? `n'est plus ` : `a été `}marqué Urgent.`)
@@ -23,25 +22,34 @@ export default ({ openTransferDialog, actions, todo, setNotification }) => {
     } else {
       actions.deleteTodo(todo.id)
       setNotification(`"${todo.text}" a été supprimé.`)
+      setDeleteLock(true)
     }
-
   };
+
+  const urgentToolTip = todo.urgent ? 'Enlever "Urgent"' : 'Marquer "Urgent"'
+
+  const deleteToolTip = deleteLock ? `Supprimer 🔒` : 'Supprimer ⚠️'
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
 
-      <IconButton edge='start' size='small' onClick={handleUrgentClick} >
-        <ReportProblemIcon fontSize="small" />
-      </IconButton>{" "}
+      <Tooltip title={urgentToolTip}>
+        <IconButton edge='start' size='small' onClick={handleUrgentClick} >
+          <ReportProblemIcon fontSize="small" />
+        </IconButton>
+      </Tooltip>
 
-      <IconButton edge='start' size='small' onClick={openTransferDialog}>
-        <DoubleArrowIcon fontSize="small" />
-      </IconButton>{" "}
+      <Tooltip title="Transférer">
+        <IconButton edge='start' size='small' onClick={openTransferDialog}>
+          <DoubleArrowIcon fontSize="small" />
+        </IconButton>
+      </Tooltip>
 
-      <IconButton edge='start' size='small' onClick={handleDeleteClick} >
-        <DeleteIcon fontSize="small" color={deleteLock ? 'inherit' : 'secondary'} />
-      </IconButton>
-
+      <Tooltip title={deleteToolTip}>
+        <IconButton edge='start' size='small' onClick={handleDeleteClick} >
+          <DeleteIcon fontSize="small" color={deleteLock ? 'inherit' : 'secondary'} />
+        </IconButton>
+      </Tooltip>
     </div>
   )
 }
