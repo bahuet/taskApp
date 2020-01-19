@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "array-move": "^2.2.1",
     "clsx": "^1.0.4",
+    "gsap": "^3.0.5",
     "material-ui-popup-state": "^1.5.1",
     "pure-css3-animated-border": "^1.0.0",
     "react": "^16.12.0",

@@ -5,7 +5,7 @@ import TransferTaskDialog from './AdminComponents/TransferTaskDialog'
 import clsx from 'clsx'
 
 import { makeStyles } from "@material-ui/core/styles"
-import { ListItem, ListItemText, ClickAwayListener, Checkbox, ListItemIcon } from '@material-ui/core'
+import { ListItem, ListItemText, ClickAwayListener, Checkbox, ListItemIcon, Tooltip } from '@material-ui/core'
 import { green } from '@material-ui/core/colors';
 import WarningIcon from '@material-ui/icons/Warning'
 
@@ -73,9 +73,10 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
           selected={itemFocused}
         >
 
-          {todo.urgent && <ListItemIcon >
-            <WarningIcon color='secondary' />
-          </ListItemIcon>}
+          {todo.urgent && <Tooltip title="Marquer urgent">
+            <ListItemIcon >
+              <WarningIcon color='secondary' fontSize='large' />
+            </ListItemIcon></Tooltip>}
 
           <ListItemText primary={todo.text} className={classes.multiline} />
           <div style={{ visibility: itemFocused ? 'visible' : 'hidden' }}>

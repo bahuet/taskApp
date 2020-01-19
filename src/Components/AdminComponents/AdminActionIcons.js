@@ -12,7 +12,7 @@ export default ({ openTransferDialog, actions, todo, setNotification }) => {
   const [deleteLock, setDeleteLock] = useState(true)
   const handleUrgentClick = () => {
     actions.changeProperty(todo.id, 'urgent', !todo.urgent)
-    setNotification(`"${todo.text}" a été marqué "Urgent".`)
+    setNotification(`"${todo.text}"  ${todo.urgent ? `n'est plus ` : `a été `}marqué Urgent.`)
   };
 
 

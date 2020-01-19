@@ -25,7 +25,7 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList, setNo
       open={open}
       onClose={handleClose}
     >
-      <DialogTitle>{`Transfer de tâche`}</DialogTitle>
+      <DialogTitle>{`Transfert de tâche`}</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Choisissez l'utilisateur à qui transférer la tâche: "{todo.text}"

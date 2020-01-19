@@ -11,11 +11,11 @@ import {
 
 export default ({ closeCardMenu, anchorEl, deleteUser, editUser, user, userTodos, setNotification }) => {
 
-  const DELETE_USER = "Supprimer l'utilisateur"
   const EDIT_USER = "Modifier l'utilisateur"
+  const DELETE_USER = "Supprimer l'utilisateur"
 
-  const [deleteUserDialogStatus, setDeleteUserDialogStatus] = useState(false)
   const [editUserDialogStatus, setEditUserDialogStatus] = useState(false)
+  const [deleteUserDialogStatus, setDeleteUserDialogStatus] = useState(false)
 
   const open = Boolean(anchorEl)
 
@@ -38,6 +38,9 @@ export default ({ closeCardMenu, anchorEl, deleteUser, editUser, user, userTodos
         </MenuItem>
         <MenuItem onClick={() => setDeleteUserDialogStatus(true)}>
           {DELETE_USER}
+        </MenuItem>
+        <MenuItem onClick={closeCardMenu}>
+          Annuler
         </MenuItem>
 
       </Menu>
