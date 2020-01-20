@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import DeleteUserDialog from './DeleteUserDialog'
-import EditUserDialog from './EditUserDialog'
+import DeleteUserDialog from '../Dialogs/DeleteUserDialog'
+import EditUserDialog from '../Dialogs/EditUserDialog'
 
 import {
   Menu,

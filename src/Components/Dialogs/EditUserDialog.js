@@ -6,6 +6,8 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
 
   const nameField = useInput(user.name)
   const roleField = useInput(user.role)
+  const trimmedName = nameField.input.trim()
+  const trimmedRole = roleField.input.trim()
 
   const handleClose = () => {
     closeDialog()
@@ -14,13 +16,13 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
     roleField.clear(user.role)
   }
   const handleConfirm = () => {
-    editUser(nameField.input, roleField.input)
+    editUser(trimmedName, trimmedRole)
     closeDialog()
     closeCardMenu()
     setNotification(`L'utilisateur a été modifié ! Nouvelles valeurs: ${nameField.input} : ${roleField.input}`)
   }
 
-
+  const modified = (trimmedName !== user.name) || (trimmedRole !== user.role)
   return (
     <>
 
@@ -47,7 +49,7 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
             <Button onClick={handleClose} >
               Annuler
           </Button>
-            <Button onClick={handleConfirm} variant="contained" color="primary" autoFocus>
+            <Button onClick={handleConfirm} variant="contained" color="primary" disabled={!modified} autoFocus>
               Confirmer
           </Button>
           </DialogActions>

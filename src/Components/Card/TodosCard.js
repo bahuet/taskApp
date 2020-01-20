@@ -1,13 +1,12 @@
 import React, { useState } from "react"
-import TodoCardMenu from './AdminComponents/TodoCardMenu'
-import TodoListItem from './ToDoListItem'
+import TodoCardMenu from './TodoCardMenu'
+import TodoListItem from './CardItems/ToDoListItem'
 
 import { makeStyles } from "@material-ui/core/styles"
-import { red, green } from "@material-ui/core/colors"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import NoteAddIcon from "@material-ui/icons/NoteAdd"
 
-import CreateTask from './AdminComponents/CreateTask'
+import CreateTaskDialog from '../Dialogs/CreateTaskDialog'
 import {
   Card,
   CardHeader,
@@ -19,7 +18,8 @@ import {
   Avatar,
   IconButton,
   ClickAwayListener,
-  Button
+  Button,
+  Tooltip
 } from "@material-ui/core";
 
 
@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
   multiline: {
     wordWrap: "break-word"
   },
+  right: {
+    marginLeft: "auto"
+  },
 
 }))
 
@@ -44,13 +47,15 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
   const openCardMenu = event => {
     setAnchorEl(event.currentTarget);
   }
-
   const closeCardMenu = () => {
     setAnchorEl(null);
   }
+
+  const [createTaskStatus, setCreateTaskStatus] = useState(false);
+  const [mouseOverNewTaskButton, setMouseOverNewTaskButton] = useState(false)
   //const avatarUrl = require(`src/assets/img/avatars/${user.avatar}`)
   const avatarUrl = `/img/avatars/${user.avatar}`
-
+  const TooltipText = `Ajouter une tâche à ${user.name}`
   return (
     <>
       <Card className={classes.card} elevation={3}>
@@ -76,18 +81,25 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
                 )
               })}
             </List>
-            : `Cet utilisateur n'a pas de tâches`}
+            : <p style={{ color: 'grey' }}>Cet utilisateur n'a pas de tâches</p>}
         </CardContent>
 
         {admin && <CardActions>
-          <CreateTask user={user} userTodos={userTodos} actions={actions}
-            setNotification={setNotification} />
+          <Tooltip title={TooltipText} >
+            <IconButton onClick={() => setCreateTaskStatus(true)} className={classes.right}
+              onMouseEnter={() => setMouseOverNewTaskButton(true)} onMouseLeave={() => setMouseOverNewTaskButton(false)}>
+              <NoteAddIcon fontSize="large" style={mouseOverNewTaskButton ? { color: 'green' } : {}} />
+            </IconButton>
+          </Tooltip>
+
         </CardActions>}
       </Card>
       <TodoCardMenu closeCardMenu={closeCardMenu} anchorEl={anchorEl}
         deleteUser={deleteUser} editUser={editUser} user={user} userTodos={userTodos}
         setNotification={setNotification} />
-
+      <CreateTaskDialog user={user} open={createTaskStatus} handleClose={() => setCreateTaskStatus(false)}
+        userTodos={userTodos} actions={actions}
+        setNotification={setNotification} />
     </>
   );
 };

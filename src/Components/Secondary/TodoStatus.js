@@ -1,0 +1,41 @@
+import React from 'react'
+import { Typography, Grid } from '@material-ui/core'
+import { CheckCircle } from '@material-ui/icons'
+
+const TodoStatus = ({ userTodos }) => {
+  const total = userTodos.reduce((a, c) => a + 1, 0)
+  const completed = userTodos.reduce((a, c) => c.completed ? a + 1 : a, 0)
+  let output
+  if (total === 0) {
+    output = (
+      <Typography variant="h6" color='secondary' gutterBottom>
+        La liste est vide
+      </Typography>
+    )
+  } else if (total === completed) {
+    output = (
+      <Grid container direction="row" alignItems="center" justifyContent="flex-end" style={{ backgroundColor: 'green', color: 'white' }}>
+        <Grid item>
+          <CheckCircle fontSize="large" />  </Grid>
+        <Grid item>
+          <Typography variant="h6" gutterBottom>
+            Toutes les tâches sont terminées!
+  </Typography>  </Grid>
+      </Grid>
+    )
+  } else {
+    output =
+      (
+
+        <Typography variant="h6" color='primary' gutterBottom>
+          Liste des tâches à faire: ({completed} / {total})
+      </Typography>
+      )
+  }
+
+  return (
+    <div>{output}</div>
+  )
+}
+
+export default TodoStatus

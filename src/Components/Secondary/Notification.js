@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   close: {
     padding: theme.spacing(0.5),
   },
-}));
+}))
 
 export default ({ notif }) => {
   const classes = useStyles();

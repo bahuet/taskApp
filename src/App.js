@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import useUsers from './useHooks/useUsers'
-import Layout from './Components/Layout'
-import Notification from './Components/Notification'
-import MainRoutes from './Components/MainRoutes'
+import Layout from './Components/Secondary/Layout'
+import Notification from './Components/Secondary/Notification'
+import MainRoutes from './Components/Secondary/MainRoutes'
 import useLog from './useHooks/useLog'
 import {
   BrowserRouter as Router,

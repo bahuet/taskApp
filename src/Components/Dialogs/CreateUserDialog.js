@@ -6,31 +6,25 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
-import { TextField, Button, Grid, InputLabel, Select, MenuItem, Box, Fab, FormControl, FormHelperText } from '@material-ui/core'
+import { TextField, Button, Dialog, InputLabel, Select, MenuItem, Box, Fab, FormControl, FormHelperText, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-  },
-}))
+
 
 //Dialog? Ou bien inline textfield?
 
-export default ({ users, setNotification }) => {
-  const classes = useStyles();
+export default ({ users, open, closeDialog, setNotification }) => {
 
   const name = useInput()
   const role = useInput()
 
   const roleList = [...new Set(users.userList.map(x => x.role))]
 
+
+  const trimmedName = name.input.trim()
+  const trimmedRole = role.input.trim()
+
   const onButtonClick = e => {
     e.preventDefault()
-    const trimmedName = name.input.trim()
-    const trimmedRole = role.input.trim()
     if (!trimmedName) {
       alert(`Merci d'entrer le nom d'utilisateur`)
       return;
@@ -48,9 +42,15 @@ export default ({ users, setNotification }) => {
     name.clear()
     users.addUser(trimmedName, trimmedRole)
     setNotification(`L'utilisateur ${trimmedName} (${trimmedRole}) a été créé.`)
-
-
   }
+
+
+  const handleClose = () => {
+    role.clear()
+    name.clear()
+    closeDialog()
+  }
+
 
   // On utilise exceptionnellement une ref pour le focus du textfield
   const [textFieldActive, setTextFieldActive] = useState(false)
@@ -62,31 +62,32 @@ export default ({ users, setNotification }) => {
     }, 100)
   }
 
-
+  const handleSelectChange = e => {
+    setTextFieldActive(false)
+    role.onChange(e)
+  }
 
   return (
-    <Grid container direction="row" alignItems="center">
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle >Créer un nouvel utilisateur</DialogTitle>
+      <DialogContent>
 
-      <Grid item>
-        <FormControl>
-          <TextField label="Nom de l'utilisateur" value={name.input} onChange={name.onChange} />
-        </FormControl>
-      </Grid>
+        <DialogActions>
+          <TextField label="Nom de l'utilisateur" variant="filled" value={name.input} onChange={name.onChange} />
+        </DialogActions>
 
-      <Grid item>
-        <FormControl >
-          <InputLabel >Rôle</InputLabel>
-          <Select value={role.input} onChange={role.onChange}        >
-            {roleList.map((role, i) => <MenuItem value={role} key={role + i}>{role}</MenuItem>)}
-          </Select>
-          <FormHelperText>Choisir un rôle existant</FormHelperText>
-        </FormControl>
-      </Grid>
-
-      <Grid item>
-        <FormControl>
+        <DialogActions>
+          <FormControl >
+            <InputLabel >Choisir parmis les rôles existants</InputLabel>
+            <Select variant="filled" value={role.input} onChange={handleSelectChange}        >
+              {roleList.map((role, i) => <MenuItem value={role} key={role + i}>{role}</MenuItem>)}
+            </Select>
+            <FormHelperText>Choisir un rôle existant</FormHelperText>
+          </FormControl >
+          ou
           <TextField
             label="Rôle"
+            variant="filled"
             onClick={setActiveAndFocus}
             inputRef={textInput}
             disabled={!textFieldActive}
@@ -94,14 +95,15 @@ export default ({ users, setNotification }) => {
             value={role.input}
             helperText="Créer un nouveau rôle"
           />
-        </FormControl>
-      </Grid>
+        </DialogActions>
 
-      <Grid item>
-        <Button onClick={onButtonClick}> Créer l'utilisateur</Button>
-      </Grid>
+        <DialogActions>
+          <Button variant="contained" color='primary' onClick={onButtonClick} disabled={Boolean(!trimmedName)}> Créer l'utilisateur</Button>
+        </DialogActions>
+      </DialogContent>
 
-    </Grid >
+    </Dialog>
+
 
   )
 }

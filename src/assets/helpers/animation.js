@@ -13,15 +13,17 @@ export default () => {
   addListeners();
 
   function initHeader() {
-    width = window.innerWidth;
+    // clientWidth = largeur sans la scrollbar, si on utilise innerWidth ca crée un décalage quand la scrollbar apparait
+    //width = window.innerWidth;
+    width = document.body.clientWidth;
     height = window.innerHeight;
     target = { x: width / 2, y: height / 2 };
 
     largeHeader = document.getElementById('large-header');
     largeHeader.style.height = (height + 'px') * .2;
 
-    canvas = document.getElementById('demo-canvas');
-    canvas.width = width;
+    canvas = document.getElementById('animation-canvas');
+    canvas.width = width * 1;
     canvas.height = height * .2;
     ctx = canvas.getContext('2d');
 

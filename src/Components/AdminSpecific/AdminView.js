@@ -1,15 +1,21 @@
-import React from 'react'
-import CreateUser from './CreateUser'
+import React, { useState } from 'react'
+import CreateUserDialog from './CreateUserDialog'
 import useInput from '../../useHooks/useInput'
-import { Typography, TextField, Grid, InputAdornment } from "@material-ui/core";
+import { Typography, TextField, Grid, InputAdornment, Button, Tooltip, IconButton } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import TodosCard from '../TodosCard'
+import TodosCard from '../Card/TodosCard'
+import CloseIcon from '@material-ui/icons/Close';
 
 const AdminView = ({ users, todos, setNotification }) => {
 
+  const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
+
+
   // Search filter
   const tasksFilter = useInput()
+  console.log(`tasksFilter.input: ${tasksFilter.input}`)
 
+  // case insensitive + les accents sont ignorés
   const filteredTasks = todos.todoList
     .filter(td => td.text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       .includes(tasksFilter.input.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")))
@@ -20,12 +26,16 @@ const AdminView = ({ users, todos, setNotification }) => {
   const filteredUsers = tasksFilter.input ? users.userList.filter(u => filteredUserNames.includes(u.name)) : users.userList
 
 
-  // TODO: un peu brouillon 
+  // Un peu brouillon 
+  // Extract search box into its own external component?
 
   return (
-    <div>
+    <div style={{ padding: '1em', margin: '0 0 0 0' }}>
       <Typography variant='h4'> Administration panel </Typography>
-      <CreateUser users={users} setNotification={setNotification} />
+      <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
+        Créer un nouvel utilisateur</Button>
+
+
       <Grid container spacing={2}
         direction="row"
         justify="flex-start"
@@ -39,6 +49,16 @@ const AdminView = ({ users, todos, setNotification }) => {
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchIcon />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end" >
+                  {tasksFilter.input ?
+                    <IconButton size='small' onClick={tasksFilter.clear}>
+                      <CloseIcon fontSize="small" />
+                    </IconButton>
+                    : ''}
+
                 </InputAdornment>
               )
             }} />
@@ -57,6 +77,10 @@ const AdminView = ({ users, todos, setNotification }) => {
 
       </Grid>
       {filteredUsers.length === 0 ? <Typography variant='h5'>Pas de résultats</Typography> : null}
+      <CreateUserDialog users={users}
+        open={createUserDialogStatus}
+        closeDialog={() => setCreateUserDialogStatus(false)}
+        setNotification={setNotification} />
     </div >
   )
 }

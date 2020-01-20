@@ -1,10 +1,10 @@
 import React from 'react';
-import UserList from './UserList'
-import Home from './Home'
-import UserView from './UserComponents/UserView'
-import AdminView from './AdminComponents/AdminView'
+import UserList from '../MainPages/UserList'
+import Home from '../MainPages/Home'
+import UserView from '../MainPages/UserView'
+import AdminView from '../MainPages/AdminView'
 import NotFound from './NotFound'
-import LogList from './LogList'
+import LogList from '../MainPages/LogList'
 import { Typography } from "@material-ui/core"
 import {
   BrowserRouter as Router,

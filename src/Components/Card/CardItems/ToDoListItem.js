@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import AdminActionIcons from './AdminComponents/AdminActionIcons'
-import UserActionIcons from './UserComponents/UserActionIcons'
-import TransferTaskDialog from './AdminComponents/TransferTaskDialog'
+import AdminActionIcons from './AdminActionIcons'
+import UserActionIcons from '../CardItems/UserActionIcons'
+import TransferTaskDialog from '../../Dialogs/TransferTaskDialog'
 import clsx from 'clsx'
 
 import { makeStyles } from "@material-ui/core/styles"

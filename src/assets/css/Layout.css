@@ -1,0 +1,25 @@
+a.chosen {
+  border-bottom: 1px solid #F14B31;
+}
+
+.bg {
+  position: relative;
+}
+
+.elt {
+  color: #fff;
+  position: absolute;
+}
+
+.elt.a {
+  left: 5%;
+}
+
+.elt.b {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.elt.c {
+  right: 5%;
+}
