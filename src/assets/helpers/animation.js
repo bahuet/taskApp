@@ -1,11 +1,12 @@
 import { TweenLite } from 'gsap';
 
 // Code pillé sur codepen, juste un peu modifié pour changer la taille etc
-// Elle a l'air fun cette lib
+// click animation ajoutée pour le fun 
 
 export default () => {
 
   var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
+  var clickAnimation = false
 
   // Main
   initHeader();
@@ -82,8 +83,17 @@ export default () => {
     }
     window.addEventListener('scroll', scrollCheck);
     window.addEventListener('resize', resize);
+    window.addEventListener('mousedown', mouseDown)
+    window.addEventListener('mouseup', mouseUp)
   }
 
+  function mouseDown(e) {
+    clickAnimation = true
+  }
+  function mouseUp(e) {
+    clickAnimation = false
+
+  }
   function mouseMove(e) {
     var posx = 0;
     var posy = 0;
@@ -126,14 +136,14 @@ export default () => {
       for (var i in points) {
         // detect points in range
         if (Math.abs(getDistance(target, points[i])) < 4000) {
-          points[i].active = 0.5;
-          points[i].circle.active = 0.8;
+          points[i].active = clickAnimation ? 0.4 : 0.3;
+          points[i].circle.active = clickAnimation ? .9 : 0.6;
         } else if (Math.abs(getDistance(target, points[i])) < 20000) {
-          points[i].active = 0.1;
-          points[i].circle.active = 0.3;
+          points[i].active = clickAnimation ? 0.12 : 0.08;
+          points[i].circle.active = clickAnimation ? 0.6 : 0.2;
         } else if (Math.abs(getDistance(target, points[i])) < 40000) {
-          points[i].active = 0.02;
-          points[i].circle.active = 0.1;
+          points[i].active = clickAnimation ? 0.1 : 0.02;
+          points[i].circle.active = clickAnimation ? 0.15 : 0.1;
         } else {
           points[i].active = 0;
           points[i].circle.active = 0;
@@ -145,9 +155,11 @@ export default () => {
     }
     requestAnimationFrame(animate);
   }
-
   function shiftPoint(p) {
-    TweenLite.to(p, 1 + 1 * Math.random(), {
+
+    var duration = () => clickAnimation ? .2 + Math.random() : 1.2 + 1 * Math.random()
+
+    TweenLite.to(p, duration(), {
       x: p.originX - 50 + Math.random() * 100,
       y: p.originY - 50 + Math.random() * 100, ease: Circle.easeInOut,
       onComplete: function () {
@@ -163,7 +175,7 @@ export default () => {
       ctx.beginPath();
       ctx.moveTo(p.x, p.y);
       ctx.lineTo(p.closest[i].x, p.closest[i].y);
-      ctx.strokeStyle = 'rgba(156,217,249,' + p.active + ')';
+      ctx.strokeStyle = 'rgba(156,217,249,' + p.active + ')'
       ctx.stroke();
     }
   }

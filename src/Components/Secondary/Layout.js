@@ -28,17 +28,17 @@ const Layout = (props) => {
       <AppBar position="static" style={{ padding: 0, margin: 0 }} >
         <Toolbar id="large-header" className='bg' style={{ padding: 0, margin: 0 }} >
 
-          <div className="elt a">
-            <Typography noWrap color="inherit">Démo Front: APP Gestion de personnel  {' '}
+          <div className="elt a" >
+            <Typography noWrap color="inherit">Démo Front: APP Gestion de personnel
             </Typography>
           </div>
 
           <div className="elt b" >
             <Paper style={{ display: "flex" }}>
-              <Button noWrap component={NavLink} exact to="/" activeClassName="chosen" > Home </Button>
-              <Button noWrap component={NavLink} to="/adminview" activeClassName="chosen"> Adminview </Button>
-              <Button noWrap component={NavLink} to="/users" activeClassName="chosen"> Userview </Button>
-              <Button noWrap component={NavLink} to="/log" activeClassName="chosen"> log </Button>
+              <Button nowrap="true" component={NavLink} exact to="/" activeClassName="chosen" > Home </Button>
+              <Button nowrap="true" component={NavLink} to="/adminview" activeClassName="chosen"> Adminview </Button>
+              <Button nowrap="true" component={NavLink} to="/users" activeClassName="chosen"> Userview </Button>
+              <Button nowrap="true" component={NavLink} to="/log" activeClassName="chosen"> log </Button>
             </ Paper>
           </div>
 

@@ -6,8 +6,8 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
 
   const nameField = useInput(user.name)
   const roleField = useInput(user.role)
-  const trimmedName = nameField.input.trim()
-  const trimmedRole = roleField.input.trim()
+  const trimmedName = nameField.input && nameField.input.trim()
+  const trimmedRole = roleField.input && roleField.input.trim()
 
   const handleClose = () => {
     closeDialog()

@@ -3,7 +3,7 @@ import useInput from '../../useHooks/useInput'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 import { TextField, Button, Dialog, InputLabel, Select, MenuItem, Box, Fab, FormControl, FormHelperText, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
@@ -15,13 +15,14 @@ import { TextField, Button, Dialog, InputLabel, Select, MenuItem, Box, Fab, Form
 export default ({ users, open, closeDialog, setNotification }) => {
 
   const name = useInput()
-  const role = useInput()
+  //Cas exceptionnel plus bas, on utilise useState au lieu de modifier useInput pour l'instant
+  const [role, setRole] = useState('')
 
   const roleList = [...new Set(users.userList.map(x => x.role))]
 
 
-  const trimmedName = name.input.trim()
-  const trimmedRole = role.input.trim()
+  const trimmedName = name.input && name.input.trim()
+  const trimmedRole = role && role.trim()
 
   const onButtonClick = e => {
     e.preventDefault()
@@ -38,7 +39,7 @@ export default ({ users, open, closeDialog, setNotification }) => {
       alert(`L'utilisateur ${trimmedName} existe déja`)
       return;
     }
-    role.clear()
+    setRole('')
     name.clear()
     users.addUser(trimmedName, trimmedRole)
     closeDialog()
@@ -47,59 +48,55 @@ export default ({ users, open, closeDialog, setNotification }) => {
 
 
   const handleClose = () => {
-    role.clear()
+    setRole('')
     name.clear()
     closeDialog()
   }
 
+  // Comportement un peu étrange
+  // Si la valeur est select depuis le menu déroulant, on la récupère avec value depuis <Autocomplete>
 
-  // On utilise exceptionnellement une ref pour le focus du textfield
-  const [textFieldActive, setTextFieldActive] = useState(false)
-  let textInput = useRef(null);
-  const setActiveAndFocus = () => {
-    setTextFieldActive(true)
-    setTimeout(() => {
-      textInput.current.focus();
-    }, 100)
+  const handleRoleChange = (event, value) => {
+    const input = event.target.value ? event.target.value : value
+    setRole(input)
   }
 
-  const handleSelectChange = e => {
-    setTextFieldActive(false)
-    role.onChange(e)
-  }
 
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle >Créer un nouvel utilisateur</DialogTitle>
+
       <DialogContent>
+        <DialogContentText>
+          Entrer le nom et le rôle du nouvel utilisateur
+          </DialogContentText>
+        <TextField fullWidth label="Nom de l'utilisateur" variant="filled" value={name.input} onChange={name.onChange} />
+
+
+        <Autocomplete
+          freeSolo
+          disableClearable
+          options={roleList}
+          onChange={handleRoleChange}
+          renderInput={params => (
+            <TextField
+              onChange={handleRoleChange}
+              {...params}
+              label="Rôle"
+              margin="normal"
+              variant="outlined"
+              fullWidth
+              InputProps={{ ...params.InputProps, type: 'search' }}
+            />
+          )}
+        />
 
         <DialogActions>
-          <TextField label="Nom de l'utilisateur" variant="filled" value={name.input} onChange={name.onChange} />
-        </DialogActions>
-
-        <DialogActions>
-          <FormControl >
-            <InputLabel >Choisir parmis les rôles existants</InputLabel>
-            <Select variant="filled" value={role.input} onChange={handleSelectChange}        >
-              {roleList.map((role, i) => <MenuItem value={role} key={role + i}>{role}</MenuItem>)}
-            </Select>
-            <FormHelperText>Choisir un rôle existant</FormHelperText>
-          </FormControl >
-          ou
-          <TextField
-            label="Rôle"
-            variant="filled"
-            onClick={setActiveAndFocus}
-            inputRef={textInput}
-            disabled={!textFieldActive}
-            onChange={role.onChange}
-            value={role.input}
-            helperText="Créer un nouveau rôle"
-          />
-        </DialogActions>
-
-        <DialogActions>
-          <Button variant="contained" color='primary' onClick={onButtonClick} disabled={Boolean(!trimmedName)}> Créer l'utilisateur</Button>
+          <Button onClick={handleClose} color="primary">
+            Annuler
+          </Button>
+          <Button variant="contained" color='primary' onClick={onButtonClick} disabled={Boolean(!trimmedName)}>
+            Créer l'utilisateur</Button>
         </DialogActions>
       </DialogContent>
 

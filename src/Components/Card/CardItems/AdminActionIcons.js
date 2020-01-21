@@ -7,6 +7,7 @@ import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 
 export default ({ openTransferDialog, actions, todo, setNotification, deleteLock, setDeleteLock }) => {
   const handleUrgentClick = () => {
@@ -28,14 +29,14 @@ export default ({ openTransferDialog, actions, todo, setNotification, deleteLock
 
   const urgentToolTip = todo.urgent ? 'Enlever "Urgent"' : 'Marquer "Urgent"'
 
-  const deleteToolTip = deleteLock ? `Supprimer 🔒` : 'Supprimer ⚠️'
+  const deleteToolTip = deleteLock ? `Supprimer 🔒` : 'Supprimer (action définitive)'
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
 
       <Tooltip title={urgentToolTip}>
         <IconButton edge='start' size='small' onClick={handleUrgentClick} >
-          <ReportProblemIcon fontSize="small" />
+          {todo.urgent ? <ReportProblemOutlinedIcon fontSize="small" /> : <ReportProblemIcon fontSize="small" />}
         </IconButton>
       </Tooltip>
 
