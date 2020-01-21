@@ -24,6 +24,11 @@ const Home = () => {
     </Typography>
 
           <Typography variant="body1" gutterBottom>
+            Tout a été fait depuis zéro, excepté animation.js
+          </Typography>
+
+
+          <Typography variant="body1" gutterBottom>
             L'administrateur crée des utilisateurs, et leur attribue des tâches.
             Les utilisateurs peuvent accéder à leur page personnelle et la liste de leur tâches assignées sera affichée.
             Toute action entraine un changement de l'état de react

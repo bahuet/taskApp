@@ -11,15 +11,34 @@ a.chosen {
   position: absolute;
 }
 
-.elt.a {
-  left: 5%;
+@media only screen and (min-width: 1001px) {
+  .elt.a {
+    left: 2%;
+  }
+  .elt.b {
+    left: 50%;
+    transform: translate(-50%, 0);
+    
+  }
+  .elt.c {
+    right: 2%;
+  }
 }
 
-.elt.b {
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.elt.c {
-  right: 5%;
+@media only screen and (max-width: 1000px) {
+  .elt.a {
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  .elt.b {
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  .elt.c {
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 }

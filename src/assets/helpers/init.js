@@ -57,11 +57,11 @@ export default (namesNum, tasksNum) => {
     return out
   }
 
-  const initialUserNames = ['Eloi', 'George Foreman', 'Dmitri Mendeleev', '吕小军',]
+  const initialUserNames = ['Eloi', 'George Foreman', 'Dmitri Mendeleev', 'Lu Xiaojun',]
     .map(name => createUser(name))
   const fakeUsersArray = fakeDataGen(initialUserNames, createUser, namesNum)
 
-  let initialTasks = ['Relancer le fournisseur pour savoir les dates de livraison', 'Régler la facture du fournisseur', 'Refaire du café', "Traduire la notice d'utilisation en anglais"]
+  let initialTasks = ['Envoyer facture à X', 'Relancer le fournisseur pour savoir les dates de livraison', 'Régler la facture du fournisseur', 'Refaire du café', "Traduire la notice d'utilisation en anglais"]
     .map(task => createTask(task))
 
   const trackFocus = {}

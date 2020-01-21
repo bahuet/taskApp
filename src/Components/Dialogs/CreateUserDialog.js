@@ -41,6 +41,7 @@ export default ({ users, open, closeDialog, setNotification }) => {
     role.clear()
     name.clear()
     users.addUser(trimmedName, trimmedRole)
+    closeDialog()
     setNotification(`L'utilisateur ${trimmedName} (${trimmedRole}) a été créé.`)
   }
 

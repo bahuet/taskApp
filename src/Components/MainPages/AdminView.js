@@ -1,33 +1,34 @@
 import React, { useState } from 'react'
 import CreateUserDialog from '../Dialogs/CreateUserDialog'
 import useInput from '../../useHooks/useInput'
-import { Typography, TextField, Grid, InputAdornment, Button, Tooltip, IconButton } from "@material-ui/core";
-import SearchIcon from '@material-ui/icons/Search';
+import { Typography, TextField, Grid, Button, Tooltip, IconButton } from "@material-ui/core";
 import TodosCard from '../Card/TodosCard'
-import CloseIcon from '@material-ui/icons/Close';
+import SearchBox from '../Secondary/SearchBox'
 
 const AdminView = ({ users, todos, setNotification }) => {
 
   const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
 
-
-  // Search filter
   const tasksFilter = useInput()
-  console.log(`tasksFilter.input: ${tasksFilter.input}`)
 
-  // case insensitive + les accents sont ignorés
+  // Filtre
+  const normalizeString = str => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  const AIncludesB = (stringA, stringB) => normalizeString(stringA).includes(normalizeString(stringB))
+  const getUserRole = userId => users.userList.find(u => u.id === userId).role
+
+  //Logique pour le filtre
+  // Le filtrage est appliqué sur les tasks, user.name, user.role
+  // (mais on ne filtre pas les taches d'un user si son .name ou .role .includes === true) 
   const filteredTasks = todos.todoList
-    .filter(td => td.text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .includes(tasksFilter.input.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")))
+    .filter(task => AIncludesB(task.text, tasksFilter.input)
+      || AIncludesB(task.userName, tasksFilter.input)
+      || AIncludesB(getUserRole(task.userId), tasksFilter.input))
 
-  const filteredUserNames = [...new Set(filteredTasks.map(x => x.userName))]
+  const filteredUsers = users.userList.filter(user =>
+    AIncludesB(user.name, tasksFilter.input)
+    || AIncludesB(user.role, tasksFilter.input)
+    || filteredTasks.map(task => task.userName).includes(user.name))
 
-  // Ternary operator to make sure empty todocards showup when no filter is on
-  const filteredUsers = tasksFilter.input ? users.userList.filter(u => filteredUserNames.includes(u.name)) : users.userList
-
-
-  // Un peu brouillon 
-  // Extract search box into its own external component?
 
   return (
     <div style={{ padding: '1em', margin: '0 0 0 0' }}>
@@ -43,25 +44,7 @@ const AdminView = ({ users, todos, setNotification }) => {
 
         <Grid item xs={12} >
 
-          <TextField label="Chercher"
-            placeholder='ex: "fournisseur"' size="small"
-            variant="filled" onChange={tasksFilter.onChange} value={tasksFilter.input} InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end" >
-                  {tasksFilter.input ?
-                    <IconButton size='small' onClick={tasksFilter.clear}>
-                      <CloseIcon fontSize="small" />
-                    </IconButton>
-                    : ''}
-
-                </InputAdornment>
-              )
-            }} />
+          <SearchBox tasksFilter={tasksFilter} />
 
         </Grid>
 

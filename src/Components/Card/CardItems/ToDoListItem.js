@@ -6,7 +6,6 @@ import clsx from 'clsx'
 
 import { makeStyles } from "@material-ui/core/styles"
 import { ListItem, ListItemText, ClickAwayListener, Checkbox, ListItemIcon, Tooltip } from '@material-ui/core'
-import { green } from '@material-ui/core/colors';
 import WarningIcon from '@material-ui/icons/Warning'
 
 const useStyles = makeStyles(theme => ({
@@ -54,7 +53,7 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
 
     setNotification(`Tâche transférée de ${todo.userName} à ${userName}`)
   }
-
+// clsx pour faire du css dynamique
   const listItemStyle = clsx({
     [classes.listItem]: true,
     [classes.completed]: todo.completed,
