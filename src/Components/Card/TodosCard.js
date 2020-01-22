@@ -19,7 +19,8 @@ import {
   IconButton,
   ClickAwayListener,
   Button,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@material-ui/core";
 
 
@@ -81,14 +82,14 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
                 )
               })}
             </List>
-            : <p style={{ color: 'grey' }}>Cet utilisateur n'a pas de tâches</p>}
+            : <Typography color='textSecondary'>Cet utilisateur n'a pas de tâches</Typography>}
         </CardContent>
 
         {admin && <CardActions>
           <Tooltip title={TooltipText} >
             <IconButton onClick={() => setCreateTaskStatus(true)} className={classes.right}
               onMouseEnter={() => setMouseOverNewTaskButton(true)} onMouseLeave={() => setMouseOverNewTaskButton(false)}>
-              <NoteAddIcon fontSize="large" style={mouseOverNewTaskButton ? { color: 'green' } : {}} />
+              <NoteAddIcon fontSize="large" style={mouseOverNewTaskButton ? { color: 'darkgreen' } : {}} />
             </IconButton>
           </Tooltip>
 

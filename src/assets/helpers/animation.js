@@ -1,7 +1,7 @@
 import { TweenLite } from 'gsap';
 
-// Code pillé sur codepen, juste un peu modifié pour changer la taille etc
-// click animation ajoutée pour le fun 
+// Code pillé sur codepen,  un peu modifié pour changer la taille etc
+// +  clickAnimation ajoutée pour le fun 
 
 export default () => {
 
@@ -136,14 +136,14 @@ export default () => {
       for (var i in points) {
         // detect points in range
         if (Math.abs(getDistance(target, points[i])) < 4000) {
-          points[i].active = clickAnimation ? 0.4 : 0.3;
-          points[i].circle.active = clickAnimation ? .9 : 0.6;
+          points[i].active = clickAnimation ? 0.4 : 0.2;
+          points[i].circle.active = clickAnimation ? .9 : 0.4;
         } else if (Math.abs(getDistance(target, points[i])) < 20000) {
-          points[i].active = clickAnimation ? 0.12 : 0.08;
-          points[i].circle.active = clickAnimation ? 0.6 : 0.2;
+          points[i].active = clickAnimation ? 0.12 : 0.06;
+          points[i].circle.active = clickAnimation ? 0.6 : 0.1;
         } else if (Math.abs(getDistance(target, points[i])) < 40000) {
           points[i].active = clickAnimation ? 0.1 : 0.02;
-          points[i].circle.active = clickAnimation ? 0.15 : 0.1;
+          points[i].circle.active = clickAnimation ? 0.15 : 0.05;
         } else {
           points[i].active = 0;
           points[i].circle.active = 0;

@@ -84,7 +84,7 @@ export default ({ users, open, closeDialog, setNotification }) => {
               {...params}
               label="Rôle"
               margin="normal"
-              variant="outlined"
+              variant="filled"
               fullWidth
               InputProps={{ ...params.InputProps, type: 'search' }}
             />
