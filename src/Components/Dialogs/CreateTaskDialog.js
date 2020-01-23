@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+
 import useInput from '../useHooks/useInput'
 
 import {
@@ -15,7 +16,6 @@ import {
 } from "@material-ui/core"
 
 export default ({ user, open, handleClose, userTodos, actions, setNotification }) => {
-
 
   const [urgentChecked, setUrgentChecked] = useState(false)
   const text = useInput()
@@ -42,11 +42,15 @@ export default ({ user, open, handleClose, userTodos, actions, setNotification }
 
   return (
     <Dialog open={open} onClose={closeDialog}>
+
       <DialogTitle>Ajouter une tâche à {user.name}</DialogTitle>
+
       <DialogContent>
+
         <DialogContentText>
           Actuellement: {activeTasks.length} en cours, dont {activeAndUrgent.length} urgentes.
           </DialogContentText>
+
         <TextField
           value={text.input}
           onChange={text.onChange}
@@ -56,6 +60,7 @@ export default ({ user, open, handleClose, userTodos, actions, setNotification }
           variant="filled"
           fullWidth
         />
+
         <FormControlLabel
           control={
             <Checkbox checked={urgentChecked} onChange={() => setUrgentChecked(!urgentChecked)} />
@@ -64,15 +69,19 @@ export default ({ user, open, handleClose, userTodos, actions, setNotification }
         />
 
       </DialogContent>
+
       <DialogActions>
+
         <Button onClick={closeDialog}>
           Annuler
-              </Button>
+        </Button>
 
         <Button onClick={handleSubmit} disabled={!Boolean(trimmedInput)} variant='contained' color="primary" >
           Ajouter
-              </Button>
+        </Button>
+
       </DialogActions>
+
     </Dialog>
   )
 }

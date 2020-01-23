@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem } from "@material-ui/core";
+import React from 'react'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
 
 export default ({ open, closeDialog, deleteUser, user, userTodos, closeCardMenu, setNotification }) => {
 
@@ -16,27 +16,30 @@ export default ({ open, closeDialog, deleteUser, user, userTodos, closeCardMenu,
   }
 
   return (
-
     <Dialog
       open={open}
       onClose={handleClose}
     >
+
       <DialogTitle>{`Confirmer la suppression de ${user.name}`}</DialogTitle>
+
       <DialogContent>
         <DialogContentText>
           Les {userTodos.length} tâches assignées seront également supprimées.
           </DialogContentText>
       </DialogContent>
+
       <DialogActions>
+
         <Button onClick={handleClose} >
           Annuler
-          </Button>
+        </Button>
+
         <Button onClick={handleConfirm} variant="contained" color="secondary" autoFocus>
           Supprimer
-          </Button>
+        </Button>
+
       </DialogActions>
     </Dialog>
-
   )
 }
-

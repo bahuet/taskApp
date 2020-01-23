@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import useUsers from './useHooks/useUsers'
+
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import init from './assets/helpers/init'
 import Layout from './Components/Secondary/Layout'
 import Notification from './Components/Secondary/Notification'
 import MainRoutes from './Components/Secondary/MainRoutes'
-import useLog from './useHooks/useLog'
-import {
-  BrowserRouter as Router,
-  Route, Switch,
-} from 'react-router-dom'
-import init from './assets/helpers/init'
 
-import useTodos from './useHooks/useTodos'
+import useUsers from './Components/useHooks/useUsers'
+import useTodos from './Components/useHooks/useTodos'
+import useLog from './Components/useHooks/useLog'
 
 const App = () => {
 
@@ -38,7 +37,6 @@ const App = () => {
       </Router>
       {notif ? <Notification key={notif.date} notif={notif.msg} /> : null}
     </div >
-
   )
 }
 

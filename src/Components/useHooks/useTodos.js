@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
 export default (log, initialValues = []) => {
+
   const [todoList, setTodoList] = useState(initialValues)
   const getTodo = (id) => todoList.find(x => x.id === id)
-  
+
   return {
     todoList,
     setTodoList,
@@ -11,7 +12,7 @@ export default (log, initialValues = []) => {
 
     adminActions: {
 
-      addTodo: (userId, userName, text, urgent=false) => {
+      addTodo: (userId, userName, text, urgent = false) => {
         const id = todoList.length > 0 ? Math.max(...todoList.map(x => x.id)) + 1 : 2000000
         const newTodos = [...todoList, { id: id, userId: userId, userName: userName, text: text, completed: false, urgent: urgent, focus: false }]
         setTodoList(newTodos)
@@ -64,10 +65,8 @@ export default (log, initialValues = []) => {
           log.addToLog(`${todo.userName} (${todo.userId})`, `toggled focus`, taskId, getTodo(taskId).text)
         }
       }
-
-
+      
     }
-
   }
 }
 

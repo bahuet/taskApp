@@ -1,23 +1,20 @@
 import React from 'react'
-import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Paper, Typography, Collapse, IconButton } from '@material-ui/core';
-import FolderIcon from '@material-ui/icons/Folder';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import CloseIcon from '@material-ui/icons/Close';
+import { Link } from 'react-router-dom'
 
-import {
-  BrowserRouter as Router,
-  Route, Link, Redirect, withRouter
-} from 'react-router-dom'
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Paper, Collapse, IconButton } from '@material-ui/core'
+import { Alert, AlertTitle } from '@material-ui/lab'
 
+import CloseIcon from '@material-ui/icons/Close'
 
 const UserList = ({ users }) => {
+
   const [open, setOpen] = React.useState(true);
 
   return (
     <div style={{ padding: '1em', margin: '0 0 0 0' }}>
 
       <Collapse in={open}>
-        <Alert severity="warning" 
+        <Alert severity="warning"
           action={
             <IconButton
               color="inherit"
@@ -38,19 +35,19 @@ const UserList = ({ users }) => {
       <List component="nav" >
         {users.userList.map((u, i) => (
           <Paper key={u.id}>
+
             <ListItem button component={Link} to={`/users/${u.name}`} user={u}>
+
               <ListItemAvatar>
                 <Avatar src={`/img/avatars/${u.avatar}`} />
               </ListItemAvatar>
+
               <ListItemText primary={u.name} />
 
             </ListItem>
           </Paper>
-
         ))}
-
       </List>
-
     </div>
   )
 }

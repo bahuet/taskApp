@@ -10,6 +10,7 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList }) => 
   const handleChange = (_, value) => {
     setSelection(value ? value.id : '')
   }
+
   const handleClose = () => {
     closeDialog()
   }
@@ -20,17 +21,19 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList }) => 
     setSelection('')
   }
 
-
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
-    >
+      onClose={handleClose} >
+
       <DialogTitle>{`Transfert de tâche`}</DialogTitle>
+
       <DialogContent>
+
         <DialogContentText>
           Choisissez l'utilisateur à qui transférer la tâche: "{todo.text}"
           </DialogContentText>
+
         <Autocomplete
           options={userList ? userList.filter(u => u.name !== user.name) : []}
           getOptionLabel={user => ` ${user.name}  (${user.role})`}
@@ -42,18 +45,20 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList }) => 
             </>
           )}
         />
-
       </DialogContent>
+
       <DialogActions>
+
         <Button onClick={handleClose} >
           Annuler
-          </Button>
+        </Button>
+
         <Button onClick={handleConfirm} variant="contained" disabled={!Boolean(selection)} color="secondary" autoFocus  >
           Transférer
           </Button>
+
       </DialogActions>
     </Dialog >
-
   )
 }
 

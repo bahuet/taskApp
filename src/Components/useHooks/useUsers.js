@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import getAvatarName from '../assets/helpers/getAvatarName'
+import getAvatarName from '../../assets/helpers/getAvatarName'
 
 export default (log, todos, initialValues = []) => {
   const [userList, setUsersList] = useState(initialValues)

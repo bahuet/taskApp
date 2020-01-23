@@ -1,8 +1,11 @@
 import React from 'react'
+
 import TodosCard from '../Card/TodosCard'
 import TodoStatus from '../Secondary/TodoStatus'
+
+import { Grid } from '@material-ui/core'
+
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Paper } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const UserView = ({ user, userTodos, actions, setNotification }) => {
+export default ({ user, userTodos, actions, setNotification }) => {
   const classes = useStyles();
 
   return (
@@ -28,8 +31,7 @@ const UserView = ({ user, userTodos, actions, setNotification }) => {
         container
         direction="row"
         justify="center"
-        alignItems="stretch"
-      >
+        alignItems="stretch">
 
         <Grid item xs={12}>
           <TodoStatus userTodos={userTodos} className={classes.paper} />
@@ -37,16 +39,12 @@ const UserView = ({ user, userTodos, actions, setNotification }) => {
 
         <Grid item xs={12} >
           <TodosCard user={user} userTodos={userTodos} actions={actions}
-            setFocus={actions.setFocusById(user.id)} 
+            setFocus={actions.setFocusById(user.id)}
             admin={false} setNotification={setNotification}
-           />
+          />
         </Grid>
-
-
 
       </Grid>
     </div>
   )
 }
-
-export default UserView

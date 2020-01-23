@@ -1,9 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
+
+import { Snackbar } from "@material-ui/core"
+
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   close: {
@@ -15,14 +17,12 @@ export default ({ notif }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
-  };
+  }
 
   return (
     <div>
@@ -39,7 +39,6 @@ export default ({ notif }) => {
         }}
         message={<span id="message-id">{notif}</span>}
         action={[
-
           <IconButton
             key="close"
             aria-label="close"

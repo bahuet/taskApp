@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
+
 import DeleteUserDialog from '../Dialogs/DeleteUserDialog'
 import EditUserDialog from '../Dialogs/EditUserDialog'
 
 import {
   Menu,
-  MenuItem,
-  MenuList
+  MenuItem
 } from "@material-ui/core";
-
 
 export default ({ closeCardMenu, anchorEl, deleteUser, editUser, user, userTodos, setNotification }) => {
 

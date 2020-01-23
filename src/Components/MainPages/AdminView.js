@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
+
 import CreateUserDialog from '../Dialogs/CreateUserDialog'
 import useInput from '../useHooks/useInput'
-import { Typography, Grid, Button } from "@material-ui/core";
 import TodosCard from '../Card/TodosCard'
 import SearchBox from '../Secondary/SearchBox'
 
-const AdminView = ({ users, todos, setNotification }) => {
+import { Typography, Grid, Button } from "@material-ui/core";
+
+export default ({ users, todos, setNotification }) => {
 
   const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
-
   const tasksFilter = useInput()
 
   // Filtre
@@ -19,7 +20,7 @@ const AdminView = ({ users, todos, setNotification }) => {
     return user ? user.role : ''
   }
 
-  //Logique pour le filtre
+  // Logique pour le filtre
   // Le filtrage est appliqué sur les tasks, user.name, user.role
   // (mais on ne filtre pas les taches d'un user si son .name ou .role .includes === true) 
   const filteredTasks = todos.todoList
@@ -32,10 +33,8 @@ const AdminView = ({ users, todos, setNotification }) => {
     || AIncludesB(user.role, tasksFilter.input)
     || filteredTasks.map(task => task.userName).includes(user.name))
 
-
   return (
     <div style={{ padding: '1em', margin: '1em' }}>
-
 
       <Grid
         // Menu grid
@@ -43,25 +42,25 @@ const AdminView = ({ users, todos, setNotification }) => {
         direction="row"
         justify="space-around"
         alignItems="center"
-        spacing={4}
-      >
+        spacing={4} >
 
         <Grid item xs={12} style={{ textAlign: 'center' }} >
           <Typography variant='h4'> Administration panel </Typography>
         </Grid>
 
-
         <Grid item >
           <SearchBox tasksFilter={tasksFilter} />
         </Grid>
 
-        <Grid item  >
+        <Grid item >
           <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
             Créer un nouvel utilisateur
-            </Button>
+          </Button>
         </Grid>
 
       </Grid>
+
+
 
       <Grid container
         // TaskCards grid
@@ -70,16 +69,15 @@ const AdminView = ({ users, todos, setNotification }) => {
         justify="center"
         alignItems="stretch"
       >
-
-
         {filteredUsers.map((user) => (
+
           <Grid item key={user.id} >
             <TodosCard user={user} actions={todos.adminActions}
               deleteUser={() => users.deleteUser(user.id)} editUser={users.editUserById(user.id)}
               userTodos={filteredTasks.filter(x => x.userId === user.id)} admin={true} userList={users.userList}
-              setNotification={setNotification}
-            />
+              setNotification={setNotification} />
           </Grid>
+
         ))}
 
         <Grid item >
@@ -87,12 +85,11 @@ const AdminView = ({ users, todos, setNotification }) => {
         </Grid>
 
       </Grid>
+
       <CreateUserDialog users={users}
         open={createUserDialogStatus}
         closeDialog={() => setCreateUserDialogStatus(false)}
         setNotification={setNotification} />
-    </div >
+    </div>
   )
 }
-
-export default AdminView

@@ -1,18 +1,16 @@
 import React from 'react';
+import { Route, Switch, } from 'react-router-dom'
+
 import UserList from '../MainPages/UserList'
 import Home from '../MainPages/Home'
 import UserView from '../MainPages/UserView'
 import AdminView from '../MainPages/AdminView'
 import NotFound from './NotFound'
 import LogList from '../MainPages/LogList'
+
 import { Typography } from "@material-ui/core"
-import {
-  BrowserRouter as Router,
-  Route, Switch,
-} from 'react-router-dom'
 
-const MainRoutes = ({ users, todos, setNotification, log }) => (
-
+export default ({ users, todos, setNotification, log }) => (
   <div>
 
     <Switch>
@@ -34,7 +32,4 @@ const MainRoutes = ({ users, todos, setNotification, log }) => (
       <Route render={() => <NotFound />} />
     </Switch>
   </div>
-
 )
-
-export default MainRoutes

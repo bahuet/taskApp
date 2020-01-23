@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import '../../assets/css/Layout.css'
+import {NavLink} from 'react-router-dom'
+
 import animation from '../../assets/helpers/animation'
 import ToTopButton from './ToTopButton'
 
 import { AppBar, Toolbar, Typography, Paper, Button } from "@material-ui/core";
-import {
-  NavLink, Link
-} from 'react-router-dom'
+
 import GitHubIcon from '@material-ui/icons/GitHub';
-import './LayoutStyle.css'
+
+import '../../assets/css/Layout.css'
+
 // const useStyles = makeStyles(theme => ({
 //   pageBody: {
 //     margin: 0,

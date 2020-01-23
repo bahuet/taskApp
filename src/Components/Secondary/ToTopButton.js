@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Fab, Fade } from "@material-ui/core";
-import Tooltip from '@material-ui/core/Tooltip';
-import UpIcon from '@material-ui/icons/KeyboardArrowUp';
+import React, { useState } from 'react'
+
+import { Fab, Fade, Tooltip } from "@material-ui/core"
+
+import UpIcon from '@material-ui/icons/KeyboardArrowUp'
+
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   absolute: {
@@ -42,4 +44,3 @@ export default () => {
     </Fade>
   )
 }
-

@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { Typography, Paper, Grid, List, ListItem, ListItemText } from "@material-ui/core";
+
 import { makeStyles } from '@material-ui/core/styles';
-import TodosCard from '../Card/TodosCard'
+
 const useStyles = makeStyles({
   root: {
     width: '75%',
@@ -9,20 +11,19 @@ const useStyles = makeStyles({
     margin: '20px auto',
     padding: '20px',
   },
-});
-const Home = () => {
+})
+
+export default () => {
   const classes = useStyles();
 
   return (
-
     <Paper className={classes.root}>
 
       <Grid container >
         <Grid item >
           <Typography variant="h5" gutterBottom>
             Front démo: Gestion de personnel. (En cours de développement)
-
-    </Typography>
+          </Typography>
 
           <Typography variant="body1" gutterBottom>
             Tout a été fait depuis zéro, excepté animation.js
@@ -69,12 +70,8 @@ const Home = () => {
 
           </List>
 
-
         </Grid>
       </Grid>
     </Paper>
   )
 }
-
-
-export default Home

@@ -7,10 +7,16 @@
 # testing
 /coverage
 
+# deploy
+/.firebase
+.firebaserc
+firebase.json
+
 # production
 /build
 
 # misc
+
 /vscode
 .DS_Store
 .env.local

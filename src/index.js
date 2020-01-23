@@ -4,7 +4,5 @@ import './assets/css/index.css';
 import App from './App';
 import 'typeface-roboto';
 
-
-
 ReactDOM.render(<App />, document.getElementById('root'));
 

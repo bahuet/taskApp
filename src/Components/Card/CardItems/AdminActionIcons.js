@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
+
 import {
   IconButton, Tooltip
-} from "@material-ui/core";
-import ReportProblemIcon from '@material-ui/icons/ReportProblem';
-import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
-import DeleteIcon from "@material-ui/icons/Delete";
-import LockIcon from '@material-ui/icons/Lock';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
+} from "@material-ui/core"
+
+import ReportProblemIcon from '@material-ui/icons/ReportProblem'
+import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
+import DeleteIcon from "@material-ui/icons/Delete"
+import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined'
 
 export default ({ openTransferDialog, actions, todo, setNotification, deleteLock, setDeleteLock }) => {
+
   const handleUrgentClick = () => {
     actions.changeProperty(todo.id, 'urgent', !todo.urgent)
     setNotification(`"${todo.text}"  ${todo.urgent ? `n'est plus ` : `a été `}marqué Urgent.`)
-  };
-
+  }
 
   const handleDeleteClick = (e) => {
     if (deleteLock) {
@@ -28,7 +28,6 @@ export default ({ openTransferDialog, actions, todo, setNotification, deleteLock
   };
 
   const urgentToolTip = todo.urgent ? 'Enlever "Urgent"' : 'Marquer "Urgent"'
-
   const deleteToolTip = deleteLock ? `Supprimer 🔒` : 'Supprimer (action définitive)'
 
   return (

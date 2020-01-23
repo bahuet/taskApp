@@ -1,30 +1,25 @@
 import React, { useState } from "react"
+
 import TodoCardMenu from './TodoCardMenu'
 import TodoListItem from './CardItems/ToDoListItem'
-
-import { makeStyles } from "@material-ui/core/styles"
-import MoreVertIcon from "@material-ui/icons/MoreVert"
-import NoteAddIcon from "@material-ui/icons/NoteAdd"
-
 import CreateTaskDialog from '../Dialogs/CreateTaskDialog'
+
 import {
   Card,
   CardHeader,
   CardContent,
   CardActions,
   List,
-  ListItem,
-  ListItemText,
   Avatar,
   IconButton,
-  ClickAwayListener,
-  Button,
   Tooltip,
   Typography,
-  Paper
 } from "@material-ui/core";
 
+import MoreVertIcon from "@material-ui/icons/MoreVert"
+import NoteAddIcon from "@material-ui/icons/NoteAdd"
 
+import { makeStyles } from "@material-ui/core/styles"
 
 
 export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admin, userList, setNotification }) => {

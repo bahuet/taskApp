@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
+
 import useInput from '../useHooks/useInput'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem } from "@material-ui/core";
+
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@material-ui/core";
 
 export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotification }) => {
 
@@ -15,6 +17,7 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
     nameField.set(user.name)
     roleField.set(user.role)
   }
+
   const handleConfirm = () => {
     editUser(trimmedName, trimmedRole)
     closeDialog()
@@ -23,37 +26,45 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
   }
 
   const modified = (trimmedName !== user.name) || (trimmedRole !== user.role)
+
   return (
     <>
       <Dialog
         open={open}
         onClose={handleClose}
       >
+
         <DialogTitle>{`Modifier le nom et le rôle de ${user.name}`}</DialogTitle>
+
         <DialogContent>
+
           <TextField
             value={nameField.input}
             onChange={nameField.onChange}
             margin="dense"
             fullWidth
           />
+
           <TextField
             value={roleField.input}
             onChange={roleField.onChange}
             margin="dense"
             fullWidth
           />
+
           <DialogActions>
+
             <Button onClick={handleClose} >
               Annuler
-          </Button>
+            </Button>
+
             <Button onClick={handleConfirm} variant="contained" color="primary" disabled={!modified} autoFocus>
               Confirmer
-          </Button>
+            </Button>
+
           </DialogActions>
         </DialogContent>
       </Dialog>
     </>
   )
 }
-
