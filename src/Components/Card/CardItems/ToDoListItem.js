@@ -53,7 +53,7 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
 
     setNotification(`Tâche transférée de ${todo.userName} à ${userName}`)
   }
-// clsx pour faire du css dynamique
+  // clsx pour faire du css dynamique
   const listItemStyle = clsx({
     [classes.listItem]: true,
     [classes.completed]: todo.completed,

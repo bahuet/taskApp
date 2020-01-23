@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import useInput from '../../useHooks/useInput'
+import useInput from '../useHooks/useInput'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { makeStyles } from '@material-ui/core/styles';

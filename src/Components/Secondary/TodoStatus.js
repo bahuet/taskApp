@@ -14,19 +14,24 @@ const TodoStatus = ({ userTodos }) => {
     )
   } else if (total === completed) {
     output = (
-      <Grid container direction="row" alignItems="center" justifyContent="flex-end" style={{ backgroundColor: 'green', color: 'white' }}>
+      <Grid container direction="row" justify="center" alignItems="center"
+        style={{ backgroundColor: 'green', color: 'white' }}>
+
         <Grid item>
-          <CheckCircle fontSize="large" />  </Grid>
-        <Grid item>
-          <Typography variant="h6" gutterBottom>
+          <CheckCircle fontSize="large" />
+        </Grid>
+
+        <Grid item >
+          <Typography variant="h6" >
             Toutes les tâches sont terminées!
-  </Typography>  </Grid>
+          </Typography>
+        </Grid>
+
       </Grid>
     )
   } else {
     output =
       (
-
         <Typography variant="h6" color='primary' gutterBottom>
           Liste des tâches à faire: ({completed} / {total})
       </Typography>
@@ -34,7 +39,7 @@ const TodoStatus = ({ userTodos }) => {
   }
 
   return (
-    <div>{output}</div>
+    <div style={{ textAlign: 'center' }} >{output}</div>
   )
 }
 

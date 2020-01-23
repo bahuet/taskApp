@@ -11,10 +11,10 @@ import Paper from '@material-ui/core/Paper';
 const LogList = ({ logList }) => {
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper}  >
       <Table size="small" >
         <TableHead>
-          <TableRow>
+          <TableRow style={{ background: 'lightgrey' }}>
             <TableCell align="right">Timestamp</TableCell>
             <TableCell align="right">User</TableCell>
             <TableCell align="right">Action</TableCell>
@@ -38,7 +38,7 @@ const LogList = ({ logList }) => {
         </TableBody>
 
       </Table>
-    </TableContainer>
+    </TableContainer >
 
   )
 }

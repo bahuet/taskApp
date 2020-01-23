@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 export default ({ tasksFilter }) => {
   return (
     <TextField label="Chercher"
-      placeholder='ex: "Facture" ou "Eloi"' size="small"
+      placeholder='ex: "Facture" ou "George"' size="small"
       variant="filled" onChange={tasksFilter.onChange} value={tasksFilter.input} InputProps={{
         startAdornment: (
           <InputAdornment position="start">

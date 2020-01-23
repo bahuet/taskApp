@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import CreateUserDialog from '../Dialogs/CreateUserDialog'
-import useInput from '../../useHooks/useInput'
-import { Typography, TextField, Grid, Button, Tooltip, IconButton, Fab } from "@material-ui/core";
+import useInput from '../useHooks/useInput'
+import { Typography, Grid, Button } from "@material-ui/core";
 import TodosCard from '../Card/TodosCard'
 import SearchBox from '../Secondary/SearchBox'
 
@@ -34,16 +34,22 @@ const AdminView = ({ users, todos, setNotification }) => {
 
 
   return (
-    <div style={{ padding: '1em', margin: '0 0 0 0' }}>
-      <Typography variant='h4'> Administration panel </Typography>
+    <div style={{ padding: '1em', margin: '1em' }}>
+
 
       <Grid
+        // Menu grid
         container
         direction="row"
         justify="space-around"
-        alignItems="flex-start"
+        alignItems="center"
         spacing={4}
       >
+
+        <Grid item xs={12} style={{ textAlign: 'center' }} >
+          <Typography variant='h4'> Administration panel </Typography>
+        </Grid>
+
 
         <Grid item >
           <SearchBox tasksFilter={tasksFilter} />
@@ -51,19 +57,23 @@ const AdminView = ({ users, todos, setNotification }) => {
 
         <Grid item  >
           <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
-            Créer un nouvel utilisateur</Button>
+            Créer un nouvel utilisateur
+            </Button>
         </Grid>
 
       </Grid>
 
-      <Grid container spacing={2}
-        direction="row"
-        justify="flex-start"
-        alignItems="stretch">
+      <Grid container
+        // TaskCards grid
+        spacing={6}
+        style={{ marginTop: '2em' }}
+        justify="center"
+        alignItems="stretch"
+      >
 
 
         {filteredUsers.map((user) => (
-          <Grid item xs={12} key={user.id}>
+          <Grid item key={user.id} >
             <TodosCard user={user} actions={todos.adminActions}
               deleteUser={() => users.deleteUser(user.id)} editUser={users.editUserById(user.id)}
               userTodos={filteredTasks.filter(x => x.userId === user.id)} admin={true} userList={users.userList}
@@ -72,8 +82,11 @@ const AdminView = ({ users, todos, setNotification }) => {
           </Grid>
         ))}
 
+        <Grid item >
+          {filteredUsers.length === 0 ? <Typography variant='h4' color='textSecondary'>Pas de résultats</Typography> : null}
+        </Grid>
+
       </Grid>
-      {filteredUsers.length === 0 ? <Typography variant='h5'>Pas de résultats</Typography> : null}
       <CreateUserDialog users={users}
         open={createUserDialogStatus}
         closeDialog={() => setCreateUserDialogStatus(false)}

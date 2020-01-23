@@ -20,7 +20,7 @@ export default ({ actions, todo, setFocus, setNotification }) => {
   const completedTooltip = todo.completed ? 'Enlever "Terminé"' : 'Marquer "Terminé"'
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
 
       <Tooltip title={focusTooltip}>
         <IconButton size='small' onClick={handleFocusClick}>

@@ -3,7 +3,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
 
-export default ({ todo, open, handleTransfer, closeDialog, user, userList, setNotification }) => {
+export default ({ todo, open, handleTransfer, closeDialog, user, userList }) => {
 
   const [selection, setSelection] = useState('')
 
@@ -17,6 +17,7 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList, setNo
   const handleConfirm = () => {
     handleTransfer(selection)
     closeDialog()
+    setSelection('')
   }
 
 
@@ -31,7 +32,7 @@ export default ({ todo, open, handleTransfer, closeDialog, user, userList, setNo
           Choisissez l'utilisateur à qui transférer la tâche: "{todo.text}"
           </DialogContentText>
         <Autocomplete
-          options={userList}
+          options={userList ? userList.filter(u => u.name !== user.name) : []}
           getOptionLabel={user => ` ${user.name}  (${user.role})`}
           style={{ width: 300 }}
           onChange={(_, value) => handleChange(_, value)}

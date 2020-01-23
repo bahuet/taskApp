@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import { Fab, Fade } from "@material-ui/core";
 import Tooltip from '@material-ui/core/Tooltip';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
-const useStyles = makeStyles(theme => ({
 
+const useStyles = makeStyles(theme => ({
   absolute: {
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(3),
   },
-}));
+}))
+
 export default () => {
   const classes = useStyles();
   const [visible, setVisible] = useState(false)
@@ -21,7 +21,6 @@ export default () => {
       setVisible(true)
     } else {
       setVisible(false)
-
     }
   }
 
@@ -40,7 +39,6 @@ export default () => {
           <UpIcon />
         </Fab>
       </Tooltip>
-
     </Fade>
   )
 }

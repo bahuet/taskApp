@@ -6,14 +6,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import TodosCard from '../Card/TodosCard'
 import CloseIcon from '@material-ui/icons/Close';
 
-const AdminView = ({ users, todos, setNotification }) => {
+export default ({ users, todos, setNotification }) => {
 
   const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
 
 
   // Search filter
   const tasksFilter = useInput()
-  console.log(`tasksFilter.input: ${tasksFilter.input}`)
 
   // case insensitive + les accents sont ignorés
   const filteredTasks = todos.todoList
@@ -25,13 +24,9 @@ const AdminView = ({ users, todos, setNotification }) => {
   // Ternary operator to make sure empty todocards showup when no filter is on
   const filteredUsers = tasksFilter.input ? users.userList.filter(u => filteredUserNames.includes(u.name)) : users.userList
 
-
-  // Un peu brouillon 
-  // Extract search box into its own external component?
-
   return (
     <div style={{ padding: '1em', margin: '0 0 0 0' }}>
-      <Typography variant='h4'> Administration panel </Typography>
+      <Typography variant='h4'> Administration panel2 </Typography>
       <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
         Créer un nouvel utilisateur</Button>
 
@@ -65,6 +60,9 @@ const AdminView = ({ users, todos, setNotification }) => {
 
         </Grid>
 
+
+
+
         {filteredUsers.map((user) => (
           <Grid item xs={12} key={user.id}>
             <TodosCard user={user} actions={todos.adminActions}
@@ -85,4 +83,3 @@ const AdminView = ({ users, todos, setNotification }) => {
   )
 }
 
-export default AdminView

@@ -1,19 +1,8 @@
 
 import React, { useState } from 'react';
-import useInput from '../../useHooks/useInput'
-import { makeStyles } from "@material-ui/core/styles"
+import useInput from '../useHooks/useInput'
 
 import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  List,
-  ListItem,
-  ListItemText,
-  Avatar,
-  IconButton,
-  ClickAwayListener,
   FormControlLabel,
   Checkbox,
   Button,
@@ -24,7 +13,6 @@ import {
   DialogTitle,
   DialogContent
 } from "@material-ui/core"
-import NoteAddIcon from "@material-ui/icons/NoteAdd"
 
 export default ({ user, open, handleClose, userTodos, actions, setNotification }) => {
 
@@ -47,8 +35,13 @@ export default ({ user, open, handleClose, userTodos, actions, setNotification }
     }
   }
 
+  const closeDialog = () => {
+    text.clear()
+    handleClose()
+  }
+
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={closeDialog}>
       <DialogTitle>Ajouter une tâche à {user.name}</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -72,7 +65,7 @@ export default ({ user, open, handleClose, userTodos, actions, setNotification }
 
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>
+        <Button onClick={closeDialog}>
           Annuler
               </Button>
 

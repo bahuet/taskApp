@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useInput from '../../useHooks/useInput'
+import useInput from '../useHooks/useInput'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem } from "@material-ui/core";
 
 export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotification }) => {
@@ -12,8 +12,8 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
   const handleClose = () => {
     closeDialog()
     closeCardMenu()
-    nameField.clear(user.name)
-    roleField.clear(user.role)
+    nameField.set(user.name)
+    roleField.set(user.role)
   }
   const handleConfirm = () => {
     editUser(trimmedName, trimmedRole)
@@ -25,8 +25,6 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
   const modified = (trimmedName !== user.name) || (trimmedRole !== user.role)
   return (
     <>
-
-
       <Dialog
         open={open}
         onClose={handleClose}

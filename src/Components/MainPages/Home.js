@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Paper, Grid, List, ListItem, ListItemText } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-
+import TodosCard from '../Card/TodosCard'
 const useStyles = makeStyles({
   root: {
     width: '75%',
@@ -16,6 +16,7 @@ const Home = () => {
   return (
 
     <Paper className={classes.root}>
+
       <Grid container >
         <Grid item >
           <Typography variant="h5" gutterBottom>
