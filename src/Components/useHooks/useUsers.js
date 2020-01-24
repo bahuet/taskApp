@@ -47,7 +47,6 @@ export default (log, todos, initialValues = []) => {
       })
     }
   }
-
 }
 
 

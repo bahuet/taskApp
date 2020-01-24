@@ -4,7 +4,8 @@ import CreateUserDialog from '../Dialogs/CreateUserDialog'
 import useInput from '../useHooks/useInput'
 import TodosCard from '../Card/TodosCard'
 import SearchBox from '../Secondary/SearchBox'
-
+import BarChart from '../Secondary/BarChart'
+import ProgressBar from '../Secondary/ProgressBar'
 import { Typography, Grid, Button } from "@material-ui/core";
 
 export default ({ users, todos, setNotification }) => {
@@ -48,17 +49,31 @@ export default ({ users, todos, setNotification }) => {
           <Typography variant='h4'> Administration panel </Typography>
         </Grid>
 
-        <Grid item >
-          <SearchBox tasksFilter={tasksFilter} />
+
+        <Grid container justify="center"
+        //  TODO => il faudra optimiser
+        >
+          <Grid item >
+            <BarChart userList={users.userList} taskList={todos.todoList} />
+          </Grid>
+
+          <Grid item style={{ padding: "40px 40px 40px 40px", maxHeight: '20%', maxWidth: '20%', textAlign: 'center' }}>
+            <ProgressBar taskList={todos.todoList} />
+            <Typography variant="caption" display="block">Pourcentage de tâches terminées</Typography>
+          </Grid>
         </Grid>
 
-        <Grid item >
-          <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
-            Créer un nouvel utilisateur
+        <Grid item xs={12}>
+          <Grid container justify="space-around">
+            <SearchBox tasksFilter={tasksFilter} />
+
+            <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
+              Créer un nouvel utilisateur
           </Button>
+          </Grid>
         </Grid>
 
-      </Grid>
+      </Grid >
 
 
 
@@ -90,6 +105,6 @@ export default ({ users, todos, setNotification }) => {
         open={createUserDialogStatus}
         closeDialog={() => setCreateUserDialogStatus(false)}
         setNotification={setNotification} />
-    </div>
+    </div >
   )
 }

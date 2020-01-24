@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-
 // assigner un avatar aléatoire, code éphémère pour la démo.
 
 export default () => {
