@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export default ({ taskList }) => {
@@ -17,6 +17,14 @@ export default ({ taskList }) => {
   const percentage = Math.floor((completed / total) * 100)
 
   return (
-    <CircularProgressbar value={percentage} text={`${percentage}%`} />
+    <CircularProgressbar  value={percentage} text={`${percentage}%`}
+      styles={buildStyles({
+
+        // Colors
+        pathColor: `rgba(130, 202, 150, ${percentage / 100 +10})`,
+        textColor: '#82ca9d',
+        trailColor: '#d6d6d6',
+        backgroundColor: '#3e98c7',
+      })} />
   )
 }

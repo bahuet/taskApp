@@ -1,36 +1,37 @@
 
 general: 
-- fix userview
-- explication des actions possibles quand on arrive sur la page (tutoriel) ? 
-- footer avec import ContactMailIcon from '@material-ui/icons/ContactMail';
-- changer les valeurs du log
-- convertir le task state en object au lieu d'un array ?
-
+- fix userview - OK
+- explication des actions possibles quand on arrive sur la page (tutoriel) ? -  OK
+- footer avec import ContactMailIcon from '@material-ui/icons/ContactMail'; Non
+- refonte du log <===== faire des graph avec l'activité
+- convertir le task state en object au lieu d'un array ? (plus tard)
+- nettoyer les dependencies
+- customtooltip pour le premier graph qui montre la liste pour chaque user
 
 styling / CSS:
-- rendre adminview responsive, et régler les gap entre élements (flexbox)
+- rendre adminview responsive, et régler les gap entre élements (flexbox) - OK
 - intégrer le a:chosen du stylesheet dans l'app
-- tooltips ? 
-- transitions sur les Fab avec <Zoom>
-- le textfield du filter est super moche
-- animation dans le layout (web?)
+- tooltips OK
+- transitions sur les Fab avec <Zoom> ??
+- le textfield du filter est super moche - OK
+- animation dans le layout (web?) - OK
 
 admin:
 - alerte si un utilisateur n'as pas de taches actives
 - differents ordres d'affichage
 - supprimer toutes les taches completed
-- renommer user
-- transfer de taches inter users avec autocomplete
+- renommer user - OK
+- transfer de taches inter users avec autocomplete - OK
 
 user:
 - alerte si tache urgente non focus 
 - une seule tache peut etre focus ?
-- user avatar
-- les users ont un nom + un rôle + id
+- user avatar - OK
+- les users ont un nom + un rôle + id - OK
 - task => title + description instead of just text?
 
 plus tard peut-être:
 - possibilité de classer les users par groupe avec background de couleur?
 - fake loading times (ou pas)
-- tableau statistique pour l'admin dashboard (cad?)
+- tableau statistique pour l'admin dashboard (cad?) - en cours
 - historique des taches faites avec le bouton expand (via log?)

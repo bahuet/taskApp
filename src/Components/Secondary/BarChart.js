@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts'
 
 
@@ -25,18 +25,18 @@ export default ({ userList, taskList }) => {
   const orderedData = userList.map(user => unorderedData[user.id] ? unorderedData[user.id] : { name: user.name, pending: 0, urgent: 0, completed: 0 })
 
   return (
-    <BarChart width={600} height={300} data={orderedData}
-      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" tick='' />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="pending" stackId="a" fill="#8884d8" name='En attente' />
-      <Bar dataKey="completed" stackId="a" fill="#82ca9d" name='Terminé' />
-      <Bar dataKey="urgent" stackId="a" fill="#bc3644" name='Urgent' />
-
-    </BarChart>
+    <ResponsiveContainer aspect={1.6}>
+      <BarChart data={orderedData}
+        margin={{ top: 30, right: 10, left: 10, bottom: 30 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" tick='' />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="pending" stackId="a" fill="#8884d8" name='En attente' />
+        <Bar dataKey="completed" stackId="a" fill="#82ca9d" name='Terminé' />
+        <Bar dataKey="urgent" stackId="a" fill="#bc3644" name='Urgent' />
+      </BarChart>
+    </ResponsiveContainer >
   )
 }
-

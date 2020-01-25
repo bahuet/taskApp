@@ -28,7 +28,7 @@ export default () => {
           <Typography variant="h6" >Quoi:</Typography>
           <Typography variant="body1" gutterBottom>
             Ceci est mon premier project, il s'agit d'une application de gestion de personnel<br />
-            C'est une application React + Material UI avec peu de dependencies (react router, recharts),
+            C'est une application React avec le minimum de dependencies (Material UI, react router, reCharts),
              encore au stade de proof of concept et en cours de développement (Commencée en Janvier 2020)
               Seul le front-end est disponible pour l'instant
           </Typography>

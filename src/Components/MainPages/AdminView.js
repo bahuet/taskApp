@@ -4,14 +4,14 @@ import CreateUserDialog from '../Dialogs/CreateUserDialog'
 import useInput from '../useHooks/useInput'
 import TodosCard from '../Card/TodosCard'
 import SearchBox from '../Secondary/SearchBox'
-import BarChart from '../Secondary/BarChart'
-import ProgressBar from '../Secondary/ProgressBar'
-import { Typography, Grid, Button } from "@material-ui/core";
+import AdminDashBoard from './AdminDashBoard'
+import { Typography, Grid, Button, Collapse, Switch } from "@material-ui/core"
 
 export default ({ users, todos, setNotification }) => {
 
   const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
   const tasksFilter = useInput()
+  const [showDashBoard, setShowDashBoard] = useState(true)
 
   // Filtre
   const normalizeString = str => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -49,22 +49,25 @@ export default ({ users, todos, setNotification }) => {
           <Typography variant='h4'> Administration panel </Typography>
         </Grid>
 
+        <Grid item xs={10} >
 
-        <Grid container justify="center"
-        //  TODO => il faudra optimiser
-        >
-          <Grid item >
-            <BarChart userList={users.userList} taskList={todos.todoList} />
-          </Grid>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+              <Typography variant="body2"> {showDashBoard ? '' : 'Afficher le tableau admin'}</Typography>
+              <Switch onChange={() => setShowDashBoard(!showDashBoard)} checked={showDashBoard} color='primary' />
+            </div>
+            <Collapse in={showDashBoard}>
 
-          <Grid item style={{ padding: "40px 40px 40px 40px", maxHeight: '20%', maxWidth: '20%', textAlign: 'center' }}>
-            <ProgressBar taskList={todos.todoList} />
-            <Typography variant="caption" display="block">Pourcentage de tâches terminées</Typography>
-          </Grid>
+              <AdminDashBoard users={users} todos={todos} />
+            </Collapse>
+          </div>
+
+
         </Grid>
 
+
         <Grid item xs={12}>
-          <Grid container justify="space-around">
+          <Grid container justify="space-around" style={{ marginTop: '2em' }}>
             <SearchBox tasksFilter={tasksFilter} />
 
             <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
@@ -80,10 +83,11 @@ export default ({ users, todos, setNotification }) => {
       <Grid container
         // TaskCards grid
         spacing={6}
-        style={{ marginTop: '2em' }}
+        style={{ marginTop: '1em' }}
         justify="center"
         alignItems="stretch"
       >
+
         {filteredUsers.map((user) => (
 
           <Grid item key={user.id} >
