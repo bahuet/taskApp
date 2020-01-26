@@ -1,10 +1,22 @@
-import React from "react"
+import React, { useState } from "react"
 import Confetti from "react-confetti"
-import { Typography, Grid } from "@material-ui/core"
+import { Typography, Grid, Fade } from "@material-ui/core"
 
 import { CheckCircle } from "@material-ui/icons"
 
 export default ({ userTodos }) => {
+  const [confettis, setConfettis] = useState(0)
+  const launchConfettis = () => {
+    if (!confettis) {
+      console.log(`confettis set and timeout started`)
+      setTimeout(() => {
+        console.log(`timeout`)
+        setConfettis(2)
+      }, 8000)
+      setConfettis(1)
+    }
+  }
+
   const total = userTodos.reduce((a, c) => a + 1, 0)
   const completed = userTodos.reduce((a, c) => (c.completed ? a + 1 : a), 0)
   let output
@@ -16,6 +28,7 @@ export default ({ userTodos }) => {
       </Typography>
     )
   } else if (total === completed) {
+    launchConfettis()
     output = (
       <Grid
         container
@@ -32,17 +45,25 @@ export default ({ userTodos }) => {
           <Typography variant="h6">
             Toutes les tâches sont terminées!
           </Typography>
-          <Confetti />
         </Grid>
       </Grid>
     )
   } else {
+    const left = total - completed
     output = (
       <Typography variant="h6" color="primary" gutterBottom>
-        Plus que {total - completed} tâches restantes!
+        Plus que {left} tâche{left === 1 ? "" : "s"} restante
+        {left === 1 ? "" : "s"}!
       </Typography>
     )
   }
 
-  return <div style={{ textAlign: "center" }}>{output}</div>
+  return (
+    <div style={{ textAlign: "center" }}>
+      {output}
+      <Fade in={confettis === 1} timeout={1000}>
+        <Confetti />
+      </Fade>
+    </div>
+  )
 }

@@ -1,13 +1,12 @@
 import React, { useState } from "react"
 import clsx from "clsx"
-
 import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Tooltip
+  Tooltip,
+  Fade
 } from "@material-ui/core"
-
 import AdminActionIcons from "./AdminActionIcons"
 import UserActionIcons from "../CardItems/UserActionIcons"
 import TransferTaskDialog from "../../Dialogs/TransferTaskDialog"
@@ -24,10 +23,11 @@ const useStyles = makeStyles(theme => ({
   },
 
   listItem: {
-    borderRadius: 3
+    borderRadius: 3,
+    borderLeft: "solid .5em white"
   },
   completed: {
-    borderLeft: "solid 1em green"
+    borderLeft: "solid .5em #348d5e"
   },
   focused: {
     position: "relative",
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
       backgroundSize: "50% 50%, 50% 50%",
       backgroundPosition: "0 0, 100% 0, 100% 100%, 0 100%",
       backgroundImage:
-        "linear-gradient(#2222aa, #2222aa), linear-gradient(#2222aa, #2222aa), linear-gradient(#2222aa, #2222aa), linear-gradient(#2222aa, #2222aa)",
+        "linear-gradient(#586bd5, #586bd5), linear-gradient(#586bd5, #586bd5), linear-gradient(#586bd5, #586bd5), linear-gradient(#586bd5, #586bd5)",
       animation: "rotate 14s linear infinite"
     },
     "&:after": {
@@ -130,27 +130,29 @@ const TodoListItem = ({
         )}
 
         <ListItemText primary={todo.text} className={classes.multiline} />
-        <div style={{ visibility: itemFocused ? "visible" : "hidden" }}>
-          {admin ? (
-            <AdminActionIcons
-              openTransferDialog={openTransferDialog}
-              actions={actions}
-              todo={todo}
-              user={user}
-              userList={userList}
-              deleteLock={deleteLock}
-              setDeleteLock={setDeleteLock}
-              setNotification={setNotification}
-            />
-          ) : (
-            <UserActionIcons
-              actions={actions}
-              setFocus={setFocus}
-              todo={todo}
-              setNotification={setNotification}
-            />
-          )}
-        </div>
+        <Fade in={itemFocused}>
+          <div style={{ visibility: itemFocused ? "visible" : "hidden" }}>
+            {admin ? (
+              <AdminActionIcons
+                openTransferDialog={openTransferDialog}
+                actions={actions}
+                todo={todo}
+                user={user}
+                userList={userList}
+                deleteLock={deleteLock}
+                setDeleteLock={setDeleteLock}
+                setNotification={setNotification}
+              />
+            ) : (
+              <UserActionIcons
+                actions={actions}
+                setFocus={setFocus}
+                todo={todo}
+                setNotification={setNotification}
+              />
+            )}
+          </div>
+        </Fade>
       </ListItem>
 
       <TransferTaskDialog

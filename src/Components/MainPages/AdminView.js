@@ -5,7 +5,6 @@ import TodosCard from "../Card/TodosCard"
 import SearchBox from "../Secondary/SearchBox"
 import AdminDashBoard from "./AdminDashBoard"
 import AllDoneDialog from "../Dialogs/AllDoneDialog"
-
 import {
   Typography,
   Grid,
@@ -20,24 +19,18 @@ import CloseIcon from "@material-ui/icons/Close"
 import ArtTrackIcon from "@material-ui/icons/ArtTrack"
 
 export default ({ users, todos, setNotification }) => {
-  // Fake activity pour la demo
+  // Fake activity pour la demo, premier jet
   const [fakeUserActivity, setFakeUserActivity] = useState(true)
   useEffect(() => {
     if (fakeUserActivity) {
       const availableTodos = todos.todoList.filter(x => !x.completed)
-      let intervalId = setInterval(() => {
-        const randomTask =
-          availableTodos[Math.floor(Math.random() * availableTodos.length)]
+      const intervalId = setInterval(() => {
+        const randomTask = availableTodos[Math.floor(Math.random() * availableTodos.length)]
         if (!randomTask) {
-          clearInterval(intervalId)
+          setFakeUserActivity(false)
           return
         }
-        todos.adminActions.changeProperty(
-          randomTask.id,
-          "completed",
-          true,
-          "SYSTEM"
-        )
+        todos.adminActions.changeProperty(randomTask.id, "completed", true, "SYSTEM")
       }, Math.random() * 1500)
       return () => clearInterval(intervalId)
     }
@@ -88,8 +81,7 @@ export default ({ users, todos, setNotification }) => {
     console.log(`filteredUsers: ${JSON.stringify(filteredUsers.length)}`)
 
     filteredUsers = filteredUsers.filter(
-      user =>
-        !filteredTasks.some(task => task.userId === user.id && !task.completed)
+      user => !filteredTasks.some(task => task.userId === user.id && !task.completed)
     )
     console.log(`filteredUsers: ${JSON.stringify(filteredUsers.length)}`)
   }
@@ -108,11 +100,7 @@ export default ({ users, todos, setNotification }) => {
         alignItems="center"
         spacing={4}
       >
-        <Grid
-          item
-          xs={12}
-          style={{ display: "flex", justifyContent: "center" }}
-        >
+        <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
           <Typography variant="h4" style={{ margin: "0 0 auto auto" }}>
             {" "}
             Administration panel{" "}
@@ -168,13 +156,11 @@ export default ({ users, todos, setNotification }) => {
                 control={
                   <Switch
                     checked={showUsersWithNoTasks}
-                    onChange={() =>
-                      setShowUsersWithNoTasks(!showUsersWithNoTasks)
-                    }
+                    onChange={() => setShowUsersWithNoTasks(!showUsersWithNoTasks)}
                     color="primary"
                   />
                 }
-                label="Masquer les utilisateurs occupés"
+                label="Afficher les utilisateurs sans tâches en cours"
               />
             </Tooltip>
           </Grid>

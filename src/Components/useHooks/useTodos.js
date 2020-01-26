@@ -8,13 +8,10 @@ export default (log, initialValues = []) => {
     todoList,
     setTodoList,
     //On divise les types d'actions selon le type d'utilisateur (admin/user)
-
+    // Apres reflexion ca m'a pas l'air terrible
     adminActions: {
       addTodo: (userId, userName, text, urgent = false) => {
-        const id =
-          todoList.length > 0
-            ? Math.max(...todoList.map(x => x.id)) + 1
-            : 2000000
+        const id = todoList.length > 0 ? Math.max(...todoList.map(x => x.id)) + 1 : 2000000
         const newTodos = [
           ...todoList,
           {
@@ -54,9 +51,7 @@ export default (log, initialValues = []) => {
 
       changeProperty: (id, property, boolValue, actor = "Admin") => {
         const formerValue = getTodo(id)[property]
-        const newTodos = todoList.map(x =>
-          id === x.id ? { ...x, [property]: boolValue } : x
-        )
+        const newTodos = todoList.map(x => (id === x.id ? { ...x, [property]: boolValue } : x))
 
         setTodoList(newTodos)
         log.addToLog(
@@ -71,9 +66,7 @@ export default (log, initialValues = []) => {
       changeProperty: (id, property, boolValue) => {
         const todo = getTodo(id)
         const formerValue = todoList.find(x => x.id === id)[property]
-        const newTodos = todoList.map(x =>
-          id === x.id ? { ...x, [property]: boolValue } : x
-        )
+        const newTodos = todoList.map(x => (id === x.id ? { ...x, [property]: boolValue } : x))
         setTodoList(newTodos)
         log.addToLog(
           `${todo.userName} (${todo.userId})`,
@@ -83,7 +76,7 @@ export default (log, initialValues = []) => {
         )
       },
 
-      setFocusById: userId => {
+      setFocusById: (userId, system = false) => {
         return taskId => {
           const todo = getTodo(taskId)
           const newTodos = todoList.map(x =>
@@ -95,7 +88,7 @@ export default (log, initialValues = []) => {
           )
           setTodoList(newTodos)
           log.addToLog(
-            `${todo.userName} (${todo.userId})`,
+            system ? "SYSTEM" : `${todo.userName} (${todo.userId})`,
             `toggled focus`,
             taskId,
             getTodo(taskId).text
