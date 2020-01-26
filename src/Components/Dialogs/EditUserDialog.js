@@ -1,11 +1,24 @@
-import React from 'react'
+import React from "react"
 
-import useInput from '../useHooks/useInput'
+import useInput from "../useHooks/useInput"
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField
+} from "@material-ui/core"
 
-export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotification }) => {
-
+export default ({
+  open,
+  closeDialog,
+  editUser,
+  user,
+  closeCardMenu,
+  setNotification
+}) => {
   const nameField = useInput(user.name)
   const roleField = useInput(user.role)
   const trimmedName = nameField.input && nameField.input.trim()
@@ -22,22 +35,19 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
     editUser(trimmedName, trimmedRole)
     closeDialog()
     closeCardMenu()
-    setNotification(`L'utilisateur a été modifié ! Nouvelles valeurs: ${nameField.input} : ${roleField.input}`)
+    setNotification(
+      `L'utilisateur a été modifié ! Nouvelles valeurs: ${nameField.input} : ${roleField.input}`
+    )
   }
 
-  const modified = (trimmedName !== user.name) || (trimmedRole !== user.role)
+  const modified = trimmedName !== user.name || trimmedRole !== user.role
 
   return (
     <>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-      >
-
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{`Modifier le nom et le rôle de ${user.name}`}</DialogTitle>
 
         <DialogContent>
-
           <TextField
             value={nameField.input}
             onChange={nameField.onChange}
@@ -53,15 +63,17 @@ export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotificat
           />
 
           <DialogActions>
+            <Button onClick={handleClose}>Annuler</Button>
 
-            <Button onClick={handleClose} >
-              Annuler
-            </Button>
-
-            <Button onClick={handleConfirm} variant="contained" color="primary" disabled={!modified} autoFocus>
+            <Button
+              onClick={handleConfirm}
+              variant="contained"
+              color="primary"
+              disabled={!modified}
+              autoFocus
+            >
               Confirmer
             </Button>
-
           </DialogActions>
         </DialogContent>
       </Dialog>

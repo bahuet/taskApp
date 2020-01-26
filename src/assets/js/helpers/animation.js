@@ -1,57 +1,63 @@
-import { TweenLite } from 'gsap';
+import { TweenLite } from "gsap"
 
 // Code pillé sur codepen,  un peu modifié pour changer la taille etc
-// +  clickAnimation ajoutée pour le fun 
+// +  clickAnimation ajoutée pour le fun
 
 export default () => {
-
-  var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
+  var width,
+    height,
+    largeHeader,
+    canvas,
+    ctx,
+    points,
+    target,
+    animateHeader = true
   var clickAnimation = false
 
   // Main
-  initHeader();
-  initAnimation();
-  addListeners();
+  initHeader()
+  initAnimation()
+  addListeners()
 
   function initHeader() {
     // clientWidth = largeur sans la scrollbar, si on utilise innerWidth ca crée un décalage quand la scrollbar apparait
     //width = window.innerWidth;
-    width = document.body.clientWidth;
-    height = window.innerHeight;
-    target = { x: width / 2, y: height / 2 };
+    width = document.body.clientWidth
+    height = window.innerHeight
+    target = { x: width / 2, y: height / 2 }
 
-    largeHeader = document.getElementById('large-header');
-    largeHeader.style.height = (height + 'px') * .2;
+    largeHeader = document.getElementById("large-header")
+    largeHeader.style.height = (height + "px") * 0.2
 
-    canvas = document.getElementById('animation-canvas');
-    canvas.width = width * 1;
-    canvas.height = height * .2;
-    ctx = canvas.getContext('2d');
+    canvas = document.getElementById("animation-canvas")
+    canvas.width = width * 1
+    canvas.height = height * 0.2
+    ctx = canvas.getContext("2d")
 
     // create points
-    points = [];
+    points = []
     for (var x = 0; x < width; x = x + width / 20) {
       for (var y = 0; y < height; y = y + height / 20) {
-        var px = x + Math.random() * width / 20;
-        var py = y + Math.random() * height / 20;
-        var p = { x: px, originX: px, y: py, originY: py };
-        points.push(p);
+        var px = x + (Math.random() * width) / 20
+        var py = y + (Math.random() * height) / 20
+        var p = { x: px, originX: px, y: py, originY: py }
+        points.push(p)
       }
     }
 
     // for each point find the 5 closest points
     for (var i = 0; i < points.length; i++) {
-      var closest = [];
-      var p1 = points[i];
+      var closest = []
+      var p1 = points[i]
       for (var j = 0; j < points.length; j++) {
         var p2 = points[j]
         if (!(p1 == p2)) {
-          var placed = false;
+          var placed = false
           for (var k = 0; k < 5; k++) {
             if (!placed) {
               if (closest[k] == undefined) {
-                closest[k] = p2;
-                placed = true;
+                closest[k] = p2
+                placed = true
               }
             }
           }
@@ -59,32 +65,36 @@ export default () => {
           for (var k = 0; k < 5; k++) {
             if (!placed) {
               if (getDistance(p1, p2) < getDistance(p1, closest[k])) {
-                closest[k] = p2;
-                placed = true;
+                closest[k] = p2
+                placed = true
               }
             }
           }
         }
       }
-      p1.closest = closest;
+      p1.closest = closest
     }
 
     // assign a circle to each point
     for (var i in points) {
-      var c = new Circle(points[i], 2 + Math.random() * 2, 'rgba(255,255,255,0.3)');
-      points[i].circle = c;
+      var c = new Circle(
+        points[i],
+        2 + Math.random() * 2,
+        "rgba(255,255,255,0.3)"
+      )
+      points[i].circle = c
     }
   }
 
   // Event handling
   function addListeners() {
-    if (!('ontouchstart' in window)) {
-      window.addEventListener('mousemove', mouseMove);
+    if (!("ontouchstart" in window)) {
+      window.addEventListener("mousemove", mouseMove)
     }
-    window.addEventListener('scroll', scrollCheck);
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousedown', mouseDown)
-    window.addEventListener('mouseup', mouseUp)
+    window.addEventListener("scroll", scrollCheck)
+    window.addEventListener("resize", resize)
+    window.addEventListener("mousedown", mouseDown)
+    window.addEventListener("mouseup", mouseUp)
   }
 
   function mouseDown(e) {
@@ -92,116 +102,118 @@ export default () => {
   }
   function mouseUp(e) {
     clickAnimation = false
-
   }
   function mouseMove(e) {
-    var posx = 0;
-    var posy = 0;
+    var posx = 0
+    var posy = 0
     if (e.pageX || e.pageY) {
-      posx = e.pageX;
-      posy = e.pageY;
+      posx = e.pageX
+      posy = e.pageY
+    } else if (e.clientX || e.clientY) {
+      posx =
+        e.clientX +
+        document.body.scrollLeft +
+        document.documentElement.scrollLeft
+      posy =
+        e.clientY + document.body.scrollTop + document.documentElement.scrollTop
     }
-    else if (e.clientX || e.clientY) {
-      posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-      posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-    target.x = posx;
-    target.y = posy;
+    target.x = posx
+    target.y = posy
   }
 
   function scrollCheck() {
-    if (document.body.scrollTop > height) animateHeader = false;
-    else animateHeader = true;
+    if (document.body.scrollTop > height) animateHeader = false
+    else animateHeader = true
   }
 
   function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight * .2;
-    largeHeader.style.height = height + 'px';
-    canvas.width = width;
-    canvas.height = height;
+    width = window.innerWidth
+    height = window.innerHeight * 0.2
+    largeHeader.style.height = height + "px"
+    canvas.width = width
+    canvas.height = height
   }
 
   // animation
   function initAnimation() {
-    animate();
+    animate()
     for (var i in points) {
-      shiftPoint(points[i]);
+      shiftPoint(points[i])
     }
   }
 
   function animate() {
     if (animateHeader) {
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height)
       for (var i in points) {
         // detect points in range
         if (Math.abs(getDistance(target, points[i])) < 4000) {
-          points[i].active = clickAnimation ? 0.4 : 0.2;
-          points[i].circle.active = clickAnimation ? .9 : 0.4;
+          points[i].active = clickAnimation ? 0.4 : 0.2
+          points[i].circle.active = clickAnimation ? 0.9 : 0.4
         } else if (Math.abs(getDistance(target, points[i])) < 20000) {
-          points[i].active = clickAnimation ? 0.12 : 0.06;
-          points[i].circle.active = clickAnimation ? 0.6 : 0.1;
+          points[i].active = clickAnimation ? 0.12 : 0.06
+          points[i].circle.active = clickAnimation ? 0.6 : 0.1
         } else if (Math.abs(getDistance(target, points[i])) < 40000) {
-          points[i].active = clickAnimation ? 0.1 : 0.02;
-          points[i].circle.active = clickAnimation ? 0.15 : 0.05;
+          points[i].active = clickAnimation ? 0.1 : 0.02
+          points[i].circle.active = clickAnimation ? 0.15 : 0.05
         } else {
-          points[i].active = 0;
-          points[i].circle.active = 0;
+          points[i].active = 0
+          points[i].circle.active = 0
         }
 
-        drawLines(points[i]);
-        points[i].circle.draw();
+        drawLines(points[i])
+        points[i].circle.draw()
       }
     }
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animate)
   }
   function shiftPoint(p) {
-
-    var duration = () => clickAnimation ? .2 + Math.random() : 1.2 + 1 * Math.random()
+    var duration = () =>
+      clickAnimation ? 0.2 + Math.random() : 1.2 + 1 * Math.random()
 
     TweenLite.to(p, duration(), {
       x: p.originX - 50 + Math.random() * 100,
-      y: p.originY - 50 + Math.random() * 100, ease: Circle.easeInOut,
-      onComplete: function () {
-        shiftPoint(p);
+      y: p.originY - 50 + Math.random() * 100,
+      ease: Circle.easeInOut,
+      onComplete: function() {
+        shiftPoint(p)
       }
-    });
+    })
   }
 
   // Canvas manipulation
   function drawLines(p) {
-    if (!p.active) return;
+    if (!p.active) return
     for (var i in p.closest) {
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
-      ctx.lineTo(p.closest[i].x, p.closest[i].y);
-      ctx.strokeStyle = 'rgba(156,217,249,' + p.active + ')'
-      ctx.stroke();
+      ctx.beginPath()
+      ctx.moveTo(p.x, p.y)
+      ctx.lineTo(p.closest[i].x, p.closest[i].y)
+      ctx.strokeStyle = "rgba(156,217,249," + p.active + ")"
+      ctx.stroke()
     }
   }
 
   function Circle(pos, rad, color) {
-    var _this = this;
+    var _this = this
 
     // constructor
-    (function () {
-      _this.pos = pos || null;
-      _this.radius = rad || null;
-      _this.color = color || null;
-    })();
+    ;(function() {
+      _this.pos = pos || null
+      _this.radius = rad || null
+      _this.color = color || null
+    })()
 
-    this.draw = function () {
-      if (!_this.active) return;
-      ctx.beginPath();
-      ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
-      ctx.fillStyle = 'rgba(156,217,249,' + _this.active + ')';
-      ctx.fill();
-    };
+    this.draw = function() {
+      if (!_this.active) return
+      ctx.beginPath()
+      ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false)
+      ctx.fillStyle = "rgba(156,217,249," + _this.active + ")"
+      ctx.fill()
+    }
   }
 
   // Util
   function getDistance(p1, p2) {
-    return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
+    return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2)
   }
-
 }

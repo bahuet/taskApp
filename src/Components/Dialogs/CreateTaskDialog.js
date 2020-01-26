@@ -1,7 +1,6 @@
+import React, { useState } from "react"
 
-import React, { useState } from 'react';
-
-import useInput from '../useHooks/useInput'
+import useInput from "../useHooks/useInput"
 
 import {
   FormControlLabel,
@@ -15,8 +14,14 @@ import {
   DialogContent
 } from "@material-ui/core"
 
-export default ({ user, open, handleClose, userTodos, actions, setNotification }) => {
-
+export default ({
+  user,
+  open,
+  handleClose,
+  userTodos,
+  actions,
+  setNotification
+}) => {
   const [urgentChecked, setUrgentChecked] = useState(false)
   const text = useInput()
 
@@ -42,14 +47,13 @@ export default ({ user, open, handleClose, userTodos, actions, setNotification }
 
   return (
     <Dialog open={open} onClose={closeDialog}>
-
       <DialogTitle>Ajouter une tâche à {user.name}</DialogTitle>
 
       <DialogContent>
-
         <DialogContentText>
-          Actuellement: {activeTasks.length} en cours, dont {activeAndUrgent.length} urgentes.
-          </DialogContentText>
+          Actuellement: {activeTasks.length} en cours, dont{" "}
+          {activeAndUrgent.length} urgentes.
+        </DialogContentText>
 
         <TextField
           value={text.input}
@@ -63,27 +67,27 @@ export default ({ user, open, handleClose, userTodos, actions, setNotification }
 
         <FormControlLabel
           control={
-            <Checkbox checked={urgentChecked} onChange={() => setUrgentChecked(!urgentChecked)} />
+            <Checkbox
+              checked={urgentChecked}
+              onChange={() => setUrgentChecked(!urgentChecked)}
+            />
           }
           label="Urgent"
         />
-
       </DialogContent>
 
       <DialogActions>
+        <Button onClick={closeDialog}>Annuler</Button>
 
-        <Button onClick={closeDialog}>
-          Annuler
-        </Button>
-
-        <Button onClick={handleSubmit} disabled={!Boolean(trimmedInput)} variant='contained' color="primary" >
+        <Button
+          onClick={handleSubmit}
+          disabled={!Boolean(trimmedInput)}
+          variant="contained"
+          color="primary"
+        >
           Ajouter
         </Button>
-
       </DialogActions>
-
     </Dialog>
   )
 }
-
-

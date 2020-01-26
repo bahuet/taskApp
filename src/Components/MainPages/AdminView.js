@@ -1,95 +1,143 @@
-import React, { useState, useEffect } from 'react'
-import CreateUserDialog from '../Dialogs/CreateUserDialog'
-import useInput from '../useHooks/useInput'
-import TodosCard from '../Card/TodosCard'
-import SearchBox from '../Secondary/SearchBox'
-import AdminDashBoard from './AdminDashBoard'
-import AllDoneDialog from '../Secondary/AllDoneDialog'
-import { Typography, Grid, Button, Collapse, Switch, IconButton } from "@material-ui/core"
-import CloseIcon from '@material-ui/icons/Close';
-import ArtTrackIcon from '@material-ui/icons/ArtTrack';
+import React, { useState, useEffect } from "react"
+import CreateUserDialog from "../Dialogs/CreateUserDialog"
+import useInput from "../useHooks/useInput"
+import TodosCard from "../Card/TodosCard"
+import SearchBox from "../Secondary/SearchBox"
+import AdminDashBoard from "./AdminDashBoard"
+import AllDoneDialog from "../Dialogs/AllDoneDialog"
+
+import {
+  Typography,
+  Grid,
+  Button,
+  Collapse,
+  Switch,
+  IconButton,
+  FormControlLabel,
+  Tooltip
+} from "@material-ui/core"
+import CloseIcon from "@material-ui/icons/Close"
+import ArtTrackIcon from "@material-ui/icons/ArtTrack"
 
 export default ({ users, todos, setNotification }) => {
-
+  // Fake activity pour la demo
   const [fakeUserActivity, setFakeUserActivity] = useState(true)
   useEffect(() => {
     if (fakeUserActivity) {
-
       const availableTodos = todos.todoList.filter(x => !x.completed)
-
       let intervalId = setInterval(() => {
-
-        const randomTask = availableTodos[Math.floor(Math.random() * availableTodos.length)]
+        const randomTask =
+          availableTodos[Math.floor(Math.random() * availableTodos.length)]
         if (!randomTask) {
           clearInterval(intervalId)
-          return;
+          return
         }
-
-        todos.adminActions.changeProperty(randomTask.id, 'completed', true, 'SYSTEM')
-      }, Math.random() * 2000)
-
+        todos.adminActions.changeProperty(
+          randomTask.id,
+          "completed",
+          true,
+          "SYSTEM"
+        )
+      }, Math.random() * 1500)
       return () => clearInterval(intervalId)
     }
-  },
-    [fakeUserActivity, todos])
+  }, [fakeUserActivity, todos])
 
-  const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
-  const tasksFilter = useInput()
-  const [showDashBoard, setShowDashBoard] = useState(true)
-  const [allDone, setAllDone] = useState(false)
-
+  // Dialog quand toutes les taches sont completed
   useEffect(() => {
-    if (todos.todoList.length !== 0
-      && todos.todoList.every(x => x.completed)) {
+    if (todos.todoList.length > 0 && todos.todoList.every(x => x.completed)) {
       setAllDone(true)
     }
   }, [todos.todoList])
+
+  const tasksFilter = useInput()
+  const [showUsersWithNoTasks, setShowUsersWithNoTasks] = useState(false)
+
   // Filtre
-  const normalizeString = str => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-  const AIncludesB = (stringA, stringB) => normalizeString(stringA).includes(normalizeString(stringB))
+  const normalizeString = str =>
+    str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+  const AIncludesB = (stringA, stringB) =>
+    normalizeString(stringA).includes(normalizeString(stringB))
   const getUserRole = userId => {
     const user = users.userList.find(u => u.id === userId)
-    return user ? user.role : ''
+    return user ? user.role : ""
   }
 
   // Logique pour le filtre
   // Le filtrage est appliqué sur les tasks, user.name, user.role
-  // (mais on ne filtre pas les taches d'un user si son .name ou .role .includes === true) 
-  const filteredTasks = todos.todoList
-    .filter(task => AIncludesB(task.text, tasksFilter.input)
-      || AIncludesB(task.userName, tasksFilter.input)
-      || AIncludesB(getUserRole(task.userId), tasksFilter.input))
+  // (mais on ne filtre pas les taches d'un user si son .name ou .role .includes === true)
+  const filteredTasks = todos.todoList.filter(
+    task =>
+      AIncludesB(task.text, tasksFilter.input) ||
+      AIncludesB(task.userName, tasksFilter.input) ||
+      AIncludesB(getUserRole(task.userId), tasksFilter.input)
+  )
 
-  const filteredUsers = users.userList.filter(user =>
-    AIncludesB(user.name, tasksFilter.input)
-    || AIncludesB(user.role, tasksFilter.input)
-    || filteredTasks.map(task => task.userName).includes(user.name))
+  let filteredUsers = users.userList.filter(
+    user =>
+      AIncludesB(user.name, tasksFilter.input) ||
+      AIncludesB(user.role, tasksFilter.input) ||
+      filteredTasks.map(task => task.userName).includes(user.name)
+  )
+
+  if (showUsersWithNoTasks) {
+    console.log(`showUsersWithNoTasks`)
+    console.log(`filteredUsers: ${JSON.stringify(filteredUsers.length)}`)
+
+    filteredUsers = filteredUsers.filter(
+      user =>
+        !filteredTasks.some(task => task.userId === user.id && !task.completed)
+    )
+    console.log(`filteredUsers: ${JSON.stringify(filteredUsers.length)}`)
+  }
+
+  const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
+  const [showDashBoard, setShowDashBoard] = useState(true)
+  const [allDone, setAllDone] = useState(false)
 
   return (
-    <div style={{ padding: '1em', margin: '1em' }}>
-
+    <div style={{ padding: "1em", margin: "1em" }}>
       <Grid
         // Menu grid
         container
         direction="row"
         justify="space-around"
         alignItems="center"
-        spacing={4} >
-
-        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Typography variant='h4' style={{ margin: '0 0 auto auto' }}> Administration panel </Typography>
-          <Typography style={{ marginLeft: 'auto' }}>
-            simulation d'activité
-                <Switch color='primary' checked={fakeUserActivity} onChange={() => setFakeUserActivity(!fakeUserActivity)} />
+        spacing={4}
+      >
+        <Grid
+          item
+          xs={12}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <Typography variant="h4" style={{ margin: "0 0 auto auto" }}>
+            {" "}
+            Administration panel{" "}
+          </Typography>
+          <Typography color="textSecondary" style={{ marginLeft: "auto" }}>
+            Démo: simulation d'activité
+            <Switch
+              color="primary"
+              size="small"
+              checked={fakeUserActivity}
+              onChange={() => setFakeUserActivity(!fakeUserActivity)}
+            />
           </Typography>
         </Grid>
 
-
-        <Grid item xs={12} sm={10} md={9} style={{ margin: 0, padding: 0 }} >
-
+        <Grid item xs={12} sm={10} md={9} style={{ margin: 0, padding: 0 }}>
           <div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-              <IconButton onClick={() => setShowDashBoard(!showDashBoard)} >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center"
+              }}
+            >
+              <IconButton onClick={() => setShowDashBoard(!showDashBoard)}>
                 {showDashBoard ? <CloseIcon /> : <ArtTrackIcon />}
               </IconButton>
             </div>
@@ -100,57 +148,83 @@ export default ({ users, todos, setNotification }) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container justify="space-around" style={{ marginTop: '2em' }}>
-
-            <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
+          <Grid container justify="space-around" style={{ marginTop: "2em" }}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => setCreateUserDialogStatus(true)}
+            >
               Créer un nouvel utilisateur
-              </Button>
-
+            </Button>
           </Grid>
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container justify="space-around" style={{ marginTop: '2em' }}>
+          <Grid container justify="space-evenly" style={{ marginTop: "2em" }}>
             <SearchBox tasksFilter={tasksFilter} />
 
-            <Button>PLACEHOLDER SELECT</Button>
+            <Tooltip title="Les utilisateurs avec des tâches actives dans leurs liste seront filtrés">
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={showUsersWithNoTasks}
+                    onChange={() =>
+                      setShowUsersWithNoTasks(!showUsersWithNoTasks)
+                    }
+                    color="primary"
+                  />
+                }
+                label="Masquer les utilisateurs occupés"
+              />
+            </Tooltip>
           </Grid>
         </Grid>
+      </Grid>
 
-      </Grid >
-
-      <Grid container
+      <Grid
+        container
         // TaskCards grid
         spacing={2}
-        style={{ marginTop: '1em' }}
+        style={{ marginTop: "1em" }}
         justify="center"
         alignItems="stretch"
       >
-
-        {filteredUsers.map((user) => (
-
-          <Grid item key={user.id} >
-            <TodosCard user={user} actions={todos.adminActions}
-              deleteUser={() => users.deleteUser(user.id)} editUser={users.editUserById(user.id)}
-              userTodos={filteredTasks.filter(x => x.userId === user.id)} admin={true} userList={users.userList}
-              setNotification={setNotification} />
+        {filteredUsers.map(user => (
+          <Grid item key={user.id}>
+            <TodosCard
+              user={user}
+              actions={todos.adminActions}
+              deleteUser={() => users.deleteUser(user.id)}
+              editUser={users.editUserById(user.id)}
+              userTodos={filteredTasks.filter(x => x.userId === user.id)}
+              admin={true}
+              userList={users.userList}
+              setNotification={setNotification}
+            />
           </Grid>
-
         ))}
 
-        <Grid item >
-          {filteredUsers.length === 0 ? <Typography variant='h4' color='textSecondary'>Pas de résultats</Typography> : null}
+        <Grid item>
+          {filteredUsers.length === 0 ? (
+            <Typography variant="h4" color="textSecondary">
+              Pas de résultats
+            </Typography>
+          ) : null}
         </Grid>
-
       </Grid>
 
-      <CreateUserDialog users={users}
+      <CreateUserDialog
+        users={users}
         open={createUserDialogStatus}
         closeDialog={() => setCreateUserDialogStatus(false)}
-        setNotification={setNotification} />
-      <AllDoneDialog todoList={todos.todoList} open={allDone} handleClose={() => setAllDone(false)} />
+        setNotification={setNotification}
+      />
 
-
-    </div >
+      <AllDoneDialog
+        todoList={todos.todoList}
+        open={allDone}
+        handleClose={() => setAllDone(false)}
+      />
+    </div>
   )
 }

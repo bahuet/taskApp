@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
 import { Fab, Fade, Tooltip } from "@material-ui/core"
 
-import UpIcon from '@material-ui/icons/KeyboardArrowUp'
+import UpIcon from "@material-ui/icons/KeyboardArrowUp"
 
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles(theme => ({
   absolute: {
-    position: 'fixed',
+    position: "fixed",
     bottom: theme.spacing(2),
-    right: theme.spacing(3),
-  },
+    right: theme.spacing(3)
+  }
 }))
 
 export default () => {
-  const classes = useStyles();
+  const classes = useStyles()
   const [visible, setVisible] = useState(false)
 
   const checkScroll = () => {
@@ -32,11 +32,11 @@ export default () => {
   }
 
   //je peux faire avec react?
-  window.addEventListener('scroll', checkScroll)
+  window.addEventListener("scroll", checkScroll)
 
   return (
     <Fade in={visible}>
-      < Tooltip placement="top-start" title="Remonter en haut de la page">
+      <Tooltip placement="top-start" title="Remonter en haut de la page">
         <Fab onClick={scrollUp} color="primary" className={classes.absolute}>
           <UpIcon />
         </Fab>

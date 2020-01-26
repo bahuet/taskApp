@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
-import useInput from '../useHooks/useInput'
+import useInput from "../useHooks/useInput"
 
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Autocomplete from "@material-ui/lab/Autocomplete"
 
-import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import {
+  TextField,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
+} from "@material-ui/core"
 
 //Dialog? Ou bien inline textfield?
 export default ({ users, open, closeDialog, setNotification }) => {
-
   const name = useInput()
   //Cas exceptionnel plus bas, on utilise useState au lieu de modifier useInput (temporaire: todo)
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState("")
 
   const roleList = [...new Set(users.userList.map(x => x.role))]
 
@@ -23,21 +30,27 @@ export default ({ users, open, closeDialog, setNotification }) => {
 
     if (!trimmedName) {
       alert(`Merci d'entrer le nom d'utilisateur`)
-      return;
+      return
     }
 
     if (!trimmedRole) {
-      if (!window.confirm(`Vous n'avez pas entré de rôle, continuer quand même?`)) {
-        return;
+      if (
+        !window.confirm(`Vous n'avez pas entré de rôle, continuer quand même?`)
+      ) {
+        return
       }
     }
 
-    if (users.userList.map(x => x.name.toLowerCase()).includes(trimmedName.toLowerCase())) {
+    if (
+      users.userList
+        .map(x => x.name.toLowerCase())
+        .includes(trimmedName.toLowerCase())
+    ) {
       alert(`L'utilisateur ${trimmedName} existe déja`)
-      return;
+      return
     }
 
-    setRole('')
+    setRole("")
     name.clear()
     users.addUser(trimmedName, trimmedRole)
     closeDialog()
@@ -45,7 +58,7 @@ export default ({ users, open, closeDialog, setNotification }) => {
   }
 
   const handleClose = () => {
-    setRole('')
+    setRole("")
     name.clear()
     closeDialog()
   }
@@ -60,16 +73,20 @@ export default ({ users, open, closeDialog, setNotification }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-
-      <DialogTitle >Créer un nouvel utilisateur</DialogTitle>
+      <DialogTitle>Créer un nouvel utilisateur</DialogTitle>
 
       <DialogContent>
-
         <DialogContentText>
           Entrer le nom et le rôle du nouvel utilisateur
         </DialogContentText>
 
-        <TextField fullWidth label="Nom de l'utilisateur" variant="filled" value={name.input} onChange={name.onChange} />
+        <TextField
+          fullWidth
+          label="Nom de l'utilisateur"
+          variant="filled"
+          value={name.input}
+          onChange={name.onChange}
+        />
 
         <Autocomplete
           freeSolo
@@ -84,24 +101,26 @@ export default ({ users, open, closeDialog, setNotification }) => {
               margin="normal"
               variant="filled"
               fullWidth
-              InputProps={{ ...params.InputProps, type: 'search' }}
+              InputProps={{ ...params.InputProps, type: "search" }}
             />
           )}
         />
 
         <DialogActions>
-
           <Button onClick={handleClose} color="primary">
             Annuler
           </Button>
 
-          <Button variant="contained" color='primary' onClick={onButtonClick} disabled={Boolean(!trimmedName)}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onButtonClick}
+            disabled={Boolean(!trimmedName)}
+          >
             Créer l'utilisateur
           </Button>
-
         </DialogActions>
       </DialogContent>
     </Dialog>
   )
 }
-

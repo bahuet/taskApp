@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import getAvatarName from '../../assets/js/demoHelpers/getAvatarName'
+import { useState } from "react"
+import getAvatarName from "../../assets/js/demoHelpers/getAvatarName"
 
 export default (log, todos, initialValues = []) => {
   const [userList, setUsersList] = useState(initialValues)
@@ -14,8 +14,14 @@ export default (log, todos, initialValues = []) => {
 
     addUser: (name, role) => {
       const newId = getNewId()
-      setUsersList([{ id: newId, name: name, role: role, avatar: getAvatarName() }, ...userList])
-      log.addToLog('Admin', `Created user: id: ${newId}, name: ${name}, role: ${role}`)
+      setUsersList([
+        { id: newId, name: name, role: role, avatar: getAvatarName() },
+        ...userList
+      ])
+      log.addToLog(
+        "Admin",
+        `Created user: id: ${newId}, name: ${name}, role: ${role}`
+      )
     },
 
     deleteUser: idToDelete => {
@@ -26,27 +32,33 @@ export default (log, todos, initialValues = []) => {
         if (todo.userId === idToDelete) {
           todos.adminActions.deleteTodo(todo.id)
         }
-      });
-      log.addToLog('Admin', `Deleted user: ${username}`)
+      })
+      log.addToLog("Admin", `Deleted user: ${username}`)
     },
 
     editUserById: idToEdit => {
       const user = userList.find(x => x.id === idToEdit)
-      return ((newName, newRole) => {
-
-        const editedUser = { ...user, id: idToEdit, name: newName, role: newRole }
-        const newUserList = userList.map(u => u.id === idToEdit ? editedUser : u)
+      return (newName, newRole) => {
+        const editedUser = {
+          ...user,
+          id: idToEdit,
+          name: newName,
+          role: newRole
+        }
+        const newUserList = userList.map(u =>
+          u.id === idToEdit ? editedUser : u
+        )
         setUsersList(newUserList)
         todos.todoList.forEach(todo => {
           if (todo.userId === idToEdit) {
-            todos.adminActions.changeProperty(todo.id, 'userName', newName)
+            todos.adminActions.changeProperty(todo.id, "userName", newName)
           }
         })
-        log.addToLog('Admin', `edited user ${idToEdit} with new values: ${newName}, ${newRole}`)
-
-      })
+        log.addToLog(
+          "Admin",
+          `edited user ${idToEdit} with new values: ${newName}, ${newRole}`
+        )
+      }
     }
   }
 }
-
-

@@ -7,4 +7,3 @@ export default () => {
   }
   return avatarList[Math.floor(Math.random() * avatarList.length)]
 }
-
