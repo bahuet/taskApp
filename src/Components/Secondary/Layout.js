@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {NavLink} from 'react-router-dom'
 
-import animation from '../../assets/helpers/animation'
+import animation from '../../assets/js/helpers/animation.js'
 import ToTopButton from './ToTopButton'
 
 import { AppBar, Toolbar, Typography, Paper, Button } from "@material-ui/core";

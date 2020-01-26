@@ -82,7 +82,7 @@ export default ({ user, userTodos, actions, deleteUser, editUser, setFocus, admi
                 )
               })}
             </List>
-            : <Typography color='textSecondary'>Cet utilisateur n'a pas de tâches</Typography>}
+            : <Typography color='textSecondary'>{admin?"Cet utilisateur n'a pas de tâches":"Vous n'avez pas de tâche assignée"}</Typography>}
         </CardContent>
 
         {admin && <CardActions >

@@ -36,12 +36,12 @@ export default (log, initialValues = []) => {
 
       },
 
-      changeProperty: (id, property, boolValue) => {
+      changeProperty: (id, property, boolValue, actor='Admin') => {
         const formerValue = getTodo(id)[property]
         const newTodos = todoList.map(x => id === x.id ? { ...x, [property]: boolValue } : x)
 
         setTodoList(newTodos)
-        log.addToLog('Admin', `${property} set from ${formerValue} to ${boolValue}`, id, getTodo(id).text)
+        log.addToLog(actor, `${property} set from ${formerValue} to ${boolValue}`, id, getTodo(id).text)
       },
 
     },

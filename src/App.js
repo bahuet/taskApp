@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import init from './assets/helpers/init'
+import init from './assets/js/demoHelpers/init'
 import Layout from './Components/Secondary/Layout'
 import Notification from './Components/Secondary/Notification'
 import MainRoutes from './Components/Secondary/MainRoutes'

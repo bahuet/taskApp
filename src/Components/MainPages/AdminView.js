@@ -1,18 +1,49 @@
-import React, { useState } from 'react'
-
+import React, { useState, useEffect } from 'react'
 import CreateUserDialog from '../Dialogs/CreateUserDialog'
 import useInput from '../useHooks/useInput'
 import TodosCard from '../Card/TodosCard'
 import SearchBox from '../Secondary/SearchBox'
 import AdminDashBoard from './AdminDashBoard'
-import { Typography, Grid, Button, Collapse, Switch } from "@material-ui/core"
+import AllDoneDialog from '../Secondary/AllDoneDialog'
+import { Typography, Grid, Button, Collapse, Switch, IconButton } from "@material-ui/core"
+import CloseIcon from '@material-ui/icons/Close';
+import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 
 export default ({ users, todos, setNotification }) => {
+
+  const [fakeUserActivity, setFakeUserActivity] = useState(true)
+  useEffect(() => {
+    if (fakeUserActivity) {
+
+      const availableTodos = todos.todoList.filter(x => !x.completed)
+
+      let intervalId = setInterval(() => {
+
+        const randomTask = availableTodos[Math.floor(Math.random() * availableTodos.length)]
+        if (!randomTask) {
+          clearInterval(intervalId)
+          return;
+        }
+
+        todos.adminActions.changeProperty(randomTask.id, 'completed', true, 'SYSTEM')
+      }, Math.random() * 2000)
+
+      return () => clearInterval(intervalId)
+    }
+  },
+    [fakeUserActivity, todos])
 
   const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
   const tasksFilter = useInput()
   const [showDashBoard, setShowDashBoard] = useState(true)
+  const [allDone, setAllDone] = useState(false)
 
+  useEffect(() => {
+    if (todos.todoList.length !== 0
+      && todos.todoList.every(x => x.completed)) {
+      setAllDone(true)
+    }
+  }, [todos.todoList])
   // Filtre
   const normalizeString = str => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   const AIncludesB = (stringA, stringB) => normalizeString(stringA).includes(normalizeString(stringB))
@@ -45,44 +76,52 @@ export default ({ users, todos, setNotification }) => {
         alignItems="center"
         spacing={4} >
 
-        <Grid item xs={12} style={{ textAlign: 'center' }} >
-          <Typography variant='h4'> Administration panel </Typography>
+        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Typography variant='h4' style={{ margin: '0 0 auto auto' }}> Administration panel </Typography>
+          <Typography style={{ marginLeft: 'auto' }}>
+            simulation d'activité
+                <Switch color='primary' checked={fakeUserActivity} onChange={() => setFakeUserActivity(!fakeUserActivity)} />
+          </Typography>
         </Grid>
 
-        <Grid item xs={10} >
+
+        <Grid item xs={12} sm={10} md={9} style={{ margin: 0, padding: 0 }} >
 
           <div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-              <Typography variant="body2"> {showDashBoard ? '' : 'Afficher le tableau admin'}</Typography>
-              <Switch onChange={() => setShowDashBoard(!showDashBoard)} checked={showDashBoard} color='primary' />
+              <IconButton onClick={() => setShowDashBoard(!showDashBoard)} >
+                {showDashBoard ? <CloseIcon /> : <ArtTrackIcon />}
+              </IconButton>
             </div>
             <Collapse in={showDashBoard}>
-
               <AdminDashBoard users={users} todos={todos} />
             </Collapse>
           </div>
-
-
         </Grid>
 
+        <Grid item xs={12}>
+          <Grid container justify="space-around" style={{ marginTop: '2em' }}>
+
+            <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
+              Créer un nouvel utilisateur
+              </Button>
+
+          </Grid>
+        </Grid>
 
         <Grid item xs={12}>
           <Grid container justify="space-around" style={{ marginTop: '2em' }}>
             <SearchBox tasksFilter={tasksFilter} />
 
-            <Button variant="outlined" color="primary" onClick={() => setCreateUserDialogStatus(true)}>
-              Créer un nouvel utilisateur
-          </Button>
+            <Button>PLACEHOLDER SELECT</Button>
           </Grid>
         </Grid>
 
       </Grid >
 
-
-
       <Grid container
         // TaskCards grid
-        spacing={6}
+        spacing={2}
         style={{ marginTop: '1em' }}
         justify="center"
         alignItems="stretch"
@@ -109,6 +148,9 @@ export default ({ users, todos, setNotification }) => {
         open={createUserDialogStatus}
         closeDialog={() => setCreateUserDialogStatus(false)}
         setNotification={setNotification} />
+      <AllDoneDialog todoList={todos.todoList} open={allDone} handleClose={() => setAllDone(false)} />
+
+
     </div >
   )
 }

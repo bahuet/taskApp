@@ -28,14 +28,14 @@ export default () => {
           <Typography variant="h6" >Quoi:</Typography>
           <Typography variant="body1" gutterBottom>
             Ceci est mon premier project, il s'agit d'une application de gestion de personnel<br />
-            C'est une application React avec le minimum de dependencies (Material UI, react router, reCharts),
-             encore au stade de proof of concept et en cours de développement (Commencée en Janvier 2020)
-              Seul le front-end est disponible pour l'instant
+            C'est une application React avec le minimum de dependencies (Material UI, react router, reCharts)<br />
+            Proof of concept commencée en Janvier 2020,
+             Seul le front-end est disponible pour l'instant
           </Typography>
 
           <Typography variant="h6" >Pourquoi:</Typography>
           <Typography variant="body1" gutterBottom>
-            - S'entrainer à utiliser le React moderne (composants fonctionnels et custom hooks, pas de Redux pour l'instant)<br />
+            - Pour s'entrainer à manipuler le React moderne avec les composants fonctionnels et custom hooks sans Redux <br />
             - Commencer à créer un e-portfolio de projets en ligne.
           </Typography>
 
@@ -66,9 +66,8 @@ export default () => {
 
           <List >
             <ListItem><ListItemText primary="0 - Finaliser le responsive, le styling, nettoyer le code" /></ListItem>
-            <ListItem><ListItemText primary="1 - Ecrire les tests front" /></ListItem>
-            <ListItem><ListItemText primary="2 - Construire le back en TDD avec avec Node et MongoDB" /></ListItem>
-            <ListItem><ListItemText primary="3 - E2E tests avec Cypress" /></ListItem>
+            <ListItem><ListItemText primary="1- Construire le back en TDD avec avec Node et MongoDB, implémenter les logins avec json web tokens" /></ListItem>
+            <ListItem><ListItemText primary="2- front UT/IT w/Jest, E2E w/ Cypress" /></ListItem>
 
           </List>
 
