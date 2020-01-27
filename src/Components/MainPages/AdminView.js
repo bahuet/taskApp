@@ -36,12 +36,15 @@ export default ({ users, todos, setNotification }) => {
     }
   }, [fakeUserActivity, todos])
 
+  const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
+  const [showDashBoard, setShowDashBoard] = useState(true)
+  const [allDone, setAllDone] = useState(0)
   // Dialog quand toutes les taches sont completed
   useEffect(() => {
-    if (todos.todoList.length > 0 && todos.todoList.every(x => x.completed)) {
-      setAllDone(true)
+    if (allDone === 0 && todos.todoList.length > 0 && todos.todoList.every(x => x.completed)) {
+      setAllDone(1)
     }
-  }, [todos.todoList])
+  }, [allDone, todos.todoList])
 
   const tasksFilter = useInput()
   const [showUsersWithNoTasks, setShowUsersWithNoTasks] = useState(false)
@@ -85,10 +88,6 @@ export default ({ users, todos, setNotification }) => {
     )
     console.log(`filteredUsers: ${JSON.stringify(filteredUsers.length)}`)
   }
-
-  const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
-  const [showDashBoard, setShowDashBoard] = useState(true)
-  const [allDone, setAllDone] = useState(false)
 
   return (
     <div style={{ padding: "1em", margin: "1em" }}>
@@ -135,6 +134,8 @@ export default ({ users, todos, setNotification }) => {
           </div>
         </Grid>
 
+
+
         <Grid item xs={12}>
           <Grid container justify="space-around" style={{ marginTop: "2em" }}>
             <Button
@@ -149,6 +150,8 @@ export default ({ users, todos, setNotification }) => {
 
         <Grid item xs={12}>
           <Grid container justify="space-evenly" style={{ marginTop: "2em" }}>
+
+            
             <SearchBox tasksFilter={tasksFilter} />
 
             <Tooltip title="Les utilisateurs avec des tâches actives dans leurs liste seront filtrés">
@@ -208,8 +211,8 @@ export default ({ users, todos, setNotification }) => {
 
       <AllDoneDialog
         todoList={todos.todoList}
-        open={allDone}
-        handleClose={() => setAllDone(false)}
+        open={allDone === 1}
+        handleClose={() => setAllDone(2)}
       />
     </div>
   )
