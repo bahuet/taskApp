@@ -5,18 +5,6 @@ import { Typography, Grid, Fade } from "@material-ui/core"
 import { CheckCircle } from "@material-ui/icons"
 
 export default ({ userTodos }) => {
-  const [confettis, setConfettis] = useState(0)
-  const launchConfettis = () => {
-    if (!confettis) {
-      console.log(`confettis set and timeout started`)
-      setTimeout(() => {
-        console.log(`timeout`)
-        setConfettis(2)
-      }, 8000)
-      setConfettis(1)
-    }
-  }
-
   const total = userTodos.reduce((a, c) => a + 1, 0)
   const completed = userTodos.reduce((a, c) => (c.completed ? a + 1 : a), 0)
   let output
@@ -28,7 +16,6 @@ export default ({ userTodos }) => {
       </Typography>
     )
   } else if (total === completed) {
-    launchConfettis()
     output = (
       <Grid
         container
@@ -42,10 +29,9 @@ export default ({ userTodos }) => {
         </Grid>
 
         <Grid item>
-          <Typography variant="h6">
-            Toutes les tâches sont terminées!
-          </Typography>
+          <Typography variant="h6">Toutes les tâches sont terminées!</Typography>
         </Grid>
+        <Confetti />
       </Grid>
     )
   } else {
@@ -58,12 +44,5 @@ export default ({ userTodos }) => {
     )
   }
 
-  return (
-    <div style={{ textAlign: "center" }}>
-      {output}
-      <Fade in={confettis === 1} timeout={1000}>
-        <Confetti />
-      </Fade>
-    </div>
-  )
+  return <div style={{ textAlign: "center" }}>{output}</div>
 }

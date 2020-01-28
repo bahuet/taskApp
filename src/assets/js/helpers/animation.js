@@ -27,6 +27,7 @@ export default () => {
     target = { x: width / 2, y: height / 2 }
 
     largeHeader = document.getElementById("large-header")
+    if (!largeHeader) return;
     largeHeader.style.height = (height + "px") * 0.2
 
     canvas = document.getElementById("animation-canvas")

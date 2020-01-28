@@ -1,12 +1,6 @@
 import React, { useState } from "react"
 import clsx from "clsx"
-import {
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Tooltip,
-  Fade
-} from "@material-ui/core"
+import { ListItem, ListItemText, ListItemIcon, Tooltip, Fade } from "@material-ui/core"
 import AdminActionIcons from "./AdminActionIcons"
 import UserActionIcons from "../CardItems/UserActionIcons"
 import TransferTaskDialog from "../../Dialogs/TransferTaskDialog"
@@ -14,76 +8,37 @@ import WarningIcon from "@material-ui/icons/Warning"
 
 import { makeStyles } from "@material-ui/core/styles"
 
-// Chantier en cours
-// Interdiction de continuer sans son casque
-import "./ToDoListItem.css"
+
 const useStyles = makeStyles(theme => ({
+  "@keyframes blinker": {
+    "0%": { backgroundColor: "rgba(0, 0, 255, .05)" },
+    "50%": { backgroundColor: "rgba(0, 0, 255, .15)" },
+    "100%": { backgroundColor: "rgba(0, 0, 255, .05)" }
+  },
   multiline: {
     wordWrap: "break-word"
   },
 
   listItem: {
     borderRadius: 3,
-    borderLeft: "solid .5em white"
+    borderLeft: "solid .6em white"
   },
   completed: {
-    borderLeft: "solid .5em #348d5e"
+    borderLeft: "solid .6em #348d5e"
   },
-  focused: {
-    position: "relative",
-    zIndex: "0",
-    borderRadius: ".3em",
-    overflow: "hidden",
-    "&:before": {
-      content: '""',
-      position: "absolute",
-      zIndex: "-2",
-      left: "-50%",
-      top: "-50%",
-      width: "200%",
-      height: "200%",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "50% 50%, 50% 50%",
-      backgroundPosition: "0 0, 100% 0, 100% 100%, 0 100%",
-      backgroundImage:
-        "linear-gradient(#586bd5, #586bd5), linear-gradient(#586bd5, #586bd5), linear-gradient(#586bd5, #586bd5), linear-gradient(#586bd5, #586bd5)",
-      animation: "rotate 14s linear infinite"
-    },
-    "&:after": {
-      content: '""',
-      position: "absolute",
-      zIndex: "-1",
-      left: ".1em",
-      top: ".1em",
-      width: "calc(100% - .2em)",
-      height: "calc(100% - .2em)",
-      background: "white"
-    }
-  }
 
-  /*"focused": {
-    border: "2px solid blue",
-    animationName: '$blinker',
-    animationDuration: '1.5s',
-    animationTimingFunction: 'linear',
-    animationIterationCount: 'infinite',
-  }, */
+  focused: {
+    animationName: "$blinker",
+    animationDuration: "4s",
+    animationTimingFunction: "linear",
+    animationIterationCount: "infinite"
+  }
 }))
 
-const TodoListItem = ({
-  todo,
-  actions,
-  user,
-  setFocus,
-  admin,
-  userList,
-  setNotification
-}) => {
+const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotification }) => {
   const classes = useStyles()
   const [itemFocused, setItemFocus] = useState(false)
-  const [transferUserDialogStatus, setTransferUserDialogStatus] = useState(
-    false
-  )
+  const [transferUserDialogStatus, setTransferUserDialogStatus] = useState(false)
   const [deleteLock, setDeleteLock] = useState(true)
 
   const openTransferDialog = () => {

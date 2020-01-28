@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import CreateUserDialog from "../Dialogs/CreateUserDialog"
 import useInput from "../useHooks/useInput"
+import useInterval from "../useHooks/useInterval"
 import TodosCard from "../Card/TodosCard"
 import SearchBox from "../Secondary/SearchBox"
-import AdminDashBoard from "./AdminDashBoard"
+import AdminDashBoard from "../Secondary/AdminDashBoard"
 import AllDoneDialog from "../Dialogs/AllDoneDialog"
 import {
   Typography,
@@ -21,28 +22,26 @@ import ArtTrackIcon from "@material-ui/icons/ArtTrack"
 export default ({ users, todos, setNotification }) => {
   // Fake activity pour la demo, premier jet
   const [fakeUserActivity, setFakeUserActivity] = useState(true)
-  useEffect(() => {
+  useInterval(() => {
     if (fakeUserActivity) {
       const availableTodos = todos.todoList.filter(x => !x.completed)
-      const intervalId = setInterval(() => {
-        const randomTask = availableTodos[Math.floor(Math.random() * availableTodos.length)]
-        if (!randomTask) {
-          setFakeUserActivity(false)
-          return
-        }
-        todos.adminActions.changeProperty(randomTask.id, "completed", true, "SYSTEM")
-      }, Math.random() * 1500)
-      return () => clearInterval(intervalId)
+      const randomTask = availableTodos[Math.floor(Math.random() * availableTodos.length)]
+      if (!randomTask) {
+        setFakeUserActivity(false)
+        return
+      }
+      todos.adminActions.changeProperty(randomTask.id, "completed", true, "SYSTEM")
     }
-  }, [fakeUserActivity, todos])
+  }, Math.random() * 1500)
 
   const [createUserDialogStatus, setCreateUserDialogStatus] = useState(false)
   const [showDashBoard, setShowDashBoard] = useState(true)
-  const [allDone, setAllDone] = useState(0)
+  const [allDone, setAllDone] = useState(false)
+  const [allDoneDialogCanBeDisplayed, setAllDoneDialogCanBeDisplayed] = useState(true)
   // Dialog quand toutes les taches sont completed
   useEffect(() => {
     if (allDone === 0 && todos.todoList.length > 0 && todos.todoList.every(x => x.completed)) {
-      setAllDone(1)
+      setAllDone(true)
     }
   }, [allDone, todos.todoList])
 
@@ -80,13 +79,9 @@ export default ({ users, todos, setNotification }) => {
   )
 
   if (showUsersWithNoTasks) {
-    console.log(`showUsersWithNoTasks`)
-    console.log(`filteredUsers: ${JSON.stringify(filteredUsers.length)}`)
-
     filteredUsers = filteredUsers.filter(
       user => !filteredTasks.some(task => task.userId === user.id && !task.completed)
     )
-    console.log(`filteredUsers: ${JSON.stringify(filteredUsers.length)}`)
   }
 
   return (
@@ -134,8 +129,6 @@ export default ({ users, todos, setNotification }) => {
           </div>
         </Grid>
 
-
-
         <Grid item xs={12}>
           <Grid container justify="space-around" style={{ marginTop: "2em" }}>
             <Button
@@ -150,8 +143,6 @@ export default ({ users, todos, setNotification }) => {
 
         <Grid item xs={12}>
           <Grid container justify="space-evenly" style={{ marginTop: "2em" }}>
-
-            
             <SearchBox tasksFilter={tasksFilter} />
 
             <Tooltip title="Les utilisateurs avec des tâches actives dans leurs liste seront filtrés">
@@ -211,8 +202,8 @@ export default ({ users, todos, setNotification }) => {
 
       <AllDoneDialog
         todoList={todos.todoList}
-        open={allDone === 1}
-        handleClose={() => setAllDone(2)}
+        open={allDone && allDoneDialogCanBeDisplayed}
+        handleClose={() => setAllDoneDialogCanBeDisplayed(false)}
       />
     </div>
   )

@@ -100,9 +100,7 @@ export default ({
             </List>
           ) : (
             <Typography color="textSecondary">
-              {admin
-                ? "Cet utilisateur n'a pas de tâches"
-                : "Vous n'avez pas de tâche assignée"}
+              {admin ? "Cet utilisateur n'a pas de tâches" : "Vous n'avez pas de tâche assignée"}
             </Typography>
           )}
         </CardContent>

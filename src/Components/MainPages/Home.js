@@ -68,9 +68,9 @@ export default () => {
             <br />
             L'utilisateur peut:
             <br />
-            - Marquer une tâche comme étant terminée (background green)
+            - Marquer une tâche comme étant terminée (vert)
             <br />
-            - Marquer une tâche comme étant en cours (bord bleu) (styling
+            - Marquer une tâche comme étant en cours (bleu) (styling
             temporaire, wip)
             <br />
             <br />

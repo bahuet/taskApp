@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
-import BarChart from "../Secondary/BarChart"
-import ProgressBar from "../Secondary/ProgressBar"
+import BarChart from "./BarChart"
+import ProgressBar from "./ProgressBar"
 import { Typography, Grid, Button, Paper } from "@material-ui/core"
 
 export default ({ users, todos }) => {
