@@ -21,7 +21,7 @@ import ArtTrackIcon from "@material-ui/icons/ArtTrack"
 
 export default ({ users, todos, setNotification }) => {
   // Fake activity pour la demo, premier jet
-  const [fakeUserActivity, setFakeUserActivity] = useState(true)
+  const [fakeUserActivity, setFakeUserActivity] = useState(false)
   useInterval(() => {
     if (fakeUserActivity) {
       const availableTodos = todos.todoList.filter(x => !x.completed)
