@@ -40,7 +40,7 @@ export default ({ users, todos, setNotification }) => {
   const [allDoneDialogCanBeDisplayed, setAllDoneDialogCanBeDisplayed] = useState(true)
   // Dialog quand toutes les taches sont completed
   useEffect(() => {
-    if (allDone === 0 && todos.todoList.length > 0 && todos.todoList.every(x => x.completed)) {
+    if (todos.todoList.length > 0 && todos.todoList.every(x => x.completed)) {
       setAllDone(true)
     }
   }, [allDone, todos.todoList])
@@ -154,7 +154,7 @@ export default ({ users, todos, setNotification }) => {
                     color="primary"
                   />
                 }
-                label="Afficher les utilisateurs sans tâches en cours"
+                label="Afficher les utilisateurs qui n'ont pas de tâches en cours"
               />
             </Tooltip>
           </Grid>

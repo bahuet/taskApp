@@ -12,6 +12,10 @@ import useTodos from "./Components/useHooks/useTodos"
 import useLog from "./Components/useHooks/useLog"
 
 const App = () => {
+  useEffect(() => {
+    document.title = "Application Todo"
+  }, [])
+  
   const log = useLog()
   const todos = useTodos(log)
   const users = useUsers(log, todos)
@@ -21,10 +25,7 @@ const App = () => {
   useEffect(() => {
     const INIT_USERS_QUANTITY = 10
     const INIT_TASKS_QUANTITY = 50
-    const [fakeNamesArray, fakeTasksArray] = init(
-      INIT_USERS_QUANTITY,
-      INIT_TASKS_QUANTITY
-    )
+    const [fakeNamesArray, fakeTasksArray] = init(INIT_USERS_QUANTITY, INIT_TASKS_QUANTITY)
     todos.setTodoList(fakeTasksArray)
     users.setUsersList(fakeNamesArray)
     log.addToLog(
@@ -39,12 +40,7 @@ const App = () => {
     <div className="App">
       <Router>
         <Layout>
-          <MainRoutes
-            users={users}
-            todos={todos}
-            setNotification={setNotification}
-            log={log}
-          />
+          <MainRoutes users={users} todos={todos} setNotification={setNotification} log={log} />
         </Layout>
       </Router>
       {notif ? <Notification key={notif.date} notif={notif.msg} /> : null}
