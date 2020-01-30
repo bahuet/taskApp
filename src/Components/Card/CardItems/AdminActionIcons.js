@@ -17,9 +17,7 @@ export default ({
 }) => {
   const handleUrgentClick = () => {
     actions.changeProperty(todo.id, "urgent", !todo.urgent)
-    setNotification(
-      `"${todo.text}"  ${todo.urgent ? `n'est plus ` : `a été `}marqué Urgent.`
-    )
+    setNotification(`"${todo.text}"  ${todo.urgent ? `n'est plus ` : `a été `}marqué Urgent.`)
   }
 
   const handleDeleteClick = e => {
@@ -34,9 +32,7 @@ export default ({
   }
 
   const urgentToolTip = todo.urgent ? 'Enlever "Urgent"' : 'Marquer "Urgent"'
-  const deleteToolTip = deleteLock
-    ? `Supprimer 🔒`
-    : "Supprimer (action définitive)"
+  const deleteToolTip = deleteLock ? `Supprimer 🔒` : "Supprimer (action définitive)"
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -58,10 +54,7 @@ export default ({
 
       <Tooltip title={deleteToolTip}>
         <IconButton edge="start" size="small" onClick={handleDeleteClick}>
-          <DeleteIcon
-            fontSize="small"
-            color={deleteLock ? "inherit" : "secondary"}
-          />
+          <DeleteIcon fontSize="small" color={deleteLock ? "inherit" : "secondary"} />
         </IconButton>
       </Tooltip>
     </div>

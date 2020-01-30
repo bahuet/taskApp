@@ -22,7 +22,7 @@ describe("<TodosCard />", () => {
     expect(component.container).toHaveTextContent("Vous n'avez pas de tâche assignée")
   })
 
-  test("renders empty placeholder  content", () => {
+  test("renders user tasks values", () => {
     const component = render(<TodosCard user={user} userTodos={userTodos} admin={true} />)
     expect(component.container).toHaveTextContent(userTodos[0].text)
     expect(component.container).toHaveTextContent(userTodos[1].text)

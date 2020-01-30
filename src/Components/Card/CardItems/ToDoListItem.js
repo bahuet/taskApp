@@ -86,7 +86,7 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
 
         <ListItemText primary={todo.text} className={classes.multiline} />
         <Fade in={itemFocused}>
-          <div style={{ visibility: itemFocused ? "visible" : "hidden" }}>
+          <div style={{ visibility: itemFocused ? "visible" : "hidden" }} data-testid='icons-container'>
             {admin ? (
               <AdminActionIcons
                 openTransferDialog={openTransferDialog}
