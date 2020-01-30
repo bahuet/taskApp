@@ -37,7 +37,12 @@ export default ({
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <Tooltip title={urgentToolTip}>
-        <IconButton edge="start" size="small" onClick={handleUrgentClick}>
+        <IconButton
+          edge="start"
+          size="small"
+          onClick={handleUrgentClick}
+          data-testid="urgent-button"
+        >
           {todo.urgent ? (
             <ReportProblemOutlinedIcon fontSize="small" />
           ) : (
@@ -47,13 +52,23 @@ export default ({
       </Tooltip>
 
       <Tooltip title="Transférer">
-        <IconButton edge="start" size="small" onClick={openTransferDialog}>
+        <IconButton
+          edge="start"
+          size="small"
+          onClick={openTransferDialog}
+          data-testid="transfer-button"
+        >
           <DoubleArrowIcon fontSize="small" />
         </IconButton>
       </Tooltip>
 
       <Tooltip title={deleteToolTip}>
-        <IconButton edge="start" size="small" onClick={handleDeleteClick}>
+        <IconButton
+          edge="start"
+          size="small"
+          onClick={handleDeleteClick}
+          data-testid="delete-button"
+        >
           <DeleteIcon fontSize="small" color={deleteLock ? "inherit" : "secondary"} />
         </IconButton>
       </Tooltip>
