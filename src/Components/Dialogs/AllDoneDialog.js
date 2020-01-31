@@ -16,8 +16,8 @@ export default ({ open, handleClose, todoList }) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Les {todoList.length} tâches ont toutes été marquées comme terminées
-            par les utilisateurs.
+            Les {todoList.length} tâches ont toutes été marquées comme terminées par les
+            utilisateurs.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

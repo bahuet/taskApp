@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 
 function useInterval(callback, delay) {
- // const [debug, setDebug] = useState([])
+  // const [debug, setDebug] = useState([])
   const savedCallback = useRef()
   //console.log(debug)
   // Remember the latest callback.

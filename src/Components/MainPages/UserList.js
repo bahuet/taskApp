@@ -36,8 +36,8 @@ const UserList = ({ users }) => {
           }
         >
           <AlertTitle>Page temporaire </AlertTitle>
-          Cette page permet d'accéder aux pages individuelles des utilisateurs
-          telle qu'ils la voient quand ils se connectent à leur compte.
+          Cette page permet d'accéder aux pages individuelles des utilisateurs telle qu'ils la
+          voient quand ils se connectent à leur compte.
         </Alert>
       </Collapse>
 

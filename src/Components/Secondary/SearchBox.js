@@ -22,11 +22,7 @@ export default ({ tasksFilter }) => (
       endAdornment: (
         <InputAdornment position="end">
           <IconButton
-            style={
-              tasksFilter.input
-                ? { visibility: "visible" }
-                : { visibility: "hidden" }
-            }
+            style={tasksFilter.input ? { visibility: "visible" } : { visibility: "hidden" }}
             size="small"
             onClick={tasksFilter.clear}
           >

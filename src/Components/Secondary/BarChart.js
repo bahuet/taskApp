@@ -38,10 +38,7 @@ export default ({ userList, taskList }) => {
 
   return (
     <ResponsiveContainer aspect={1.6}>
-      <BarChart
-        data={orderedData}
-        margin={{ top: 30, right: 10, left: 10, bottom: 30 }}
-      >
+      <BarChart data={orderedData} margin={{ top: 30, right: 10, left: 10, bottom: 30 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" tick="" />
         <YAxis />

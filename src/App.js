@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     document.title = "Application Todo"
   }, [])
-  
+
   const log = useLog()
   const todos = useTodos(log)
   const users = useUsers(log, todos)

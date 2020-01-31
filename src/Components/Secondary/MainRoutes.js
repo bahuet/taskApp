@@ -16,13 +16,7 @@ export default ({ users, todos, setNotification, log }) => (
       <Route exact path="/" render={() => <Home />} />
       <Route
         path="/adminview"
-        render={() => (
-          <AdminView
-            users={users}
-            todos={todos}
-            setNotification={setNotification}
-          />
-        )}
+        render={() => <AdminView users={users} todos={todos} setNotification={setNotification} />}
       />
       <Route path="/log" render={() => <LogList logList={log.logList} />} />
       <Route exact path="/users" render={() => <UserList users={users} />} />
@@ -34,9 +28,7 @@ export default ({ users, todos, setNotification, log }) => (
           return user ? (
             <UserView
               user={user}
-              userTodos={todos.todoList.filter(
-                td => td.userName === match.params.name
-              )}
+              userTodos={todos.todoList.filter(td => td.userName === match.params.name)}
               actions={todos.userActions}
               setNotification={setNotification}
             />

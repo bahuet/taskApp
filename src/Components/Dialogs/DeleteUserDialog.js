@@ -44,12 +44,7 @@ export default ({
       <DialogActions>
         <Button onClick={handleClose}>Annuler</Button>
 
-        <Button
-          onClick={handleConfirm}
-          variant="contained"
-          color="secondary"
-          autoFocus
-        >
+        <Button onClick={handleConfirm} variant="contained" color="secondary" autoFocus>
           Supprimer
         </Button>
       </DialogActions>

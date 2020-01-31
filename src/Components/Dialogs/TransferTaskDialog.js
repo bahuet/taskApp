@@ -11,14 +11,7 @@ import {
   TextField
 } from "@material-ui/core"
 
-export default ({
-  todo,
-  open,
-  handleTransfer,
-  closeDialog,
-  user,
-  userList
-}) => {
+export default ({ todo, open, handleTransfer, closeDialog, user, userList }) => {
   const [selection, setSelection] = useState("")
 
   const handleChange = (_, value) => {

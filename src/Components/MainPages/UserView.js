@@ -36,9 +36,7 @@ export default ({ user, userTodos, actions, setNotification }) => {
 
   const outStandingUrgentTasks = userTodos.filter(x => !x.completed && x.urgent)
   const focusCheck =
-    outStandingUrgentTasks.length === 0
-      ? false
-      : !outStandingUrgentTasks.some(x => x.focus)
+    outStandingUrgentTasks.length === 0 ? false : !outStandingUrgentTasks.some(x => x.focus)
 
   return (
     <div className={classes.root}>
@@ -67,16 +65,8 @@ export default ({ user, userTodos, actions, setNotification }) => {
         </Grid>
       </Grid>
 
-      <Snackbar
-        open={Boolean(welcome)}
-        autoHideDuration={6000}
-        onClose={() => setWelcome("")}
-      >
-        <Alert
-          variant="filled"
-          onClose={() => setWelcome("")}
-          severity="success"
-        >
+      <Snackbar open={Boolean(welcome)} autoHideDuration={6000} onClose={() => setWelcome("")}>
+        <Alert variant="filled" onClose={() => setWelcome("")} severity="success">
           Bienvenue {welcome} !
         </Alert>
       </Snackbar>

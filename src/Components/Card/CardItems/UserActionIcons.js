@@ -8,9 +8,7 @@ import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn"
 export default ({ actions, todo, setFocus, setNotification }) => {
   const handleFocusClick = () => {
     setFocus()
-    setNotification(
-      `"${todo.text}" ${todo.focus ? `n'est plus` : `a été`} marqué "Focus".`
-    )
+    setNotification(`"${todo.text}" ${todo.focus ? `n'est plus` : `a été`} marqué "Focus".`)
   }
 
   const handleCompletedClick = () => {
@@ -19,9 +17,7 @@ export default ({ actions, todo, setFocus, setNotification }) => {
   }
 
   const focusTooltip = todo.focus ? 'Enlever "Focus"' : 'Marquer "Focus"'
-  const completedTooltip = todo.completed
-    ? 'Enlever "Terminé"'
-    : 'Marquer "Terminé"'
+  const completedTooltip = todo.completed ? 'Enlever "Terminé"' : 'Marquer "Terminé"'
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>

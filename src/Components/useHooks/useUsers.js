@@ -14,14 +14,8 @@ export default (log, todos, initialValues = []) => {
 
     addUser: (name, role) => {
       const newId = getNewId()
-      setUsersList([
-        { id: newId, name: name, role: role, avatar: getAvatarName() },
-        ...userList
-      ])
-      log.addToLog(
-        "Admin",
-        `Created user: id: ${newId}, name: ${name}, role: ${role}`
-      )
+      setUsersList([{ id: newId, name: name, role: role, avatar: getAvatarName() }, ...userList])
+      log.addToLog("Admin", `Created user: id: ${newId}, name: ${name}, role: ${role}`)
     },
 
     deleteUser: idToDelete => {
@@ -45,19 +39,14 @@ export default (log, todos, initialValues = []) => {
           name: newName,
           role: newRole
         }
-        const newUserList = userList.map(u =>
-          u.id === idToEdit ? editedUser : u
-        )
+        const newUserList = userList.map(u => (u.id === idToEdit ? editedUser : u))
         setUsersList(newUserList)
         todos.todoList.forEach(todo => {
           if (todo.userId === idToEdit) {
             todos.adminActions.changeProperty(todo.id, "userName", newName)
           }
         })
-        log.addToLog(
-          "Admin",
-          `edited user ${idToEdit} with new values: ${newName}, ${newRole}`
-        )
+        log.addToLog("Admin", `edited user ${idToEdit} with new values: ${newName}, ${newRole}`)
       }
     }
   }

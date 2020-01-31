@@ -36,12 +36,8 @@ export default ({
           }
         }}
       >
-        <MenuItem onClick={() => setEditUserDialogStatus(true)}>
-          {EDIT_USER}
-        </MenuItem>
-        <MenuItem onClick={() => setDeleteUserDialogStatus(true)}>
-          {DELETE_USER}
-        </MenuItem>
+        <MenuItem onClick={() => setEditUserDialogStatus(true)}>{EDIT_USER}</MenuItem>
+        <MenuItem onClick={() => setDeleteUserDialogStatus(true)}>{DELETE_USER}</MenuItem>
         <MenuItem onClick={closeCardMenu}>Annuler</MenuItem>
       </Menu>
       <EditUserDialog

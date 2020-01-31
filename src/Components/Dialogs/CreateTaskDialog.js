@@ -14,14 +14,7 @@ import {
   DialogContent
 } from "@material-ui/core"
 
-export default ({
-  user,
-  open,
-  handleClose,
-  userTodos,
-  actions,
-  setNotification
-}) => {
+export default ({ user, open, handleClose, userTodos, actions, setNotification }) => {
   const [urgentChecked, setUrgentChecked] = useState(false)
   const text = useInput()
 
@@ -51,8 +44,7 @@ export default ({
 
       <DialogContent>
         <DialogContentText>
-          Actuellement: {activeTasks.length} en cours, dont{" "}
-          {activeAndUrgent.length} urgentes.
+          Actuellement: {activeTasks.length} en cours, dont {activeAndUrgent.length} urgentes.
         </DialogContentText>
 
         <TextField
@@ -67,10 +59,7 @@ export default ({
 
         <FormControlLabel
           control={
-            <Checkbox
-              checked={urgentChecked}
-              onChange={() => setUrgentChecked(!urgentChecked)}
-            />
+            <Checkbox checked={urgentChecked} onChange={() => setUrgentChecked(!urgentChecked)} />
           }
           label="Urgent"
         />

@@ -34,18 +34,12 @@ export default ({ users, open, closeDialog, setNotification }) => {
     }
 
     if (!trimmedRole) {
-      if (
-        !window.confirm(`Vous n'avez pas entré de rôle, continuer quand même?`)
-      ) {
+      if (!window.confirm(`Vous n'avez pas entré de rôle, continuer quand même?`)) {
         return
       }
     }
 
-    if (
-      users.userList
-        .map(x => x.name.toLowerCase())
-        .includes(trimmedName.toLowerCase())
-    ) {
+    if (users.userList.map(x => x.name.toLowerCase()).includes(trimmedName.toLowerCase())) {
       alert(`L'utilisateur ${trimmedName} existe déja`)
       return
     }
@@ -76,9 +70,7 @@ export default ({ users, open, closeDialog, setNotification }) => {
       <DialogTitle>Créer un nouvel utilisateur</DialogTitle>
 
       <DialogContent>
-        <DialogContentText>
-          Entrer le nom et le rôle du nouvel utilisateur
-        </DialogContentText>
+        <DialogContentText>Entrer le nom et le rôle du nouvel utilisateur</DialogContentText>
 
         <TextField
           fullWidth

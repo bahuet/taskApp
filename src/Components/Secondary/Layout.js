@@ -40,11 +40,7 @@ const Layout = props => {
       >
         <div className="header">
           <AppBar position="static">
-            <Toolbar
-              id="large-header"
-              className="bg"
-              style={{ padding: 0, margin: 0 }}
-            >
+            <Toolbar id="large-header" className="bg" style={{ padding: 0, margin: 0 }}>
               <div className="elt a">
                 <Typography noWrap color="inherit">
                   {" "}
@@ -54,13 +50,7 @@ const Layout = props => {
 
               <div className="elt b">
                 <Paper style={{ display: "flex" }}>
-                  <Button
-                    nowrap="true"
-                    component={NavLink}
-                    exact
-                    to="/"
-                    activeClassName="chosen"
-                  >
+                  <Button nowrap="true" component={NavLink} exact to="/" activeClassName="chosen">
                     {" "}
                     Home{" "}
                   </Button>
@@ -73,21 +63,11 @@ const Layout = props => {
                     {" "}
                     Adminview{" "}
                   </Button>
-                  <Button
-                    nowrap="true"
-                    component={NavLink}
-                    to="/users"
-                    activeClassName="chosen"
-                  >
+                  <Button nowrap="true" component={NavLink} to="/users" activeClassName="chosen">
                     {" "}
                     Userview{" "}
                   </Button>
-                  <Button
-                    nowrap="true"
-                    component={NavLink}
-                    to="/log"
-                    activeClassName="chosen"
-                  >
+                  <Button nowrap="true" component={NavLink} to="/log" activeClassName="chosen">
                     {" "}
                     log{" "}
                   </Button>

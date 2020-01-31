@@ -11,14 +11,7 @@ import {
   TextField
 } from "@material-ui/core"
 
-export default ({
-  open,
-  closeDialog,
-  editUser,
-  user,
-  closeCardMenu,
-  setNotification
-}) => {
+export default ({ open, closeDialog, editUser, user, closeCardMenu, setNotification }) => {
   const nameField = useInput(user.name)
   const roleField = useInput(user.role)
   const trimmedName = nameField.input && nameField.input.trim()
