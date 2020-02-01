@@ -5,15 +5,8 @@ import AdminActionIcons from "./AdminActionIcons"
 import UserActionIcons from "../CardItems/UserActionIcons"
 import TransferTaskDialog from "../../Dialogs/TransferTaskDialog"
 import WarningIcon from "@material-ui/icons/Warning"
-import './ToDoListItem.css'
 import { makeStyles } from "@material-ui/core/styles"
-// EN COURS
 const useStyles = makeStyles(theme => ({
-  // "@keyframes animatedgradient": {
-  //   "0%": { backgroundPosition: "100% 50%" },
-  //   "50%": { backgroundPosition: "100% 50%" },
-  //   "100%": { backgroundPosition: "0% 50% " }
-  // },
   multiline: {
     wordWrap: "break-word"
   },
@@ -26,36 +19,11 @@ const useStyles = makeStyles(theme => ({
     borderLeft: "solid .6em #348d5e"
   },
 
-  // focused: {
-  //   B: 3,
-  //   background: "#1D1F20",
-  //   position: "relative",
-  //   borderRadius: "var(--borderWidth)",
-
-  //   "&:after": {
-  //     content: "''",
-  //     position: "absolute",
-  //     top: "calc(-1 * var(--borderWidth))",
-  //     left: "calc(-1 * var(--borderWidth))",
-  //     height: "calc(100% + var(--borderWidth) * 2)",
-  //     width: "calc(100% + var(--borderWidth) * 2)",
-  //     background:
-  //       "linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
-  //     borderRadius: "calc(2 * var(--borderWidth))",
-  //     zIndex: "-1",
-  //     animation: "animatedgradient 3s ease alternate infinite",
-  //     backgroundSize: "300% 300%"
-  //   }
-    // width: 0,
-    // height: 0,
-    // borderStyle: "solid",
-    // borderWidth: "50px 0 50px 50px",
-    // borderColor: "transparent transparent transparent #007bff"
-    // animationName: "$blinker",
-    // animationDuration: "4s",
-    // animationTimingFunction: "linear",
-    // animationIterationCount: "infinite"
-  // }
+  focused: {
+    borderRight: "groove .3em rgba(0,0,150,.7)",
+    borderTop: "groove .1em rgba(0,0,150,.7)",
+    borderBottom: "groove .1em rgba(0,0,150,.7)"
+  }
 }))
 
 const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotification }) => {
@@ -92,8 +60,8 @@ const TodoListItem = ({ todo, actions, user, setFocus, admin, userList, setNotif
   return (
     <>
       <ListItem
-        //className={listItemStyle}
-        className='focused'
+        className={listItemStyle}
+        //className="main_box"
         dense
         divider
         onMouseEnter={handleEnter}
